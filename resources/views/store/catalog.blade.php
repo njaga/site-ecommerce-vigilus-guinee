@@ -1,8 +1,24 @@
 @extends('layouts.store')
-@section('title', ($category ? $category->name : 'Catalogue Dahua').' à Conakry | Vigilus Guinée')
+@section('title', $category?->seo_title ?: (($category ? $category->name : 'Catalogue Dahua').' à Conakry | Vigilus Guinée'))
 @section('meta_description', $category?->seo_description ?: 'Explorez les caméras, enregistreurs, kits, contrôle d’accès et accessoires chez Vigilus Guinée. Recherche par modèle, prix vérifiés et devis à Conakry.')
-@section('canonical', $category ? route('category.show', $category) : route('catalog'))
-@section('robots', request()->hasAny(['q', 'tri', 'en_stock', 'categorie']) ? 'noindex,follow' : 'index,follow')
+@section('canonical', ($category ? route('category.show', $category) : route('catalog')).(request()->integer('page') > 1 ? '?page='.request()->integer('page') : ''))
+@section('robots', (request()->hasAny(['q', 'tri', 'en_stock', 'categorie']) || ($category && $products->total() === 0)) ? 'noindex,follow' : 'index,follow')
+@if($category)
+@push('jsonld')
+    @php
+        $breadcrumbs = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => route('home')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Boutique', 'item' => route('catalog')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $category->name, 'item' => route('category.show', $category)],
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">@json($breadcrumbs)</script>
+@endpush
+@endif
 @section('content')
 <div class="container-wide pt-10">
     <nav class="text-xs text-quiet mb-5" aria-label="Fil d'Ariane">
@@ -13,6 +29,13 @@
     <h1 class="text-4xl sm:text-5xl font-extrabold mt-3">{{ $category ? $category->name : 'Équipements de sécurité électronique' }}</h1>
     <p class="text-quiet max-w-2xl mt-4 leading-relaxed">{{ $category?->description ?: 'Trouvez la référence adaptée à votre installation : caméras, enregistreurs, contrôle d’accès, alarmes, réseaux et accessoires.' }}</p>
 </div>
+@if($category && str_contains(mb_strtolower($category->name), 'caméra'))
+    <div class="container-wide mt-6">
+        <p class="text-sm text-quiet">Besoin de choisir un modèle ou de faire installer un système ?
+            <a href="{{ route('solution.videosurveillance') }}" class="font-bold text-rouge hover:underline">Découvrir notre accompagnement en vidéosurveillance à Conakry →</a>
+        </p>
+    </div>
+@endif
 <div class="container-wide grid lg:grid-cols-[240px_minmax(0,1fr)] gap-8 mt-10">
     <aside class="lg:sticky lg:top-28 self-start">
         <form class="border border-slate-200 p-5 rounded-xl bg-cloud space-y-4" action="{{ $category ? route('category.show', $category) : route('catalog') }}" method="GET">

@@ -19,6 +19,7 @@ Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
 Route::get('/categories/{category:slug}', [StorefrontController::class, 'catalog'])->name('category.show');
 Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('product.show');
+Route::view('/installation-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
 
 Route::get('/demande-de-devis', [QuoteController::class, 'create'])->name('quote.create');
 Route::post('/demande-de-devis', [QuoteController::class, 'store'])
