@@ -1,31 +1,64 @@
-# Vigilus Guinée — Plateforme e-commerce Dahua
+# Vigilus Guinée — e-commerce sécurité électronique
 
-**Statut : cadrage stratégique et technique (aucune vente/paiement en production).**
+Nouveau site commercial **Vigilus Guinée** avec catalogue Dahua, gestion de produits, prix en GNF, stocks, pages SEO et demandes de devis. Le marché Guinée/Conakry reste à confirmer en raison d'une mention de Côte d'Ivoire dans le brief initial.
 
-Ce nouveau dépôt est dédié à la transformation de la vitrine `Site-vigilus-guin-e` en **plateforme e-commerce spécialisée en sécurité électronique**, orientée particuliers, installateurs, revendeurs et entreprises.
+## État de cette branche
 
-## Principes
-- Catalogue riche avec références constructeur, caractéristiques vérifiables, catégories, filtres, recherche et comparaison.
-- **Prix publics en GNF uniquement après validation commerciale**, stock et disponibilités synchronisés ; demandes de devis pour projets/volumes B2B.
-- Panier, commandes, suivi, facturation, livraison et installation ; moyens de paiement locaux via prestataire agréé, une fois contractualisés/testés.
-- SEO technique et local Guinée/Conakry, URLs produit indexables, migration 301 des anciennes URLs utiles.
-- Positionnement sur la gamme Dahua ; ne pas publier « distributeur exclusif / officiel » sans justificatif validé et territoire précisément défini.
-- Aucune fausse disponibilité, prix inventé, photo produit altérée ni témoignage factice.
+**Premier lot P0 fonctionnel côté code** :
+- Laravel 12 / Blade / Tailwind CSS 4 (interface mobile-first).
+- Accueil commercial, catalogue, catégorie, recherche, filtres, fiches techniques et SEO produit.
+- Administration protégée avec gestion des produits, photos, prix, inventaire, catégories et lecture des demandes de devis.
+- Requêtes commerciales sauvegardées avec consentement, validations, contrôle de débit et anti-spam simple.
+- Sitemap/robots dynamiques, métadonnées, canoniques et balisage Product/Offer lorsque le prix est connu.
+- Tests automatisés et CI GitHub.
 
-## Stack de référence proposée
-Laravel 12 + PHP 8.2+, Livewire, Tailwind CSS, MySQL/MariaDB ; back-office métier sécurisé et tests automatisés. La stack sera initialisée dans un lot dédié, après cadrage du catalogue et des flux.
+**Pas encore implémenté dans cette branche :** panier, checkout, paiement, livraison, compte client, factures, SAV, retours et migration complète des anciennes URLs. Ne pas déployer en boutique publique transactionnelle à ce stade.
 
-## Documents
-- [Stratégie produit et expérience d'achat](docs/01-strategie-commerce.md)
-- [Catalogue et modèle de données](docs/02-catalogue-et-donnees.md)
-- [SEO local et migration](docs/03-seo-local-migration.md)
-- [Backlog, sécurité et critères de recette](docs/04-roadmap-et-recette.md)
-- [Analyse concurrentielle ASLAN](docs/05-benchmark-aslan.md)
+**Aucune référence, image officielle, garantie, stock ou prix réel Dahua n'est inventé.** Seules les catégories sont amorcées. Le front présente un état vide utile avant import du catalogue.
 
-## Points à valider avant la production
-1. Pays cible : les dépôts et le concurrent indiquent **Guinée (GN/GNF/Conakry)**, tandis que le brief mentionne une fois **Côte d'Ivoire**.
-2. Autorisation de communiquer sur le statut de distributeur/représentant officiel Dahua et son périmètre géographique.
-3. Liste fabricant/références effectivement commercialisées, prix publics, stock, garanties et photos autorisées.
-4. Adresse commerciale guinéenne, téléphone local, domaine final, livraison/retours et comptes marchands Orange Money/MTN.
+## Installation locale
 
-**Important :** le code de l'ancien dépôt contient des éléments résiduels de 2SMS Immobilier, à ne pas importer tels quels. Son contenu/SEO doit être audité pour produire un plan de redirection précis.
+Prérequis : PHP 8.2+ avec extensions Laravel (mbstring, pdo_sqlite ou pdo_mysql, xml, curl, fileinfo…), Composer 2, Node 20+, npm. MySQL/MariaDB recommandé en production.
+
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+# SQLite pour démarrage local :
+touch database/database.sqlite
+php artisan migrate --seed
+php artisan storage:link
+npm run dev
+# Dans un autre terminal :
+php artisan serve
+```
+
+Pour créer un administrateur, renseigner dans `.env` **ADMIN_EMAIL** et **ADMIN_PASSWORD** (14 caractères minimum), puis relancer `php artisan db:seed`. **Ne jamais commiter le fichier .env ni partager ces identifiants.** Les mots de passe sont hashés via le cast Laravel. Retirer les secrets d'administration des scripts de déploiement et utiliser un gestionnaire de secrets.
+
+Pour tester :
+
+```bash
+php artisan test
+npm run build
+```
+
+Les photos du back-office sont stockées sur le disque `public` : lancer `php artisan storage:link`. Fournir des photographies fabricant autorisées, non déformées.
+
+## Variables métier
+
+`SITE_COUNTRY=GN`, `SITE_CURRENCY=GNF`, `SITE_CITY=Conakry` (configuration provisoire), `SITE_PHONE`, `SITE_EMAIL`, `SITE_ADDRESS` et `APP_URL`. Ne pas substituer des numéros sénégalais/ivoiriens aux coordonnées de Guinée.
+
+## Livraison et sécurité
+
+- Les prix affichés doivent être validés par l'équipe commerciale.
+- Le champ stock est manuel pour ce lot ; il n'est **pas synchronisé en temps réel**.
+- Le site n'accepte **aucun paiement** : le bouton commercial ouvre une demande de devis.
+- Validation légale des CGV, garantie, données personnelles et statut Dahua requise avant toute vente.
+- **Ne pas communiquer l'exclusivité Dahua sans justificatif contractuel du pays couvert.**
+- Préserver le SEO historique via mapping précis des URLs et redirections 301 avant bascule du domaine.
+
+## Suivi
+
+- Cadrage détaillé : PR [#1](https://github.com/njaga/site-ecommerce-vigilus-guinee/pull/1).
+- Tickets : [#2 catalogue](https://github.com/njaga/site-ecommerce-vigilus-guinee/issues/2), [#3 storefront](https://github.com/njaga/site-ecommerce-vigilus-guinee/issues/3), [#4 paiement/panier](https://github.com/njaga/site-ecommerce-vigilus-guinee/issues/4), [#5 migration SEO](https://github.com/njaga/site-ecommerce-vigilus-guinee/issues/5).

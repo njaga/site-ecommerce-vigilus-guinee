@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\URL;
 
 class SiteController
 {
@@ -28,11 +27,12 @@ class SiteController
         $urls = [
             [route('home'), now()],
             [route('catalog'), now()],
-            [route('quote.create'), now()],
         ];
+
         foreach (Category::where('is_active', true)->get() as $category) {
             $urls[] = [route('category.show', $category), $category->updated_at];
         }
+
         foreach (Product::published()->get() as $product) {
             $urls[] = [route('product.show', $product->slug), $product->updated_at];
         }

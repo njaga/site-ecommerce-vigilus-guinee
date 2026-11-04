@@ -15,6 +15,11 @@ class Category extends Model
         return ['is_active' => 'boolean'];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
