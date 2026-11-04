@@ -3,10 +3,11 @@
   "name": "vigilus/guinee-commerce",
   "type": "project",
   "description": "Boutique de sécurité électronique Vigilus Guinée",
+  "license": "proprietary",
   "require": {
     "php": "^8.2",
     "laravel/framework": "^12.0",
-    "laravel/tinker": "^2.10"
+    "laravel/tinker": "^2.10.1"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",
@@ -19,6 +20,11 @@
       "App\\": "app/",
       "Database\\Factories\\": "database/factories/",
       "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
   },
   "scripts": {
@@ -39,6 +45,6 @@
     "preferred-install": "dist",
     "sort-packages": true
   },
-  "minimum_stability": "stable",
-  "prefer_stable": true
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
