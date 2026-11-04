@@ -193,6 +193,38 @@ class ConfidentialBoqImportTest extends TestCase
         $this->assertDatabaseCount('catalog_import_batches', 0);
     }
 
+    public function test_selected_bulk_approval_creates_only_private_zero_stock_drafts(): void
+    {
+        $batch = $this->stage();
+        $eligible = $batch->rows()->where('status', CatalogImportRow::PENDING)->pluck('id')->all();
+
+        $this->post(route('admin.imports.bulk-approve', $batch), [
+            'row_ids' => $eligible,
+        ])->assertRedirect();
+
+        $this->assertDatabaseCount('products', 2);
+        $this->assertDatabaseCount('catalog_import_rows', 3);
+        $this->assertSame(2, $batch->rows()->where('status', CatalogImportRow::APPROVED)->count());
+
+        foreach (Product::all() as $product) {
+            $this->assertFalse($product->is_active);
+            $this->assertNull($product->price_gnf);
+            $this->assertSame(0, $product->stock_qty);
+        }
+    }
+
+    public function test_bulk_rejects_duplicate_and_rolls_back_all_products(): void
+    {
+        $batch = $this->stage();
+        $all = $batch->rows()->pluck('id')->all();
+
+        $this->post(route('admin.imports.bulk-approve', $batch), [
+            'row_ids' => $all,
+        ])->assertSessionHasErrors('row_ids');
+
+        $this->assertDatabaseCount('products', 0);
+    }
+
     public function test_row_from_another_batch_cannot_be_approved(): void
     {
         $first = $this->stage();

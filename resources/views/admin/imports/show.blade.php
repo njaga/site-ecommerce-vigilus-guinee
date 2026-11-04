@@ -33,12 +33,25 @@
            class="px-3 py-2 rounded-lg border {{ $selectedStatus === $key ? 'bg-ink text-white border-ink' : 'bg-white border-slate-200 hover:border-rouge' }}">{{ $label }}</a>
     @endforeach
 </nav>
+<form id="boq-bulk-form" method="POST" action="{{ route('admin.imports.bulk-approve', $batch) }}">
+    @csrf
+</form>
+<div class="bg-white border border-slate-200 rounded-xl p-4 mb-5 flex flex-wrap justify-between items-center gap-4">
+    <p class="text-sm text-quiet max-w-2xl">Sélectionnez jusqu'à 30 lignes admissibles sur cette page puis créez leurs brouillons en une fois. Les catégories proposées resteront modifiables dans chaque fiche produit.</p>
+    <button type="submit" form="boq-bulk-form" class="btn-red">Créer les brouillons sélectionnés</button>
+</div>
 <div class="space-y-4">
     @forelse($rows as $row)
         <article class="bg-white rounded-xl border border-slate-200 p-5 sm:p-6">
             <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] gap-5">
                 <div>
                     <div class="flex flex-wrap gap-2 items-center text-xs font-semibold">
+                        @if($row->status === \App\Models\CatalogImportRow::PENDING)
+                            <label class="flex gap-2 items-center rounded px-2 py-1 bg-cloud cursor-pointer">
+                                <input type="checkbox" name="row_ids[]" value="{{ $row->id }}" form="boq-bulk-form">
+                                <span>Sélectionner</span>
+                            </label>
+                        @endif
                         <span class="bg-cloud rounded px-2 py-1">Ligne Excel {{ $row->source_row }}</span>
                         <span class="bg-cloud rounded px-2 py-1">{{ $row->source_category }}</span>
                         <span class="{{ $row->status === 'approved' ? 'text-emerald-700' : ($row->status === 'duplicate' || $row->status === 'invalid' ? 'text-rouge' : 'text-quiet') }}">

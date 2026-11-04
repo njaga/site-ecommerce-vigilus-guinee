@@ -88,6 +88,49 @@ class CatalogImportController
         );
     }
 
+    /**
+     * Convert up to 30 explicitly selected eligible rows into private drafts.
+     * Entire batch action rolls back if a selected row is not eligible.
+     */
+    public function bulkApprove(
+        Request $request,
+        CatalogImportBatch $batch,
+        CatalogDraftApprover $approver,
+    ): RedirectResponse {
+        $validated = $request->validate([
+            'row_ids' => ['required', 'array', 'min:1', 'max:30'],
+            'row_ids.*' => ['required', 'integer', 'distinct'],
+        ]);
+
+        $ids = $validated['row_ids'];
+        $rows = $batch->rows()->whereIn('id', $ids)->orderBy('id')->get();
+
+        if ($rows->count() !== count($ids)) {
+            throw ValidationException::withMessages([
+                'row_ids' => 'Sélection non valide : une ligne ne fait pas partie de cet import.',
+            ]);
+        }
+
+        $created = DB::transaction(function () use ($rows, $approver): int {
+            foreach ($rows as $row) {
+                if ($row->status !== CatalogImportRow::PENDING || ! $row->suggested_category_id) {
+                    throw ValidationException::withMessages([
+                        'row_ids' => 'Sélection contenant une ligne non admissible. Revoyez les doublons et les catégories.',
+                    ]);
+                }
+
+                $category = Category::findOrFail($row->suggested_category_id);
+                $approver->approve($row, $category);
+            }
+
+            return $rows->count();
+        });
+
+        return back()->with('success',
+            $created.' brouillon(s) créé(s), non publiés, prix vide et stock à zéro. Relecture avant mise en vente obligatoire.',
+        );
+    }
+
     public function skip(CatalogImportBatch $batch, CatalogImportRow $row): RedirectResponse
     {
         $this->assertChild($batch, $row);

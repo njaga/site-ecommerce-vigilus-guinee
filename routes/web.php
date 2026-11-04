@@ -57,6 +57,7 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::post('/imports', [CatalogImportController::class, 'store'])->middleware('throttle:3,1')->name('imports.store');
     Route::get('/imports/{batch}', [CatalogImportController::class, 'show'])->name('imports.show');
     Route::post('/imports/{batch}/lignes/{row}/approuver', [CatalogImportController::class, 'approve'])->name('imports.approve');
+    Route::post('/imports/{batch}/approuver-selection', [CatalogImportController::class, 'bulkApprove'])->name('imports.bulk-approve');
     Route::post('/imports/{batch}/lignes/{row}/ignorer', [CatalogImportController::class, 'skip'])->name('imports.skip');
     Route::delete('/imports/{batch}', [CatalogImportController::class, 'purge'])->name('imports.purge');
     Route::get('/devis', [AdminQuoteController::class, 'index'])->name('quotes.index');

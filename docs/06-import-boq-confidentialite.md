@@ -40,3 +40,7 @@ Le modèle étudié contient la feuille `Data Sheet` et des colonnes techniques/
 - Gestion métier complète des promotions et des stocks fournisseurs.
 
 **Paiement en ligne : désactivé.** Le site conserve le panier et la demande de commande gérée par Vigilus hors ligne.
+
+## Validation multiple
+
+Un administrateur peut sélectionner **jusqu'à 30 lignes admissibles par page** et créer leurs brouillons en une opération transactionnelle. Les lignes dupliquées ou invalides sont exclues. La création est annulée dans son ensemble en cas de sélection obsolète ou de collision SKU. Ce mécanisme ne modifie **ni prix, ni stock, ni visibilité publique**. Les descriptions et catégories nécessitent toujours une relecture avant publication.
