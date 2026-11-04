@@ -20,6 +20,18 @@
         photographie autorisée, SEO, prix public GNF ou « sur devis » explicite,
         et validations technique, commerciale et droits visuels.
     </p>
+    @if($product->exists)
+        @if(!empty($publicationIssues))
+            <div class="mt-4 border-t border-slate-200 pt-4">
+                <strong class="text-sm text-rouge">À compléter avant publication — {{ count($publicationIssues) }} point(s)</strong>
+                <ul class="mt-3 grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-quiet list-disc pl-5">
+                    @foreach($publicationIssues as $issue)<li>{{ $issue }}</li>@endforeach
+                </ul>
+            </div>
+        @else
+            <p class="text-sm text-emerald-700 font-bold mt-4">Toutes les conditions éditoriales sont actuellement remplies.</p>
+        @endif
+    @endif
 </div>
 <form id="product-main-form" method="POST" enctype="multipart/form-data"
       action="{{ $product->exists ? route('admin.products.update', $product) : route('admin.products.store') }}"

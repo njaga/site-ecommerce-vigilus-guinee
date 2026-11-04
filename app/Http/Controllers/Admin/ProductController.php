@@ -74,11 +74,12 @@ class ProductController
             : 'Brouillon produit créé.');
     }
 
-    public function edit(Product $product): View
+    public function edit(Product $product, ProductPublicationGuard $guard): View
     {
         return view('admin.products.form', [
             'product' => $product->load('images'),
             'categories' => Category::orderBy('name')->get(),
+            'publicationIssues' => $guard->issuesFor($product),
         ]);
     }
 

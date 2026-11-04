@@ -9,6 +9,35 @@ use Illuminate\Validation\ValidationException;
 class ProductPublicationGuard
 {
     /**
+     * Preview a draft's missing publication requirements without making it
+     * public and without requiring an attempted publish action.
+     */
+    public function issuesFor(Product $product): array
+    {
+        $data = [
+            'is_active' => true,
+            'category_id' => $product->category_id,
+            'short_description' => $product->short_description,
+            'description' => $product->description,
+            'specifications' => $product->specifications ?? [],
+            'seo_title' => $product->seo_title,
+            'seo_description' => $product->seo_description,
+            'price_gnf' => $product->price_gnf,
+            'price_on_request' => $product->price_on_request,
+            'technical_verified' => $product->technical_verified_at !== null,
+            'commercial_verified' => $product->commercial_verified_at !== null,
+            'media_rights_verified' => $product->media_rights_verified_at !== null,
+        ];
+
+        try {
+            $this->check($data, $product);
+            return [];
+        } catch (ValidationException $exception) {
+            return collect($exception->errors())->flatten()->all();
+        }
+    }
+
+    /**
      * Refuse a public listing without reviewed technical and commercial facts.
      * This does not itself authenticate legal rights; the admin must attest them.
      */

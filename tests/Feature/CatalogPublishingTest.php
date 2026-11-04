@@ -69,6 +69,20 @@ class CatalogPublishingTest extends TestCase
         ], $overrides);
     }
 
+    public function test_draft_editor_lists_publication_blockers_before_any_attempt(): void
+    {
+        $category = $this->category();
+        $product = $this->draft($category);
+        $this->actingAs($this->admin())
+            ->get(route('admin.products.edit', $product))
+            ->assertOk()
+            ->assertSee('À compléter avant publication')
+            ->assertSee('Renseignez un prix de vente GNF validé')
+            ->assertSee('Ajoutez une photo constructeur autorisée');
+
+        $this->assertFalse($product->fresh()->is_active);
+    }
+
     public function test_incomplete_boq_draft_cannot_be_published(): void
     {
         $category = $this->category();
