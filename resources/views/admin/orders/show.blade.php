@@ -27,7 +27,7 @@
         <form method="POST" action="{{ route('admin.orders.confirm', $order) }}" class="grid sm:grid-cols-[220px_1fr_auto] gap-4 items-end mt-5">
             @csrf @method('PATCH')
             <div><label class="input-label" for="shipping_gnf">Frais livraison confirmés (GNF) *</label>
-                <input class="field" id="shipping_gnf" type="number" min="0" step="1" required name="shipping_gnf" value="{{ old('shipping_gnf', 0) }}"></div>
+                <input class="field" id="shipping_gnf" type="number" min="0" step="1" required name="shipping_gnf" value="{{ old('shipping_gnf') }}"></div>
             <div><label class="input-label" for="internal_note">Note interne (facultative)</label>
                 <input class="field" id="internal_note" name="internal_note" maxlength="1500" placeholder="Accord obtenu par téléphone…"></div>
             <button type="submit" class="btn-red">Confirmer</button>
