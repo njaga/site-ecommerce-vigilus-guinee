@@ -13,7 +13,11 @@
             <strong class="font-extrabold text-2xl tracking-wide">{{ $reference }}</strong>
         </div>
         <p class="text-sm text-quiet mt-5">Ceci n'est ni une preuve de paiement ni une confirmation de livraison.</p>
-        <a class="btn-red mt-7" href="{{ route('home') }}">Retour à l’accueil</a>
+        <div class="mt-7 flex justify-center gap-3 flex-wrap">
+            <a class="btn-red" href="{{ $trackingUrl }}">Suivre ma demande</a>
+            <a class="btn-light" href="{{ route('home') }}">Retour à l’accueil</a>
+        </div>
+        <p class="text-xs text-quiet mt-5">Conservez ce lien privé pour suivre votre demande. Il expire au bout de {{ config('commerce.tracking_link_days') }} jours.</p>
     </div>
 </div>
 @endsection

@@ -12,6 +12,7 @@
     <div class="grid lg:grid-cols-[1fr_340px] gap-7 mt-9 items-start">
         <form method="POST" action="{{ route('checkout.store') }}" class="bg-white border border-slate-200 rounded-xl p-6 sm:p-9 grid sm:grid-cols-2 gap-5">
             @csrf
+            <input type="hidden" name="checkout_token" value="{{ $checkoutToken }}">
             <h2 class="sm:col-span-2 text-xl font-extrabold">Vos coordonnées</h2>
             <div><label for="customer_name" class="input-label">Nom complet *</label><input id="customer_name" name="customer_name" class="field" required autocomplete="name" value="{{ old('customer_name') }}"></div>
             <div><label for="customer_phone" class="input-label">Téléphone *</label><input id="customer_phone" name="customer_phone" class="field" required type="tel" autocomplete="tel" value="{{ old('customer_phone') }}"></div>

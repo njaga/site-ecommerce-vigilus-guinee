@@ -34,6 +34,7 @@ class CartCheckoutTest extends TestCase
     private function customer(): array
     {
         return [
+            'checkout_token' => 'd97ed29d-8395-4d1c-bac5-9dca548d760a',
             'customer_name' => 'Test Client',
             'customer_phone' => '+224 610 000 001',
             'customer_email' => 'client@example.test',
@@ -68,7 +69,7 @@ class CartCheckoutTest extends TestCase
     public function test_checkout_creates_unpaid_request_without_decrementing_stock(): void
     {
         $product = $this->item();
-        $this->withSession(['cart' => [$product->id => 2]])
+        $this->withSession(['cart' => [$product->id => 2], 'checkout_token' => 'd97ed29d-8395-4d1c-bac5-9dca548d760a'])
             ->post(route('checkout.store'), $this->customer())
             ->assertRedirect(route('checkout.success'));
 
@@ -91,7 +92,7 @@ class CartCheckoutTest extends TestCase
         $product = $this->item();
         $product->update(['price_gnf' => 310000]);
 
-        $this->withSession(['cart' => [$product->id => 3]])
+        $this->withSession(['cart' => [$product->id => 3], 'checkout_token' => 'd97ed29d-8395-4d1c-bac5-9dca548d760a'])
             ->post(route('checkout.store'), array_merge($this->customer(), ['subtotal_gnf' => 1]))
             ->assertRedirect(route('checkout.success'));
 
@@ -101,7 +102,7 @@ class CartCheckoutTest extends TestCase
     public function test_checkout_rejects_stale_stock(): void
     {
         $product = $this->item(stock: 1);
-        $this->withSession(['cart' => [$product->id => 3]])
+        $this->withSession(['cart' => [$product->id => 3], 'checkout_token' => 'd97ed29d-8395-4d1c-bac5-9dca548d760a'])
             ->post(route('checkout.store'), $this->customer())
             ->assertSessionHasErrors('cart');
         $this->assertDatabaseCount('orders', 0);
@@ -110,7 +111,7 @@ class CartCheckoutTest extends TestCase
     public function test_admin_reservation_and_cancel_restore_stock(): void
     {
         $product = $this->item(stock: 5);
-        $this->withSession(['cart' => [$product->id => 2]])
+        $this->withSession(['cart' => [$product->id => 2], 'checkout_token' => 'd97ed29d-8395-4d1c-bac5-9dca548d760a'])
             ->post(route('checkout.store'), $this->customer());
         $order = Order::firstOrFail();
 

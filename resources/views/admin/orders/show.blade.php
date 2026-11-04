@@ -20,6 +20,21 @@
         </form>
     @endif
 </div>
+@if($order->status === \App\Models\Order::RESERVED)
+    <section class="bg-white border border-slate-200 rounded-xl p-6 mb-6">
+        <h2 class="text-xl font-extrabold">Confirmer commercialement la commande</h2>
+        <p class="text-sm text-quiet mt-2">Avant de confirmer, vérifier la disponibilité, le prix matériel, les modalités de livraison et l'accord du client. Aucun paiement n'est collecté sur le site.</p>
+        <form method="POST" action="{{ route('admin.orders.confirm', $order) }}" class="grid sm:grid-cols-[220px_1fr_auto] gap-4 items-end mt-5">
+            @csrf @method('PATCH')
+            <div><label class="input-label" for="shipping_gnf">Frais livraison confirmés (GNF) *</label>
+                <input class="field" id="shipping_gnf" type="number" min="0" step="1" required name="shipping_gnf" value="{{ old('shipping_gnf', 0) }}"></div>
+            <div><label class="input-label" for="internal_note">Note interne (facultative)</label>
+                <input class="field" id="internal_note" name="internal_note" maxlength="1500" placeholder="Accord obtenu par téléphone…"></div>
+            <button type="submit" class="btn-red">Confirmer</button>
+        </form>
+        <p class="text-xs text-quiet mt-3">0 GNF ne doit être saisi que si la livraison est réellement offerte ou sans frais. Une prestation d'installation éventuelle doit faire l'objet d'un chiffrage séparé.</p>
+    </section>
+@endif
 <div class="grid lg:grid-cols-2 gap-6 items-start">
     <section class="bg-white border border-slate-200 rounded-xl p-6">
         <h2 class="text-xl font-extrabold">Articles</h2>
@@ -38,7 +53,12 @@
         <div class="border-t border-slate-200 mt-4 pt-5 font-extrabold flex justify-between">
             <span>Sous-total matériel</span><span>{{ number_format($order->subtotal_gnf, 0, ',', ' ') }} GNF</span>
         </div>
-        <p class="text-quiet text-sm mt-4">Total définitif non calculé (livraison et installation à confirmer).</p>
+        @if($order->total_gnf !== null)
+            <div class="mt-3 flex justify-between text-sm"><span>Livraison confirmée</span><span>{{ number_format($order->shipping_gnf, 0, ',', ' ') }} GNF</span></div>
+            <div class="mt-3 flex justify-between font-extrabold"><span>Total matériel + livraison</span><span>{{ number_format($order->total_gnf, 0, ',', ' ') }} GNF</span></div>
+        @else
+            <p class="text-quiet text-sm mt-4">Montant final encore indéterminé (frais de livraison non validés).</p>
+        @endif
     </section>
     <section class="bg-white border border-slate-200 rounded-xl p-6">
         <h2 class="text-xl font-extrabold">Informations du client</h2>
@@ -50,7 +70,7 @@
             <div class="py-3"><dt class="font-bold">Notes</dt><dd class="whitespace-pre-line">{{ $order->notes ?: 'Aucune' }}</dd></div>
         </dl>
         <div class="bg-amber-50 border border-amber-200 text-amber-950 rounded-lg p-4 text-sm mt-5">
-            <strong>Pas de paiement connecté.</strong> Réserver le stock ne marque pas la commande comme payée. Une vérification commerciale et une procédure de règlement restent nécessaires.
+            <strong>Aucun paiement en ligne.</strong> La commande est gérée commercialement par Vigilus. La confirmation ne signifie pas qu'un règlement a été encaissé.
         </div>
     </section>
 </div>

@@ -4,6 +4,12 @@
 <div class="flex items-center justify-between mb-7">
     <div><p class="kicker">Commerce</p><h1 class="text-3xl font-extrabold mt-1">Commandes à traiter</h1></div>
 </div>
+<nav class="flex flex-wrap gap-2 mb-6 text-sm font-semibold" aria-label="Filtrer les demandes">
+    @foreach(['' => 'Toutes', 'pending_review' => 'À valider', 'reserved' => 'Stock réservé', 'confirmed' => 'Confirmées', 'cancelled' => 'Annulées'] as $key => $label)
+        <a href="{{ route('admin.orders.index', $key !== '' ? ['statut' => $key] : []) }}"
+           class="px-3 py-2 rounded-lg border {{ ($selectedStatus ?? '') === $key ? 'bg-ink text-white border-ink' : 'bg-white border-slate-200 hover:border-rouge' }}">{{ $label }}</a>
+    @endforeach
+</nav>
 <div class="bg-white rounded-xl border border-slate-200 overflow-x-auto">
     <table class="min-w-[850px] w-full text-sm">
         <thead class="text-quiet text-xs uppercase bg-slate-50 text-left"><tr><th class="p-4">Référence</th><th class="p-4">Date</th><th class="p-4">Client</th><th class="p-4">Articles</th><th class="p-4">Sous-total</th><th class="p-4">Statut</th><th class="p-4"></th></tr></thead>
@@ -15,7 +21,7 @@
                     <td class="p-4">{{ $order->customer_name }}<span class="block text-quiet">{{ $order->city }}</span></td>
                     <td class="p-4">{{ $order->items_count }}</td>
                     <td class="p-4">{{ number_format($order->subtotal_gnf, 0, ',', ' ') }} GNF</td>
-                    <td class="p-4">{{ match($order->status) { 'reserved' => 'Stock réservé', 'cancelled' => 'Annulée', default => 'À confirmer' } }}</td>
+                    <td class="p-4">{{ $order->statusLabel() }}</td>
                     <td class="p-4 text-right"><a href="{{ route('admin.orders.show', $order) }}" class="font-bold text-rouge hover:underline">Ouvrir</a></td>
                 </tr>
             @empty
