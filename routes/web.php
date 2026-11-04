@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
-use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\OrderTrackingController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StorefrontController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,8 @@ Route::post('/panier/mettre-a-jour', [CartController::class, 'update'])->name('c
 Route::get('/commande', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/commande', [CheckoutController::class, 'store'])->middleware('throttle:5,1')->name('checkout.store');
 Route::get('/commande/demande-recue', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/suivi-commande/{order}', [OrderTrackingController::class, 'show'])
+    ->middleware(['signed', 'throttle:30,1'])->name('order.track');
 
 Route::get('/robots.txt', [SiteController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
@@ -53,5 +56,6 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::get('/commandes', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('/commandes/{order}/reserver', [OrderController::class, 'reserve'])->name('orders.reserve');
+    Route::patch('/commandes/{order}/confirmer', [OrderController::class, 'confirm'])->name('orders.confirm');
     Route::patch('/commandes/{order}/annuler', [OrderController::class, 'cancel'])->name('orders.cancel');
 });
