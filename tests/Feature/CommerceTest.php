@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\QuoteRequest;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -87,12 +89,22 @@ class CommerceTest extends TestCase
     {
         $category = $this->category();
         $admin = User::create(['name' => 'Admin', 'email' => 'admin@example.test', 'password' => 'secret-test-456', 'is_admin' => true]);
+        Storage::fake('public');
         $this->actingAs($admin)->post('/admin/produits', [
             'category_id' => $category->id,
             'brand' => 'Dahua',
             'sku' => 'TEST-IP-4MP',
             'name' => 'Référence de test 4 MP',
-            'short_description' => 'Référence de test',
+            'short_description' => 'Une description de test suffisamment détaillée pour représenter le modèle et son usage.',
+            'description' => 'Cette description entièrement fictive sert à tester la validation éditoriale du catalogue Dahua, sans fournir de données techniques non vérifiées ni de caractéristiques commerciales réelles.',
+            'specifications_text' => "Résolution : exemple non commercial\nAlimentation : exemple non commercial",
+            'seo_title' => 'Caméra de test 4 MP à Conakry | Boutique Vigilus Guinée',
+            'seo_description' => 'Référence fictive utilisée pour valider les pages de catalogue et leur référencement, sans annonce de produit ou stock réel au public.',
+            'technical_verified' => 1,
+            'commercial_verified' => 1,
+            'media_rights_verified' => 1,
+            'image' => UploadedFile::fake()->image('camera-test.jpg', 800, 600),
+            'image_alt' => 'Photo synthétique de la caméra de test en laboratoire',
             'price_gnf' => 600000,
             'stock_qty' => 4,
             'is_active' => 1,
