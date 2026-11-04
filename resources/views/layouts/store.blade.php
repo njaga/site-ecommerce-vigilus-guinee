@@ -36,6 +36,7 @@
                 <a class="hidden md:inline hover:text-rouge" href="{{ route('catalog') }}">Boutique</a>
                 <a class="hidden lg:inline hover:text-rouge" href="{{ route('quote.create') }}">Installation & devis</a>
                 <a class="text-rouge hover:underline" href="{{ route('quote.create') }}">Contact commercial</a>
+                <a class="whitespace-nowrap text-ink hover:text-rouge" href="{{ route('cart.index') }}" aria-label="Voir mon panier">Panier ({{ array_sum(session('cart', [])) }})</a>
             </nav>
         </div>
         <div class="sm:hidden container-wide pb-3">

@@ -73,8 +73,17 @@
                 </p>
                 <p class="text-xs text-quiet mt-1">Une offre commerciale sera confirmée avant toute transaction.</p>
             </div>
+            @if($errors->has('cart'))<div role="alert" class="mt-5 p-3 bg-red-50 text-red-900 rounded-lg">{{ $errors->first('cart') }}</div>@endif
             <div class="mt-7 flex flex-wrap gap-3">
-                <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-red">Obtenir un devis / commander</a>
+                @if($product->can_order)
+                    <form method="POST" action="{{ route('cart.add') }}" class="inline-flex">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button class="btn-red" type="submit">Ajouter au panier</button>
+                    </form>
+                @endif
+                <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander un devis</a>
                 <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander une installation</a>
             </div>
             <p class="text-sm text-quiet mt-5">Vous êtes installateur ou revendeur ? Précisez les quantités pour recevoir une proposition adaptée.</p>
