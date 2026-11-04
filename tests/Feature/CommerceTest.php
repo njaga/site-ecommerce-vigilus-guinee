@@ -51,7 +51,8 @@ class CommerceTest extends TestCase
     public function test_published_product_without_price_is_quote_only(): void
     {
         $product = $this->product($this->category());
-        $this->get('/produits/'.$product->slug)->assertOk()->assertSee('Prix sur demande')->assertDontSee('0 GNF');
+        $product->update(['price_on_request' => true]);
+        $this->get('/produits/'.$product->slug)->assertOk()->assertSee('Prix sur devis')->assertDontSee('0 GNF');
         $this->get('/sitemap.xml')->assertOk()->assertSee($product->slug);
     }
 
