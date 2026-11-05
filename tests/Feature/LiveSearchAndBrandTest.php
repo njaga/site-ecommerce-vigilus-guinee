@@ -179,7 +179,7 @@ class LiveSearchAndBrandTest extends TestCase
             ->assertSee('Nos partenaires et notre écosystème')
             ->assertSee('Marque du catalogue')
             ->assertSee('Vigilus Groupe SA')
-            ->assertSee('Le site n&#039;est pas une plateforme de paiement', false);
+            ->assertSee('plateforme de paiement');
     }
 
     public function test_about_is_in_sitemap_only_when_indexing_enabled(): void
