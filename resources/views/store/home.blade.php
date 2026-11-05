@@ -69,7 +69,7 @@
     @if($categories->isNotEmpty())
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
             @foreach($categories as $category)
-                @php $illustration = app(\\App\\Support\\CategoryVisuals::class)->for($category); @endphp
+                @php $illustration = app(\App\Support\CategoryVisuals::class)->for($category); @endphp
                 <a href="{{ route('category.show', $category) }}" class="category-image-card group">
                     <img src="{{ $illustration['url'] }}" width="540" height="480" loading="lazy"
                          alt="Illustration : {{ $illustration['label'] }}" class="category-image-card-img">
