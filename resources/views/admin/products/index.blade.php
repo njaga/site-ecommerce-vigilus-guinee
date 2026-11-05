@@ -54,6 +54,10 @@
                 <td class="p-4"><span class="{{ $product->is_active ? 'text-emerald-700' : 'text-quiet' }}">{{ $product->is_active ? 'Publiée' : 'Brouillon' }}</span></td>
                 <td class="p-4 text-right">
                     <a class="text-rouge font-bold hover:underline" href="{{ route('admin.products.edit', $product) }}">Compléter</a>
+                    @if(\App\Support\CatalogPreview::enabled())
+                        <a class="text-quiet font-semibold hover:text-rouge ml-3"
+                           href="{{ route('product.show', $product->slug) }}" target="_blank" rel="noopener noreferrer">Voir ↗</a>
+                    @endif
                     @if($product->is_active)
                         <form action="{{ route('admin.products.archive', $product) }}" method="POST" class="inline ml-3">
                             @csrf @method('PATCH')<button type="submit" class="text-quiet hover:text-rouge">Masquer</button>

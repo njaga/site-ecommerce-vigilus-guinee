@@ -63,7 +63,7 @@ class StorefrontController
         return view('store.catalog', [
             'category' => $category,
             'categories' => Category::storefront()->orderBy('sort_order')->get(),
-            'products' => $query->paginate(12)->withQueryString(),
+            'products' => $query->paginate(CatalogPreview::enabled() ? 24 : 12)->withQueryString(),
             'search' => $search,
         ]);
     }
