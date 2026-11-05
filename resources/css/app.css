@@ -414,3 +414,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     .partner-brand-image { max-height:75px; }
     .about-hero-photo { min-height:300px;margin:0 -12px; }
 }
+
+/* Official square Groupe SA identity is never stretched or cropped. */
+.store-brand-image { width:84px;height:84px;object-fit:contain; }
+.store-header-inner { min-height:94px; }
+.store-brand-region { font-size:.73rem; }
+.store-footer-logo-wrap img { max-height:96px;height:86px;object-fit:contain; }
+.partner-brand-wordmark { display:grid;place-items:center;min-height:94px;background:#f8fafb;
+    color:#c52240;font:900 clamp(1.5rem,3vw,2.3rem) "Plus Jakarta Sans",sans-serif;letter-spacing:-.07em; }
+.store-nav-catalog summary.is-current { color:#b52440; }
+.store-nav-catalog summary.is-current:after { content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:#bc2741; }
+.store-nav-catalog summary { position:relative; }
+.client-wordmark img { width:100%;max-width:145px;height:58px;object-fit:contain; }
+@media (max-width:767px) {
+    .store-brand-image { width:67px;height:67px; }
+    .store-header-inner { min-height:76px; }
+    .store-brand-region { font-size:.63rem; }
+    .client-wordmark img { max-width:115px;height:50px; }
+}

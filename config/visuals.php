@@ -1,7 +1,7 @@
 <?php
 
 // Catégories = illustrations thématiques, pas des photos de fiches produit.
-// Source Vigilus : dépôt institutionnel réutilisable sous contrôle éditorial.
+// Source Vigilus : visuels du site institutionnel public, avec validation avant diffusion.
 // Source Unsplash : photos gratuites sous licence Unsplash, à valider avant publication.
 $own = 'https://www.groupevigilus.com/media/site/group/';
 
@@ -65,7 +65,7 @@ return [
         ],
     ],
     'default_category' => [
-        'url' => $own.'services/videosurveillance-equipements.jpg',
+        'url' => 'https://www.groupevigilus.com/media/services/videosurveillance.jpg',
         'source' => 'Vigilus Groupe SA — site institutionnel /media/services/videosurveillance.jpg',
         'label' => 'Équipements professionnels de sécurité électronique',
     ],

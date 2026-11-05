@@ -18,8 +18,8 @@ return [
     'delivery_terms' => env('SITE_DELIVERY_TERMS', ''),
     'returns_terms' => env('SITE_RETURNS_TERMS', ''),
     'warranty_terms' => env('SITE_WARRANTY_TERMS', ''),
-    // Identité temporairement servie par le dépôt officiel Vigilus, à empaqueter
-    // sur le domaine local avant mise en production.
+    // Logo officiel du site public de Vigilus Groupe SA : à héberger localement
+    // après validation de la charte, avant mise en production.
     'brand_logo_url' => env('SITE_BRAND_LOGO_URL')
         ?: 'https://www.groupevigilus.com/media/site/logo.png',
     'hero_illustration_url' => env('SITE_HERO_ILLUSTRATION_URL')
