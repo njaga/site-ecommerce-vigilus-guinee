@@ -46,7 +46,7 @@ class BlogPublishingTest extends TestCase
         $this->get(route('solution.videosurveillance'))->assertOk()
             ->assertSee('Le journal Vigilus')
             ->assertSee('Actualités')
-            ->assertSee('journal-feature-grid', false)
+            ->assertDontSee('journal-feature-grid', false)
             ->assertSee('Le journal arrive bientôt.')
             ->assertDontSee('Photographies du produit publiées');
     }
