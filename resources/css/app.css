@@ -327,3 +327,90 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     .store-search-dialog[open]::backdrop,
     .store-mega-menu { animation:none!important; }
 }
+
+/* Homepage — striking editorial cover without invented product details. */
+.home-hero-modern { background:#0c2c40; color:#fff;position:relative;overflow:hidden; }
+.home-hero-modern:before { content:"";position:absolute;width:460px;height:460px;border:1px solid #ffffff0b;
+    border-radius:50%;left:-220px;top:-170px;pointer-events:none; }
+.home-hero-modern-grid { display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);
+    align-items:stretch;gap:clamp(30px,4vw,60px);min-height:630px; }
+.home-hero-modern-copy { position:relative;z-index:2;padding:clamp(75px,7vw,110px) 0 72px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center; }
+.hero-modern-eyebrow { display:flex;gap:10px;align-items:center;font-size:.68rem;letter-spacing:.17em;text-transform:uppercase;font-weight:800;color:#aee1ed; }
+.hero-modern-eyebrow-dot { width:7px;height:7px;background:#ed7086;border-radius:50%;box-shadow:0 0 0 5px #e9607a25; }
+.hero-modern-title { max-width:730px;font:800 clamp(3rem,5.15vw,5.8rem)/1.08 "Plus Jakarta Sans",sans-serif;letter-spacing:-.065em; }
+.hero-modern-title span { color:#b8e5f0; }
+.hero-modern-primary { display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:51px;padding:14px 21px;background:#cb3150;border-radius:7px;color:#fff;font-size:.86rem;font-weight:800; }
+.hero-modern-primary:hover { background:#e44464; }
+.hero-modern-secondary { display:inline-flex;align-items:center;justify-content:center;min-height:51px;padding:14px 21px;
+    border:1px solid #7997a5;border-radius:7px;color:#fff;font-weight:800;font-size:.86rem; }
+.hero-modern-secondary:hover { background:#ffffff18; }
+.hero-modern-search { display:flex;align-items:center;gap:13px;width:min(470px,100%);
+    padding:15px 18px;min-height:53px;border:1px solid #7897a4;color:#deebef;border-radius:9px;
+    background:#ffffff10;text-align:left;font-size:.82rem; }
+.hero-modern-search:hover { background:#ffffff1d;border-color:#c0ecf5; }
+.hero-modern-tags { display:flex;flex-wrap:wrap;gap:8px; }
+.hero-modern-tags span { border:1px solid #6a96a5;color:#b0cbd5;font-size:.67rem;
+    letter-spacing:.035em;padding:6px 10px;border-radius:30px; }
+.home-hero-modern-visual { position:relative;min-height:620px;overflow:hidden;background:#15516b; }
+.hero-modern-illustration { width:100%;height:100%;position:absolute;inset:0;object-fit:cover;display:block; }
+.hero-modern-illustration.hero-modern-product { object-fit:contain;padding:55px 30px 150px;background:#f2f6f7; }
+.hero-modern-image-vignette { position:absolute;inset:0;background:linear-gradient(0deg,#071f30ee,transparent 52%),
+    linear-gradient(90deg,#0c2c407a,transparent 50%);pointer-events:none; }
+.hero-modern-feature { position:absolute;left:clamp(18px,3.2vw,42px);right:clamp(18px,3.2vw,42px);
+    bottom:35px;border-left:3px solid #e55c75;padding:6px 0 6px 20px;color:#fff;z-index:2; }
+.hero-modern-product + .hero-modern-image-vignette { background:linear-gradient(0deg,#0b293df2,#0b293d08 55%); }
+.category-image-card { aspect-ratio:1.06;min-height:180px;position:relative;display:block;isolation:isolate;overflow:hidden;background:#14374a; }
+.category-image-card-img { width:100%;height:100%;position:absolute;inset:0;object-fit:cover;
+    transition:transform .45s cubic-bezier(.2,.75,.25,1); }
+.category-image-card:hover .category-image-card-img { transform:scale(1.065); }
+.category-image-card-overlay { position:absolute;inset:0;background:linear-gradient(0deg,#071c2be0,transparent 80%);
+    transition:background .2s;z-index:1; }
+.category-image-card-content { z-index:2;position:absolute;inset:0;display:flex;flex-direction:column;
+    justify-content:space-between;padding:clamp(16px,2.2vw,26px);color:#fff; }
+.category-image-card-number { color:#fff9;font-size:.7rem;font-weight:700;letter-spacing:.1em; }
+.category-image-card-foot { display:flex;align-items:flex-end;justify-content:space-between;gap:9px; }
+.category-image-card-foot strong { font:800 clamp(.93rem,1.6vw,1.25rem)/1.3 "Plus Jakarta Sans",sans-serif;
+    letter-spacing:-.035em;max-width:85%; }
+.category-image-card-arrow { border:1px solid #ffffff8b;border-radius:50%;width:35px;height:35px;flex:none;
+    display:grid;place-items:center;transform:rotate(-35deg);transition:transform .2s,background-color .2s; }
+.category-image-card:hover .category-image-card-arrow { background:#bc2741;border-color:#bc2741;transform:rotate(0); }
+.why-section { background:#f7f9fa; }
+.why-card { position:relative;padding:29px 24px 34px;border:1px solid #dbe4e9;background:#fff;
+    border-bottom:3px solid #e3eaf0;transition:border-color .2s,transform .2s; }
+.why-card:hover { border-bottom-color:#bc2741;transform:translateY(-3px); }
+.why-card-index { font-weight:800;font-size:.72rem;letter-spacing:.13em;color:#b12d46; }
+.client-proof { border-top:1px solid #e9eff1;border-bottom:1px solid #e9eff1;background:#fff; }
+.client-wordmarks { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #e1e8ec;border-left:1px solid #e1e8ec; }
+.client-wordmark { min-width:0;min-height:95px;display:grid;place-items:center;padding:17px 13px;text-align:center;
+    font:800 clamp(.85rem,1.5vw,1.18rem)/1.3 "Plus Jakarta Sans",sans-serif;letter-spacing:-.035em;color:#496272;
+    border-bottom:1px solid #e1e8ec;border-right:1px solid #e1e8ec; }
+.partners-section { background:#f8fafb; }
+.partner-panel { display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;align-items:center;
+    background:#fff;border:1px solid #dce5e9;padding:clamp(20px,3vw,32px); }
+.partner-brand-image { display:block;width:170px;max-width:100%;max-height:85px;height:auto;object-fit:contain; }
+.partner-panel-label { color:#9e2a43;text-transform:uppercase;font-weight:800;font-size:.65rem;letter-spacing:.12em; }
+.about-hero { background:#f5f8f9;border-bottom:1px solid #dfe8ec;overflow:hidden; }
+.about-hero-photo { align-self:stretch;min-height:440px;position:relative;background:#143e55; }
+.about-hero-photo img { display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
+.about-hero-caption { position:absolute;bottom:25px;left:25px;right:25px;padding:20px 24px;background:#103348ee;
+    color:#fff;font:800 1.15rem "Plus Jakarta Sans",sans-serif; }
+.about-hero-caption span { display:block;font:500 .75rem "DM Sans",sans-serif;margin-top:6px;letter-spacing:.04em;color:#bbd4dd; }
+@media (max-width:1023px) {
+    .home-hero-modern-grid { grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;min-height:560px; }
+    .hero-modern-title { font-size:clamp(2.55rem,5.1vw,4.2rem); }
+    .home-hero-modern-visual { min-height:560px; }
+}
+@media (max-width:767px) {
+    .home-hero-modern-grid { display:flex;flex-direction:column;gap:0; }
+    .home-hero-modern-copy { padding:52px 0 38px; }
+    .hero-modern-title { font-size:clamp(2.45rem,9.9vw,3.5rem); }
+    .home-hero-modern-visual { min-height:320px;margin:0 -12px; }
+    .hero-modern-feature { left:24px;right:24px;bottom:22px; }
+    .category-image-card { aspect-ratio:.82;min-height:165px; }
+    .category-image-card-foot strong { font-size:.93rem; }
+    .client-wordmark { min-height:82px;font-size:.81rem; }
+    .partner-panel { grid-template-columns:1fr;gap:15px; }
+    .partner-brand-image { max-height:75px; }
+    .about-hero-photo { min-height:300px;margin:0 -12px; }
+}
