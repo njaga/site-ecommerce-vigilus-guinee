@@ -4,7 +4,7 @@
             <div>
                 <p class="section-eyebrow">Marques &amp; écosystème</p>
                 <h2 class="section-heading mt-4">Nos partenaires et notre écosystème.</h2>
-                <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Nous présentons ici la marque du catalogue et le Groupe auquel appartient l'implantation. Les partenariats commerciaux formels seront affichés séparément après validation.</p>
+                <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Découvrez les marques proposées et le réseau Vigilus.</p>
             </div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">

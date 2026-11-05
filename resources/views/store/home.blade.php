@@ -36,7 +36,7 @@
             <div class="hero-modern-feature">
                 <span class="text-[10px] font-extrabold tracking-[.17em] text-[#b7edf2] uppercase">Une offre claire, un suivi identifié</span>
                 <strong class="block mt-2 text-lg sm:text-xl leading-snug font-extrabold">Du choix des références à la confirmation commerciale.</strong>
-                <span class="block text-xs mt-3 text-[#c3d8e2]">Disponibilités et conditions vérifiées avant tout règlement.</span>
+                <span class="block text-xs mt-3 text-[#c3d8e2]">Contactez-nous pour préparer votre projet.</span>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
     @else
         <div class="border border-slate-200 bg-cloud p-10 flex flex-wrap gap-5 items-center justify-between">
             <div><h3 class="text-xl font-extrabold">Le catalogue est en préparation.</h3>
-                <p class="text-sm text-quiet mt-2">Nos références seront visibles après validation technique et commerciale.</p></div>
+                <p class="text-sm text-quiet mt-2">Transmettez-nous les références recherchées pour recevoir une proposition.</p></div>
             <a href="{{ route('quote.create') }}" class="btn-light">Transmettre mes besoins</a>
         </div>
     @endif
@@ -96,7 +96,7 @@
         <div class="flex flex-wrap items-end justify-between gap-5 mb-9">
             <div><p class="section-eyebrow">02 / Sélection</p>
                 <h2 class="section-heading mt-4">Références à découvrir.</h2>
-                <p class="text-quiet mt-3">Une sélection de produits actuellement publiés dans notre catalogue.</p>
+                <p class="text-quiet mt-3">Découvrez notre sélection Dahua.</p>
             </div>
             <a class="section-link" href="{{ route('catalog') }}">Voir le catalogue <x-store-icon name="arrow-right" :size="17"/></a>
         </div>
@@ -140,8 +140,8 @@
 <section class="container-wide pb-8">
     <div class="bg-cloud border border-slate-200 px-7 py-8 flex flex-wrap gap-6 items-center justify-between">
         <div><p class="font-extrabold text-lg">Vous hésitez entre plusieurs équipements ?</p>
-            <p class="text-quiet text-sm mt-2">Notre guide vous aide à identifier les caractéristiques à comparer avant de demander un devis.</p></div>
-        <a href="{{ route('solution.videosurveillance') }}" class="section-link">Guide vidéosurveillance <x-store-icon name="arrow-right" :size="18"/></a>
+            <p class="text-quiet text-sm mt-2">Nos conseils pour mieux comprendre la vidéosurveillance et les équipements électroniques.</p></div>
+        <a href="{{ route('solution.videosurveillance') }}" class="section-link">Lire le journal <x-store-icon name="arrow-right" :size="18"/></a>
     </div>
 </section>
 @endsection

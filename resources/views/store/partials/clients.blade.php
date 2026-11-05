@@ -3,8 +3,8 @@
         <div class="grid lg:grid-cols-[.86fr_1.14fr] gap-10 lg:gap-16 items-center">
             <div>
                 <p class="section-eyebrow">Ils nous font confiance</p>
-                <h2 class="section-heading mt-4">Nos clients, à l’échelle du Groupe.</h2>
-                <p class="text-quiet mt-5 leading-relaxed">Le Groupe Vigilus accompagne des organisations de secteurs variés en Afrique. Les références ci-contre sont celles du <strong>Groupe</strong>, tous métiers et marchés confondus, et ne constituent pas une liste de clients de la boutique en Guinée.</p>
+                <h2 class="section-heading mt-4">Ils font confiance au Groupe.</h2>
+                <p class="text-quiet mt-5 leading-relaxed">Des organisations accompagnées par le Groupe Vigilus à travers ses différents métiers et implantations.</p>
                 <a class="section-link mt-7" href="https://groupevigilus.com/" target="_blank" rel="noopener noreferrer">Découvrir le Groupe et ses références <x-store-icon name="arrow-right" :size="17"/></a>
             </div>
             <div class="client-wordmarks" aria-label="Exemples de références clients publiées par Vigilus Groupe SA">

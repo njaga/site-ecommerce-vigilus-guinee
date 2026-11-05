@@ -22,8 +22,8 @@
     <a class="skip-link" href="#contenu">Aller au contenu principal</a>
     <div class="store-utility">
         <div class="container-wide flex flex-wrap items-center justify-between gap-x-5 gap-y-1 py-2">
-            <span>Vigilus Groupe SA <span class="mx-2 opacity-40">/</span> Distribution d’équipements à Conakry</span>
-            <a href="{{ route('quote.create') }}" class="hover:text-white font-semibold">Votre projet, notre accompagnement <span aria-hidden="true" class="ml-2">↗</span></a>
+            <span>Vigilus Guinée <span class="mx-2 opacity-40">/</span> Équipements de sécurité électronique</span>
+            <a href="{{ route('quote.create') }}" class="hover:text-white font-semibold">Demander un devis <span aria-hidden="true" class="ml-2">↗</span></a>
         </div>
     </div>
     <header class="store-header">
@@ -192,13 +192,13 @@
                     @if(config('site.email'))
                         <a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>
                     @endif
-                    <p class="text-xs text-slate-400 leading-relaxed">Pour toute demande de livraison, de volume ou de référence, notre équipe valide les conditions avant règlement.</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">Pour vos devis, volumes et références.</p>
                     <a href="{{ route('quote.create') }}" class="font-extrabold text-[#bde8f2] mt-2 hover:text-white">Échanger avec l'équipe <span aria-hidden="true">↗</span></a>
                 </div>
             </div>
             <div class="store-footer-bottom">
                 <span>© {{ date('Y') }} Vigilus Groupe SA · Guinée</span>
-                <span>Distribution d’équipements · Paiement hors du site · Prix et stocks à confirmer</span>
+                <span>Équipements de sécurité électronique · Conakry</span>
             </div>
         </div>
     </footer>
