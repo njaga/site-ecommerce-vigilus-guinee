@@ -309,7 +309,7 @@ class BlogPublishingTest extends TestCase
             ->assertSee('data-blog-tool="heading"', false)
             ->assertSee('data-blog-tool="bold"', false)
             ->assertSee('data-blog-tool="link"', false)
-            ->assertSee('Journal', false);
+            ->assertSee('Articles du journal');
     }
 
 }

@@ -26,7 +26,6 @@
         <div>
             <p class="text-lg text-ink font-semibold leading-relaxed">La bonne référence, au bon usage, avec une proposition claire et un interlocuteur identifié.</p>
             <p class="text-quiet mt-5 leading-relaxed">Nous accompagnons les demandes d'équipements de sécurité électronique : analyse des spécifications, orientation vers les modèles du catalogue, devis, vérification de disponibilité et coordination de livraison après validation commerciale.</p>
-            <p class="text-quiet mt-4 leading-relaxed"></p>
         </div>
     </div>
 </section>
