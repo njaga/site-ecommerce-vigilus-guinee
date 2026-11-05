@@ -24,7 +24,7 @@
             <div class="sm:col-span-2"><label for="notes" class="input-label">Consignes particulières</label><textarea id="notes" name="notes" class="field" rows="3">{{ old('notes') }}</textarea></div>
             <label class="sm:col-span-2 flex gap-3 items-start text-sm text-quiet">
                 <input type="checkbox" name="consent" value="1" required class="mt-1" @checked(old('consent'))>
-                <span>J'accepte l'utilisation de mes coordonnées pour le traitement de cette demande de commande. Je comprends qu'aucun paiement ni commande définitive n'est réalisé en ligne à cette étape. *</span>
+                <span>J'accepte le traitement de mes coordonnées pour cette demande selon la <a class="underline hover:text-rouge" target="_blank" rel="noopener" href="{{ route('legal.privacy') }}">politique de confidentialité</a>. Aucun paiement ni achat définitif n'est réalisé en ligne. *</span>
             </label>
             <div class="sm:col-span-2"><button type="submit" class="btn-red w-full">Envoyer ma demande de commande</button></div>
         </form>
@@ -44,7 +44,7 @@
             <div class="mt-5 pt-5 border-t border-slate-200 flex justify-between font-extrabold">
                 <span>Sous-total matériel</span><span>{{ number_format($subtotal, 0, ',', ' ') }} GNF</span>
             </div>
-            <p class="text-quiet text-sm mt-4">Livraison et installation sur chiffrage séparé. Aucun montant final n'est fixé avant confirmation commerciale.</p>
+            <p class="text-quiet text-sm mt-4">Livraison et frais éventuels sur chiffrage séparé. Aucun montant final n'est fixé avant confirmation commerciale.</p>
             <a class="block mt-5 text-sm text-rouge font-bold" href="{{ route('cart.index') }}">← Modifier le panier</a>
         </aside>
     </div>

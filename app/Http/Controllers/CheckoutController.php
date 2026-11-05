@@ -67,6 +67,7 @@ class CheckoutController
             return redirect()->route('cart.index')->withErrors(['cart' => 'Le panier est vide.']);
         }
 
+        $createdNow = false;
         try {
             $order = DB::transaction(function () use ($quantities, $data, $token): Order {
                 $products = Product::published()->whereIn('id', array_keys($quantities))
@@ -80,7 +81,7 @@ class CheckoutController
                 $subtotal = 0;
                 foreach ($quantities as $id => $qty) {
                     $product = $products->get((int) $id);
-                    if (! $product || $product->price_gnf === null || $product->stock_qty < $qty || $qty > 100) {
+                    if (! $product || ! $product->can_order || $product->stock_qty < $qty || $qty > 100) {
                         throw ValidationException::withMessages([
                             'cart' => 'Prix ou stock modifié : veuillez vérifier votre panier.',
                         ]);
@@ -122,6 +123,7 @@ class CheckoutController
 
                 return $order;
             });
+            $createdNow = true;
         } catch (UniqueConstraintViolationException $e) {
             // Concurrence : une soumission parallèle a déjà créé la même demande.
             $order = Order::where('submission_key', $token)->first();
@@ -131,7 +133,9 @@ class CheckoutController
         }
 
         session()->forget(['cart', 'checkout_token']);
-        $notifier->sendStatus($order->load('items'), newOrder: true);
+        if ($createdNow) {
+            $notifier->sendStatus($order->load('items'), newOrder: true);
+        }
 
         return redirect()->route('checkout.success')->with('order_reference', $order->reference);
     }

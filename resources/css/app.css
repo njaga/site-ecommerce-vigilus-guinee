@@ -26,3 +26,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .input-label { display: block; font-weight: 650; font-size: .9rem; margin-bottom: .4rem; }
 .product-photo { width: 100%; height: 100%; object-fit: contain; padding: 1.1rem; }
 .kicker { color: #c61d35; font-weight: 800; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; }
+
+/* Navigation clavier et confort d'utilisation mobile. */
+.skip-link { position: fixed; inset: .5rem auto auto .5rem; z-index: 100; transform: translateY(-180%); background: #17212c; color: #fff; font-weight: 800; padding: .85rem 1.15rem; border-radius: .5rem; }
+.skip-link:focus { transform: translateY(0); }
+#contenu { scroll-margin-top: 6rem; min-height: 45vh; }
+@media (max-width: 640px) {
+    .container-wide { width: min(100% - 1.5rem, 1240px); }
+    .field { min-width: 0; }
+    .btn-red, .btn-light { max-width: 100%; }
+    .product-photo { padding: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

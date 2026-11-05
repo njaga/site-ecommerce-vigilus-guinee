@@ -1,5 +1,5 @@
 @extends('layouts.store')
-@section('title', 'Demander un devis d'équipements | Vigilus Guinée')
+@section('title', "Demander un devis d'équipements | Vigilus Guinée")
 @section('robots', 'noindex,follow')
 @section('content')
 <section class="bg-cloud border-b border-slate-200">
@@ -33,7 +33,7 @@
         <div><label for="quantity" class="input-label">Quantité souhaitée *</label><input id="quantity" name="quantity" type="number" min="1" max="100000" required class="field" value="{{ old('quantity', 1) }}"></div>
         <div class="sm:col-span-2"><label for="message" class="input-label">Votre besoin</label><textarea id="message" name="message" rows="5" class="field" placeholder="Références, quantités, type de site, commune, délai de livraison souhaité…">{{ old('message') }}</textarea></div>
         <div class="sm:col-span-2">
-            <label class="flex gap-3 items-start text-sm text-quiet"><input type="checkbox" name="consent" value="1" required class="mt-1"> <span>J'accepte que Vigilus utilise mes coordonnées uniquement pour répondre à cette demande commerciale. *</span></label>
+            <label class="flex gap-3 items-start text-sm text-quiet"><input type="checkbox" name="consent" value="1" required class="mt-1"> <span>J'accepte que Vigilus traite mes coordonnées pour répondre à cette demande, conformément à la <a class="underline hover:text-rouge" target="_blank" rel="noopener" href="{{ route('legal.privacy') }}">politique de confidentialité</a>. *</span></label>
         </div>
         <div class="sm:col-span-2"><button type="submit" class="btn-red w-full sm:w-auto">Envoyer ma demande →</button></div>
     </form>

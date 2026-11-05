@@ -10,6 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-cloud">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
     <header class="bg-ink text-white py-4">
         <div class="container-wide flex flex-wrap items-center justify-between gap-4">
             <a href="{{ route('admin.home') }}" class="font-extrabold tracking-tight text-xl">VIGILUS <span class="text-red-300">ADMIN</span></a>
@@ -18,6 +19,7 @@
                 <a href="{{ route('admin.categories.index') }}" class="hover:text-red-300">Catégories</a>
                 <a href="{{ route('admin.imports.index') }}" class="hover:text-red-300">Import BOQ</a>
                 <a href="{{ route('admin.seo-redirects.index') }}" class="hover:text-red-300">Migration SEO</a>
+                <a href="{{ route('admin.launch-readiness') }}" class="hover:text-red-300">Préproduction</a>
                 <a href="{{ route('admin.quotes.index') }}" class="hover:text-red-300">Devis</a>
                 <a href="{{ route('admin.orders.index') }}" class="hover:text-red-300">Commandes</a>
                 <a href="{{ route('home') }}" target="_blank" rel="noopener" class="hover:text-red-300">Voir la boutique ↗</a>
@@ -25,7 +27,7 @@
             </nav>
         </div>
     </header>
-    <main class="container-wide py-10">
+    <main id="contenu" class="container-wide py-10">
         @if(session('success'))<div role="status" class="mb-5 bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-emerald-900">{{ session('success') }}</div>@endif
         @if($errors->any())<div role="alert" class="mb-5 bg-red-50 border border-red-200 rounded-lg p-4 text-red-900">
             <strong>Veuillez corriger les champs :</strong><ul class="mt-2 list-disc ml-5">@foreach($errors->all() as $message)<li>{{ $message }}</li>@endforeach</ul>

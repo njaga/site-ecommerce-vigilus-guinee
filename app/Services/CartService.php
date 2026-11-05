@@ -25,12 +25,14 @@ class CartService
             return collect();
         }
 
-        $products = Product::published()->with('images')->whereIn('id', array_keys($cart))->get()->keyBy('id');
+        $products = Product::published()->with(['images', 'category'])->whereIn('id', array_keys($cart))->get()->keyBy('id');
 
         return collect($cart)->map(function ($quantity, $id) use ($products) {
             $product = $products->get((int) $id);
             $valid = $product !== null
-                && $product->price_gnf !== null
+                && $product->can_order
+                && $quantity > 0
+                && $quantity <= 100
                 && $product->stock_qty >= $quantity;
 
             return [
