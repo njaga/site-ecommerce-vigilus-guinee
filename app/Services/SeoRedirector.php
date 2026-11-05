@@ -59,10 +59,15 @@ class SeoRedirector
             return true;
         }
 
-        foreach (['/admin', '/commande/', '/panier/', '/suivi-commande', '/categories/'] as $prefix) {
+        foreach (['/admin', '/commande/', '/panier/', '/suivi-commande'] as $prefix) {
             if (str_starts_with($path, $prefix)) {
                 return true;
             }
+        }
+
+        if (str_starts_with($path, '/categories/')) {
+            $slug = mb_substr($path, mb_strlen('/categories/'));
+            return Category::where('slug', $slug)->exists();
         }
 
         // Un SKU actuel ne doit jamais être détourné vers une autre URL.
