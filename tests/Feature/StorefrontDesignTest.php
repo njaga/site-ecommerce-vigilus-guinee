@@ -40,13 +40,13 @@ class StorefrontDesignTest extends TestCase
     public function test_new_header_has_real_brand_asset_reference_and_mobile_navigation(): void
     {
         $this->get(route('home'))->assertOk()
-            ->assertSee('Vigilus — logo du groupe')
+            ->assertSee('Vigilus Groupe SA — logo officiel')
             ->assertSee('class="mobile-menu md:hidden"', false)
             ->assertSee('aria-label="Menu mobile"', false)
             ->assertSee('Rechercher un produit Dahua')
             ->assertSee('Guide vidéosurveillance')
             ->assertSee('La bonne technologie pour')
-            ->assertSee('Aucun paiement en ligne');
+            ->assertSee('Paiement hors du site');
     }
 
     public function test_featured_product_uses_its_real_associated_photo_not_fake_product_data(): void
