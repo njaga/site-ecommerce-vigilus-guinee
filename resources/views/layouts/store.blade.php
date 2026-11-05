@@ -76,7 +76,7 @@
             </nav>
         </div>
         <div class="container-wide md:hidden pb-3">
-            <form action="{{ route('catalog') }}" role="search" method="GET" class="store-search store-search-mobile">
+            <form action="{{ route('catalog') }}" role="search" method="GET" class="store-search store-search-mobile flex">
                 <label class="sr-only" for="mobile-search">Rechercher une référence</label>
                 <x-store-icon name="search" :size="18" class="store-search-icon"/>
                 <input id="mobile-search" name="q" value="{{ request('q') }}" type="search" placeholder="Rechercher un produit Dahua…">

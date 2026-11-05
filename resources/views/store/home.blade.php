@@ -17,11 +17,11 @@
         <div class="home-hero-media">
             @php $heroImage = $featured->first()?->images->first(); @endphp
             @if($heroImage)
-                <img src="{{ asset('storage/'.$heroImage->path) }}"
+                <img class="hero-product-photo" src="{{ asset('storage/'.$heroImage->path) }}"
                      alt="{{ $heroImage->alt ?: 'Référence de sécurité électronique au catalogue' }}"
                      width="840" height="700" fetchpriority="high">
             @else
-                <img src="{{ config('site.hero_illustration_url') }}"
+                <img class="hero-editorial-photo" src="{{ config('site.hero_illustration_url') }}"
                      alt="Illustration du domaine de la vidéosurveillance" width="840" height="700" fetchpriority="high">
             @endif
             <div class="home-hero-media-label">

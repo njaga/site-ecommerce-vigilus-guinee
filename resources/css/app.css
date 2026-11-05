@@ -37,7 +37,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .store-brand { display:inline-flex;align-items:center;gap:12px;flex:none; }
 .store-brand-image { width:126px;height:58px;object-fit:contain; }
 .store-brand-region { font:800 .69rem/1.3 "Plus Jakarta Sans",sans-serif;letter-spacing:.19em;padding-left:12px;border-left:1px solid #d4dde2;white-space:nowrap; }
-.store-search { display:flex;position:relative;align-items:center;flex:1;max-width:600px;min-width:0;height:46px;border:1px solid #ced9df;background:#f8fafb;border-radius:5px; }
+.store-search { position:relative;align-items:center;flex:1;max-width:600px;min-width:0;height:46px;border:1px solid #ced9df;background:#f8fafb;border-radius:5px; }
 .store-search:focus-within { border-color:#1483a4;box-shadow:0 0 0 3px #1483a419; }
 .store-search-icon { color:#657988;flex:none;margin-left:16px; }
 .store-search input { width:100%;height:100%;min-width:0;padding:0 12px;background:transparent;outline:none;font-size:.85rem; }
@@ -87,6 +87,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .home-hero-media { position:relative;min-height:400px;background:#113e56;align-self:stretch;display:flex;align-items:center;justify-content:center;overflow:hidden; }
 .home-hero-media::after { content:"";position:absolute;inset:0;background:linear-gradient(90deg,#123a53b8,transparent 62%),linear-gradient(0deg,#071f3245,transparent 55%);pointer-events:none; }
 .home-hero-media img { display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
+.home-hero-media img.hero-product-photo { object-fit:contain;padding:40px 40px 90px;background:#f6f8f9; }
+.home-hero-media:has(.hero-product-photo)::after { background:linear-gradient(0deg,#12394feb,transparent 45%); }
 .home-hero-media-label { position:absolute;z-index:1;bottom:38px;left:38px;right:38px;color:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:14px; }
 .home-hero-media-label small { font-size:.7rem;letter-spacing:.14em;text-transform:uppercase; }
 .home-hero-media-label strong { font-size:1.1rem;line-height:1.4; }

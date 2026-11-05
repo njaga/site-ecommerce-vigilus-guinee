@@ -7,7 +7,7 @@
         @else
             <div class="h-full grid place-items-center text-xs text-slate-400 text-center p-8">Photographie fabricant à confirmer</div>
         @endif
-        <span class="absolute left-4 top-4 text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white/95 border border-slate-200 px-2.5 py-1.5">Dahua</span>
+        <span class="absolute left-4 top-4 text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white/95 border border-slate-200 px-2.5 py-1.5">{{ $product->brand }}</span>
     </a>
     <div class="p-4 sm:p-5 flex flex-col flex-1">
         <p class="product-card-meta">{{ $product->category?->name ?? 'Sécurité électronique' }} · {{ $product->sku }}</p>
