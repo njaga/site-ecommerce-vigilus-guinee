@@ -13,7 +13,7 @@
         <section><h2 class="text-xl font-extrabold text-ink">Utilisation des données</h2>
             <p class="mt-3">Les informations servent à répondre aux demandes commerciales, vérifier les disponibilités, préparer une proposition, organiser le suivi de la commande et communiquer avec le demandeur. Elles sont accessibles aux membres habilités de l'équipe et peuvent être transmises via la messagerie transactionnelle configurée par l'exploitant.</p></section>
         <section><h2 class="text-xl font-extrabold text-ink">Durée et modalités de conservation</h2>
-            <p class="mt-3">Les durées de conservation, règles d'archivage et d'effacement doivent être précisées par l'exploitant dans la politique définitive avant lancement.</p></section>
+            <p class="mt-3">{{ config('site.privacy_retention_notice') ?: 'Les durées de conservation, règles d’archivage et d’effacement doivent être précisées par l’exploitant dans la politique définitive avant lancement.' }}</p></section>
         <section><h2 class="text-xl font-extrabold text-ink">Contact confidentialité</h2>
             <p class="mt-3">Pour toute question relative à vos informations ou demande les concernant, écrivez à {{ config('site.privacy_contact') ?: (config('site.email') ?: 'l’adresse à renseigner avant publication') }}. Les modalités de traitement de ces demandes doivent être confirmées avant ouverture.</p></section>
         <section><h2 class="text-xl font-extrabold text-ink">Paiement</h2>

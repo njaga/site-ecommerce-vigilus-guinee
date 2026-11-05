@@ -11,9 +11,10 @@
         <section><h2 class="text-xl font-extrabold text-ink">2. Demande de commande</h2>
             <p class="mt-3">La validation d'un panier enregistre une demande. Elle ne déclenche aucun paiement, ne constitue pas une facture et n'engage pas une livraison avant confirmation commerciale.</p></section>
         <section><h2 class="text-xl font-extrabold text-ink">3. Livraison et règlement</h2>
-            <p class="mt-3">Les frais de livraison, la disponibilité, les délais et les modalités de règlement sont communiqués et approuvés séparément avant toute finalisation de commande.</p></section>
+            <p class="mt-3">{{ config('site.delivery_terms') ?: 'Les frais de livraison, la disponibilité, les délais et les modalités de règlement sont communiqués et approuvés séparément avant toute finalisation de commande.' }}</p></section>
         <section><h2 class="text-xl font-extrabold text-ink">4. Garanties, retours et autres conditions</h2>
-            <p class="mt-3">La politique contractuelle de garanties, de réclamation et de retours reste à compléter et à faire valider avant commercialisation.</p></section>
+            <p class="mt-3"><strong class="text-ink">Retours :</strong> {{ config('site.returns_terms') ?: 'Conditions de retour à valider avant commercialisation.' }}
+            <span class="block mt-3"><strong class="text-ink">Garanties :</strong> {{ config('site.warranty_terms') ?: 'Conditions de garantie à valider avant commercialisation.' }}</span></p></section>
         <section><h2 class="text-xl font-extrabold text-ink">5. Contact commercial</h2>
             <p class="mt-3">Pour une question ou une demande de conditions détaillées, contactez {{ config('site.email') ?: 'le contact à renseigner avant publication' }}.</p></section>
     </div>

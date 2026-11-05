@@ -63,11 +63,13 @@ class LaunchPreflight
                 && filled(config('site.legal_registration')),
             'Renseigner raison sociale, adresse légale et immatriculation vérifiées.');
         $push('privacy', 'Politique de confidentialité approuvée',
-            config('site.privacy_approved') === true,
-            'Revue juridique du texte, des durées et des modalités de traitement des données.');
+            config('site.privacy_approved') === true && filled(config('site.privacy_contact'))
+                && filled(config('site.privacy_retention_notice')),
+            'Revue juridique, contact confidentialité et durée de conservation explicitement rédigés.');
         $push('sales', 'Conditions commerciales approuvées',
-            config('site.sales_approved') === true,
-            'Prix, livraison, garanties, retours et validation hors ligne à faire approuver.');
+            config('site.sales_approved') === true && filled(config('site.delivery_terms'))
+                && filled(config('site.returns_terms')) && filled(config('site.warranty_terms')),
+            'Livraison, garanties, retours et validation hors ligne à faire approuver.');
         $push('offline-payments', 'Aucun paiement en ligne',
             config('commerce.online_payments_enabled') === false,
             'Le site doit uniquement enregistrer des demandes puis obtenir une confirmation commerciale.');

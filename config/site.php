@@ -14,4 +14,8 @@ return [
     'privacy_contact' => env('SITE_PRIVACY_EMAIL', ''),
     'privacy_approved' => (bool) env('SITE_PRIVACY_APPROVED', false),
     'sales_approved' => (bool) env('SITE_SALES_APPROVED', false),
+    'privacy_retention_notice' => env('SITE_PRIVACY_RETENTION_NOTICE', ''),
+    'delivery_terms' => env('SITE_DELIVERY_TERMS', ''),
+    'returns_terms' => env('SITE_RETURNS_TERMS', ''),
+    'warranty_terms' => env('SITE_WARRANTY_TERMS', ''),
 ];
