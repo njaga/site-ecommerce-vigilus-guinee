@@ -9,8 +9,7 @@
         </div>
         <div class="grid md:grid-cols-2 gap-4">
             <div class="partner-panel">
-                <img src="https://raw.githubusercontent.com/njaga/site-vigilus-securite/main/public/images/partenaires/dahua.png"
-                     alt="Dahua — logo de marque" class="partner-brand-image" width="170" height="75" loading="lazy">
+                <div class="partner-brand-wordmark" aria-label="Marque Dahua">DAHUA</div>
                 <div><span class="partner-panel-label">Marque du catalogue</span>
                     <h3 class="font-extrabold text-lg mt-2">Dahua</h3>
                     <p class="text-sm text-quiet mt-2 leading-relaxed">Une sélection de références en sécurité électronique à consulter et à demander sur devis.</p>

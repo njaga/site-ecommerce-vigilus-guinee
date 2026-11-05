@@ -51,6 +51,11 @@
                     <div class="mobile-menu-panel">
                         <nav aria-label="Menu mobile">
                             <a href="{{ route('catalog') }}">Tous les produits <x-store-icon name="arrow-right" :size="17"/></a>
+                            @foreach($navCategories->take(4) as $navCategory)
+                                <a href="{{ route('category.show', $navCategory) }}" class="pl-3 text-quiet text-xs">
+                                    {{ $navCategory->name }} <x-store-icon name="arrow-right" :size="14"/>
+                                </a>
+                            @endforeach
                             <a href="{{ route('about') }}">À propos de Vigilus Guinée <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('solution.videosurveillance') }}">Bien choisir sa vidéosurveillance <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('quote.create') }}">Demande de devis <x-store-icon name="arrow-right" :size="17"/></a>
@@ -69,7 +74,22 @@
         <div class="store-nav-row hidden md:block">
             <nav class="container-wide store-nav" aria-label="Navigation principale">
                 <a href="{{ route('home') }}" @class(['is-current' => request()->routeIs('home')])>Accueil</a>
-                <a href="{{ route('catalog') }}" @class(['is-current' => request()->routeIs('catalog', 'category.show', 'product.show')])>Catalogue Dahua</a>
+                <details class="store-nav-catalog">
+                    <summary @class(['is-current' => request()->routeIs('catalog', 'category.show', 'product.show')])>
+                        Catalogue Dahua <x-store-icon name="chevron-down" :size="15"/>
+                    </summary>
+                    <div class="store-mega-menu">
+                        <p class="text-xs tracking-widest uppercase font-extrabold text-quiet">Explorer par famille d’équipements</p>
+                        <div class="grid grid-cols-2 gap-x-6 mt-3">
+                            @foreach($navCategories as $navCategory)
+                                <a href="{{ route('category.show', $navCategory) }}">{{ $navCategory->name }}
+                                    <x-store-icon name="arrow-right" :size="15" class="ml-auto text-rouge"/>
+                                </a>
+                            @endforeach
+                        </div>
+                        <a href="{{ route('catalog') }}" class="font-extrabold text-rouge mt-3">Tout le catalogue <x-store-icon name="arrow-right" :size="16"/></a>
+                    </div>
+                </details>
                 <a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>À propos</a>
                 <a href="{{ route('solution.videosurveillance') }}" @class(['is-current' => request()->routeIs('solution.videosurveillance')])>Guide vidéosurveillance</a>
                 <a href="{{ route('quote.create') }}" @class(['is-current' => request()->routeIs('quote.*')])>Devis professionnels</a>
