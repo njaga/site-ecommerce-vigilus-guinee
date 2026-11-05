@@ -54,7 +54,7 @@ class CartController
             unset($quantities[$data['product_id']]);
         } else {
             $product = Product::published()->find($data['product_id']);
-            if (! $product || $product->price_gnf === null || $product->stock_qty < $data['quantity']) {
+            if (! $product || ! $product->can_order || $product->stock_qty < $data['quantity']) {
                 return back()->withErrors(['cart' => 'Quantité ou disponibilité non valide.']);
             }
             $quantities[$data['product_id']] = $data['quantity'];
