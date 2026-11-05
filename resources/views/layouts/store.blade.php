@@ -19,6 +19,7 @@
     @stack('jsonld')
 </head>
 <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
     <div class="bg-ink text-white text-xs sm:text-sm py-2">
         <div class="container-wide flex items-center justify-between gap-3">
             <span>Équipements de sécurité électronique · Guinée</span>
@@ -26,7 +27,7 @@
         </div>
     </div>
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div class="container-wide flex items-center gap-4 lg:gap-7 py-4">
+        <div class="container-wide flex flex-wrap sm:flex-nowrap items-center gap-3 lg:gap-7 py-4">
             <a href="{{ route('home') }}" class="shrink-0 flex items-center gap-2" aria-label="Vigilus Guinée — Accueil">
                 <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-rouge text-white font-extrabold text-xl">V</span>
                 <span class="font-extrabold tracking-tight text-xl text-ink">VIGILUS<span class="block text-[10px] font-semibold tracking-widest text-quiet">GUINÉE</span></span>
@@ -36,10 +37,10 @@
                 <input id="header-search" name="q" value="{{ request('q') }}" class="field rounded-r-none" placeholder="Caméra, enregistreur, référence Dahua…">
                 <button class="btn-red rounded-l-none" type="submit">Rechercher</button>
             </form>
-            <nav aria-label="Accès rapide" class="ml-auto flex items-center gap-4 text-sm font-semibold">
+            <nav aria-label="Accès rapide" class="w-full sm:w-auto sm:ml-auto flex flex-wrap items-center justify-between sm:justify-end gap-3 lg:gap-4 text-sm font-semibold">
                 <a class="hidden md:inline hover:text-rouge" href="{{ route('catalog') }}">Boutique</a>
                 <a class="hidden lg:inline hover:text-rouge" href="{{ route('solution.videosurveillance') }}">Choisir son équipement</a>
-                <a class="text-rouge hover:underline" href="{{ route('quote.create') }}">Contact commercial</a>
+                <a class="text-rouge hover:underline" href="{{ route('quote.create') }}">Devis</a>
                 <a class="whitespace-nowrap text-ink hover:text-rouge" href="{{ route('cart.index') }}" aria-label="Voir mon panier">Panier ({{ array_sum(session('cart', [])) }})</a>
             </nav>
         </div>
@@ -71,7 +72,13 @@
                 @if(config('site.email')) <a class="block py-1" href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a> @endif
             </div>
         </div>
-        <div class="border-t border-white/10 py-5"><div class="container-wide text-xs text-slate-400">© {{ date('Y') }} Vigilus Guinée. Prix et disponibilité à confirmer selon les produits.</div></div>
+        <div class="border-t border-white/10 py-5"><div class="container-wide text-xs text-slate-400 flex flex-wrap justify-between gap-3">
+            <span>© {{ date('Y') }} Vigilus Guinée. Prix et disponibilité à confirmer selon les produits.</span>
+            <nav class="flex flex-wrap gap-4" aria-label="Informations légales">
+                <a class="hover:text-white" href="{{ route('legal.mentions') }}">Mentions légales</a>
+                <a class="hover:text-white" href="{{ route('legal.privacy') }}">Confidentialité</a>
+                <a class="hover:text-white" href="{{ route('legal.sales') }}">Conditions de vente</a>
+            </nav></div></div>
     </footer>
 </body>
 </html>

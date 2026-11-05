@@ -56,7 +56,7 @@
                 </div>
                 <div class="flex justify-between text-sm text-quiet mt-4"><span>Livraison</span><span>À confirmer</span></div>
                 <div class="border-t border-slate-200 mt-6 pt-5 text-sm text-quiet">
-                    Les frais d'expédition, l'installation éventuelle et le montant final seront confirmés avant paiement.
+                    Les frais d'expédition et le montant final sont confirmés par l'équipe avant tout règlement hors site.
                 </div>
                 @if($lines->every(fn ($line) => $line['valid']))
                     <a href="{{ route('checkout.create') }}" class="btn-red w-full mt-6 text-center">Continuer →</a>

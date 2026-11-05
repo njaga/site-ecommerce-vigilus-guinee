@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CatalogImportController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\LaunchReadinessController;
 use App\Http\Controllers\Admin\SeoRedirectController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -23,6 +24,9 @@ Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('
 Route::permanentRedirect('/installation-videosurveillance-conakry', '/equipements-videosurveillance-conakry');
 Route::view('/equipements-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
 
+Route::view('/mentions-legales', 'store.legal.mentions')->name('legal.mentions');
+Route::view('/politique-de-confidentialite', 'store.legal.privacy')->name('legal.privacy');
+Route::view('/conditions-de-vente', 'store.legal.sales')->name('legal.sales');
 Route::get('/demande-de-devis', [QuoteController::class, 'create'])->name('quote.create');
 Route::post('/demande-de-devis', [QuoteController::class, 'store'])
     ->middleware('throttle:8,1')->name('quote.store');
@@ -48,6 +52,7 @@ Route::post('/deconnexion', [AuthController::class, 'logout'])->middleware('auth
 
 Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/produits')->name('home');
+    Route::get('/recette', LaunchReadinessController::class)->name('launch-readiness');
     Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
     Route::get('/produits/creer', [ProductController::class, 'create'])->name('products.create');
     Route::post('/produits', [ProductController::class, 'store'])->name('products.store');
