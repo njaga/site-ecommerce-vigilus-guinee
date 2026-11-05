@@ -64,6 +64,24 @@ class StorefrontDesignTest extends TestCase
             ->assertSee('Références à découvrir');
     }
 
+    public function test_empty_category_is_not_promoted_in_home_or_catalog_sidebar(): void
+    {
+        $empty = Category::create([
+            'name' => 'Catégorie sans références',
+            'slug' => 'categorie-vide-test',
+            'is_active' => true,
+        ]);
+
+        $this->get(route('home'))->assertOk()
+            ->assertDontSee($empty->name);
+        $this->get(route('catalog'))->assertOk()
+            ->assertDontSee($empty->name);
+
+        $product = $this->product();
+        $this->get(route('home'))->assertOk()
+            ->assertSee($product->category->name);
+    }
+
     public function test_catalog_has_collapsible_filters_and_canonical_noindex_behavior(): void
     {
         $this->get(route('catalog'))->assertOk()

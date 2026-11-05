@@ -12,7 +12,7 @@ class StorefrontController
     public function home(): View
     {
         return view('store.home', [
-            'categories' => Category::where('is_active', true)->orderBy('sort_order')->get(),
+            'categories' => Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->orderBy('sort_order')->get(),
             'featured' => Product::published()->with(['category', 'images'])
                 ->where('is_featured', true)->latest()->limit(8)->get(),
         ]);
@@ -60,7 +60,7 @@ class StorefrontController
 
         return view('store.catalog', [
             'category' => $category,
-            'categories' => Category::where('is_active', true)->orderBy('sort_order')->get(),
+            'categories' => Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->orderBy('sort_order')->get(),
             'products' => $query->paginate(12)->withQueryString(),
             'search' => $search,
         ]);
