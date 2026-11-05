@@ -9,5 +9,5 @@ return [
     ))),
     // Ne jamais activer un ancien domaine ivoirien pour la boutique de Guinée
     // sans une décision explicite et une cartographie inter-pays vérifiée.
-    'default_indexable' => env('SEO_INDEXING_ENABLED', true),
+    'default_indexable' => (bool) env('SEO_INDEXING_ENABLED', false),
 ];

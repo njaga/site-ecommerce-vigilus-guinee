@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
+    @if(config('seo.default_indexable'))
     <meta name="robots" content="@yield('robots', 'index,follow')">
+    @else
+    <meta name="robots" content="noindex,nofollow">
+    @endif
     <title>@yield('title', 'Vigilus Guinée | Caméras, vidéosurveillance et sécurité électronique')</title>
     <meta name="description" content="@yield('meta_description', 'Explorez le catalogue de sécurité électronique Vigilus en Guinée : caméras, enregistreurs, contrôle d’accès, accessoires et devis à Conakry.')">
     <link rel="canonical" href="@yield('canonical', url()->current())">
