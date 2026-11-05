@@ -13,8 +13,8 @@
             'description' => $product->short_description ?: $product->name,
             'url' => route('product.show', $product->slug),
         ];
-        if ($product->images->first()) {
-            $data['image'] = [asset('storage/'.$product->images->first()->path)];
+        if ($product->images->isNotEmpty()) {
+            $data['image'] = $product->images->map(fn ($image) => asset('storage/'.$image->path))->all();
         }
         if ($product->price_gnf !== null) {
             $data['offers'] = [
@@ -29,6 +29,19 @@
         }
     @endphp
     <script type="application/ld+json">@json($data)</script>
+    @php
+        $breadcrumb = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => route('home')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Boutique', 'item' => route('catalog')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('category.show', $product->category)],
+                ['@type' => 'ListItem', 'position' => 4, 'name' => $product->name, 'item' => route('product.show', $product->slug)],
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">@json($breadcrumb)</script>
 @endpush
 @section('content')
 <div class="container-wide pt-9">
@@ -66,7 +79,7 @@
                 @if($product->price_gnf !== null)
                     <div class="text-4xl font-extrabold">{{ number_format($product->price_gnf, 0, ',', ' ') }} <span class="text-lg">GNF</span></div>
                 @else
-                    <div class="text-2xl font-extrabold text-rouge">Prix sur demande</div>
+                    <div class="text-2xl font-extrabold text-rouge">{{ $product->price_on_request ? 'Prix sur devis' : 'Tarif à confirmer' }}</div>
                 @endif
                 <p class="mt-2 text-sm {{ $product->stock_qty > 0 ? 'text-emerald-700' : 'text-quiet' }}">
                     {{ $product->stock_qty > 0 ? 'En stock selon disponibilité confirmée' : 'Disponibilité à confirmer' }}
@@ -87,6 +100,7 @@
                 <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander une installation</a>
             </div>
             <p class="text-sm text-quiet mt-5">Vous êtes installateur ou revendeur ? Précisez les quantités pour recevoir une proposition adaptée.</p>
+            <p class="text-xs text-quiet mt-3">La commande est une demande sans paiement en ligne. Notre équipe confirme les conditions commerciales avant tout règlement hors site.</p>
             @if($product->datasheet_url)
                 <a href="{{ $product->datasheet_url }}" target="_blank" rel="noopener noreferrer" class="mt-5 inline-block text-sm font-bold text-rouge hover:underline">Consulter la fiche technique constructeur ↗</a>
             @endif

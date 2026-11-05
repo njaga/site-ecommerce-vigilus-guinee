@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class CategoryController
@@ -23,6 +22,8 @@ class CategoryController
             'name' => ['required', 'string', 'max:120'],
             'slug' => ['required', 'alpha_dash', 'max:120', 'unique:categories,slug'],
             'description' => ['nullable', 'string', 'max:3000'],
+            'seo_title' => ['nullable', 'string', 'max:75'],
+            'seo_description' => ['nullable', 'string', 'max:170'],
             'sort_order' => ['required', 'integer', 'min:0', 'max:100000'],
             'is_active' => ['required', 'boolean'],
         ]);
@@ -37,13 +38,15 @@ class CategoryController
         $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:3000'],
+            'seo_title' => ['nullable', 'string', 'max:75'],
+            'seo_description' => ['nullable', 'string', 'max:170'],
             'sort_order' => ['required', 'integer', 'min:0', 'max:100000'],
             'is_active' => ['required', 'boolean'],
         ]);
 
-        // Le slug reste stable pour protéger les URLs déjà indexées.
+        // URLs déjà indexées : le slug n'est pas modifié depuis ce formulaire.
         $category->update($data);
 
-        return back()->with('success', 'Catégorie mise à jour.');
+        return back()->with('success', 'Catégorie et métadonnées SEO mises à jour.');
     }
 }

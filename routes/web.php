@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CatalogImportController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -18,6 +19,7 @@ Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
 Route::get('/categories/{category:slug}', [StorefrontController::class, 'catalog'])->name('category.show');
 Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('product.show');
+Route::view('/installation-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
 
 Route::get('/demande-de-devis', [QuoteController::class, 'create'])->name('quote.create');
 Route::post('/demande-de-devis', [QuoteController::class, 'store'])
@@ -50,6 +52,8 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::get('/produits/{product}/modifier', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/produits/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::patch('/produits/{product}/archiver', [ProductController::class, 'archive'])->name('products.archive');
+    Route::patch('/produits/{product}/images/{image}', [ProductImageController::class, 'update'])->name('products.images.update');
+    Route::delete('/produits/{product}/images/{image}', [ProductImageController::class, 'destroy'])->name('products.images.destroy');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');

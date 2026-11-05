@@ -27,9 +27,10 @@ class SiteController
         $urls = [
             [route('home'), now()],
             [route('catalog'), now()],
+            [route('solution.videosurveillance'), now()],
         ];
 
-        foreach (Category::where('is_active', true)->get() as $category) {
+        foreach (Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->get() as $category) {
             $urls[] = [route('category.show', $category), $category->updated_at];
         }
 
