@@ -19,6 +19,7 @@ use App\Http\Controllers\SearchSuggestionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
+Route::view('/a-propos', 'store.about')->name('about');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
 Route::get('/recherche/suggestions', SearchSuggestionController::class)
     ->middleware('throttle:40,1')->name('search.suggestions');

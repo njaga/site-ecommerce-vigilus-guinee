@@ -55,7 +55,7 @@ class SeoRedirector
         if (in_array($path, ['/', '/produits', '/panier', '/commande',
             '/demande-de-devis', '/connexion', '/deconnexion',
             '/sitemap.xml', '/robots.txt', '/up',
-            '/equipements-videosurveillance-conakry'], true)) {
+            '/equipements-videosurveillance-conakry', '/a-propos'], true)) {
             return true;
         }
 
@@ -82,7 +82,7 @@ class SeoRedirector
     public function isAllowedDestinationShape(string $path): bool
     {
         if (in_array($path, ['/', '/produits', '/demande-de-devis',
-            '/equipements-videosurveillance-conakry'], true)) {
+            '/equipements-videosurveillance-conakry', '/a-propos'], true)) {
             return true;
         }
 
@@ -107,7 +107,7 @@ class SeoRedirector
     public function isPublicDestination(string $path): bool
     {
         if (in_array($path, ['/', '/produits', '/demande-de-devis',
-            '/equipements-videosurveillance-conakry'], true)) {
+            '/equipements-videosurveillance-conakry', '/a-propos'], true)) {
             return true;
         }
 

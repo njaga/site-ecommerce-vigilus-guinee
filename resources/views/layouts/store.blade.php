@@ -33,7 +33,7 @@
                      alt="Vigilus Groupe SA — logo officiel" class="store-brand-image">
                 <span class="store-brand-region">GUINÉE <span class="block font-normal tracking-normal normal-case text-xs opacity-65">Équipements</span></span>
             </a>
-            <button type="button" data-open-search class="store-search-launch hidden md:flex" aria-haspopup="dialog"
+            <button type="button" data-open-search data-fallback-url="{{ route('catalog') }}" class="store-search-launch hidden md:flex" aria-haspopup="dialog"
                     aria-label="Rechercher un produit Dahua">
                 <x-store-icon name="search" :size="20" class="text-slate-500"/>
                 <span class="flex-1 text-left">Rechercher un équipement ou une référence Dahua…</span>
@@ -77,7 +77,7 @@
             </nav>
         </div>
         <div class="container-wide md:hidden pb-3">
-            <button type="button" data-open-search class="store-search-launch store-search-launch-mobile w-full" aria-haspopup="dialog">
+            <button type="button" data-open-search data-fallback-url="{{ route('catalog') }}" class="store-search-launch store-search-launch-mobile w-full" aria-haspopup="dialog">
                 <x-store-icon name="search" :size="18"/><span>Rechercher un équipement…</span>
                 <x-store-icon name="arrow-right" :size="16" class="ml-auto"/>
             </button>

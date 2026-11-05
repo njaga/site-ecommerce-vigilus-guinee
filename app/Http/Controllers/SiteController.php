@@ -23,6 +23,7 @@ class SiteController
             'Disallow: /panier',
             'Disallow: /commande',
             'Disallow: /suivi-commande',
+            'Disallow: /recherche/',
             'Disallow: /*?q=',
             'Disallow: /*?tri=',
             'Sitemap: '.route('sitemap'),
@@ -43,6 +44,7 @@ class SiteController
 
         $urls = [
             [route('home'), now()],
+            [route('about'), now()],
             [route('catalog'), now()],
             [route('solution.videosurveillance'), now()],
         ];
