@@ -1,3 +1,5 @@
+import './search-overlay.js';
+
 // Interaction progressive : le contenu et les liens restent accessibles sans JS.
 document.addEventListener('click', (event) => {
     const thumb = event.target.closest('[data-gallery-thumb]');
