@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
+    @if(config('seo.default_indexable'))
     <meta name="robots" content="@yield('robots', 'index,follow')">
+    @else
+    <meta name="robots" content="noindex,nofollow">
+    @endif
     <title>@yield('title', 'Vigilus Guinée | Caméras, vidéosurveillance et sécurité électronique')</title>
-    <meta name="description" content="@yield('meta_description', 'Explorez le catalogue de sécurité électronique Vigilus en Guinée : caméras, enregistreurs, contrôle d’accès, accessoires et installation à Conakry.')">
+    <meta name="description" content="@yield('meta_description', 'Explorez le catalogue de sécurité électronique Vigilus en Guinée : caméras, enregistreurs, contrôle d’accès, accessoires et devis à Conakry.')">
     <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +38,7 @@
             </form>
             <nav aria-label="Accès rapide" class="ml-auto flex items-center gap-4 text-sm font-semibold">
                 <a class="hidden md:inline hover:text-rouge" href="{{ route('catalog') }}">Boutique</a>
-                <a class="hidden lg:inline hover:text-rouge" href="{{ route('solution.videosurveillance') }}">Installation</a>
+                <a class="hidden lg:inline hover:text-rouge" href="{{ route('solution.videosurveillance') }}">Choisir son équipement</a>
                 <a class="text-rouge hover:underline" href="{{ route('quote.create') }}">Contact commercial</a>
                 <a class="whitespace-nowrap text-ink hover:text-rouge" href="{{ route('cart.index') }}" aria-label="Voir mon panier">Panier ({{ array_sum(session('cart', [])) }})</a>
             </nav>
@@ -57,7 +61,7 @@
             <div class="text-sm">
                 <strong class="block mb-3">Explorer</strong>
                 <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('catalog') }}">Tous les produits</a>
-                <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('solution.videosurveillance') }}">Installation de vidéosurveillance</a>
+                <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('solution.videosurveillance') }}">Choisir sa vidéosurveillance</a>
                 <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('quote.create') }}">Devis personnalisé</a>
             </div>
             <div class="text-sm">

@@ -1,6 +1,6 @@
 @extends('layouts.store')
 @section('title', 'Caméras Dahua et sécurité électronique à Conakry | Vigilus Guinée')
-@section('meta_description', 'Découvrez les équipements Dahua proposés par Vigilus Guinée : caméras de surveillance, NVR, contrôle d’accès, alarmes et devis d’installation à Conakry.')
+@section('meta_description', 'Découvrez les équipements Dahua proposés par Vigilus Guinée : caméras de surveillance, NVR, contrôle d’accès, alarmes et demandes de devis à Conakry.')
 @section('content')
 <section class="bg-[#f7f8fa] border-b border-slate-200">
     <div class="container-wide py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
@@ -10,11 +10,11 @@
             <p class="text-quiet text-lg leading-relaxed mt-6 max-w-xl">Caméras, enregistreurs, alarmes et contrôle d’accès. Retrouvez les références de notre catalogue et faites-vous accompagner pour votre projet à Conakry.</p>
             <div class="mt-8 flex flex-wrap gap-3">
                 <a href="{{ route('catalog') }}" class="btn-red">Explorer la boutique <span aria-hidden="true">→</span></a>
-                <a href="{{ route('quote.create') }}" class="btn-light">Demander une installation</a>
+                <a href="{{ route('quote.create') }}" class="btn-light">Demander un devis</a>
             </div>
             <div class="mt-10 flex gap-6 text-sm text-quiet">
                 <div><strong class="block text-ink">Références détaillées</strong>Caractéristiques techniques</div>
-                <div><strong class="block text-ink">Accompagnement</strong>Conseil et projet sur devis</div>
+                <div><strong class="block text-ink">Accompagnement</strong>Choix des références et devis</div>
             </div>
         </div>
         <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-sm">
@@ -69,7 +69,7 @@
     <div class="bg-ink text-white p-9 sm:p-12 rounded-2xl">
         <p class="text-red-300 font-bold text-sm uppercase tracking-widest">Solutions professionnelles</p>
         <h2 class="text-3xl font-extrabold mt-3">Vous équipez un commerce ou plusieurs sites ?</h2>
-        <p class="text-slate-300 mt-4 leading-relaxed">Décrivez vos contraintes de sécurité, vos surfaces et votre budget. Notre équipe étudiera les équipements et prestations adaptés.</p>
+        <p class="text-slate-300 mt-4 leading-relaxed">Décrivez vos contraintes de sécurité, vos surfaces et votre budget. Notre équipe étudiera les références et solutions de fourniture adaptées.</p>
         <a href="{{ route('quote.create') }}" class="inline-block mt-7 font-bold text-white underline underline-offset-4">Demander une étude →</a>
     </div>
     <div class="bg-[#f8e9ec] p-9 sm:p-12 rounded-2xl">

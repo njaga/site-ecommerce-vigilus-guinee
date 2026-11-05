@@ -32,7 +32,7 @@
 @if($category && str_contains(mb_strtolower($category->name), 'caméra'))
     <div class="container-wide mt-6">
         <p class="text-sm text-quiet">Besoin de choisir un modèle ou de faire installer un système ?
-            <a href="{{ route('solution.videosurveillance') }}" class="font-bold text-rouge hover:underline">Découvrir notre accompagnement en vidéosurveillance à Conakry →</a>
+            <a href="{{ route('solution.videosurveillance') }}" class="font-bold text-rouge hover:underline">Choisir votre équipement de vidéosurveillance à Conakry →</a>
         </p>
     </div>
 @endif

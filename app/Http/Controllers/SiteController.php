@@ -10,11 +10,19 @@ class SiteController
 {
     public function robots(): Response
     {
+        if (! config('seo.default_indexable')) {
+            return response("User-agent: *\nDisallow: /\n", 200)
+                ->header('Content-Type', 'text/plain; charset=UTF-8');
+        }
+
         return response(implode("\n", [
             'User-agent: *',
             'Disallow: /admin',
             'Disallow: /connexion',
-            'Disallow: /demande-de-devis',
+            'Disallow: /deconnexion',
+            'Disallow: /panier',
+            'Disallow: /commande',
+            'Disallow: /suivi-commande',
             'Disallow: /*?q=',
             'Disallow: /*?tri=',
             'Sitemap: '.route('sitemap'),
@@ -24,6 +32,15 @@ class SiteController
 
     public function sitemap(): Response
     {
+        if (! config('seo.default_indexable')) {
+            return response(
+                '<?xml version="1.0" encoding="UTF-8"?>'
+                    .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>',
+                200,
+            )->header('Content-Type', 'application/xml; charset=UTF-8')
+             ->header('X-Robots-Tag', 'noindex, nofollow');
+        }
+
         $urls = [
             [route('home'), now()],
             [route('catalog'), now()],
