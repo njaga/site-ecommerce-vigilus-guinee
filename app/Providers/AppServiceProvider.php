@@ -19,9 +19,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-catalog', fn (User $user): bool => (bool) $user->is_admin);
 
         View::composer('layouts.store', function ($view): void {
-            $view->with('navCategories', Category::query()->where('is_active', true)
-                ->whereHas('products', fn ($q) => $q->where('is_active', true))
-                ->orderBy('sort_order')->limit(8)->get());
+            $view->with('navCategories', Category::storefront()->orderBy('sort_order')->limit(8)->get());
         });
     }
 }
