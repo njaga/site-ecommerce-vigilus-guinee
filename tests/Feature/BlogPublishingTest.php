@@ -260,4 +260,56 @@ class BlogPublishingTest extends TestCase
             ->assertSessionHasErrors(['body', 'cover_image']);
         $this->assertDatabaseCount('blog_posts', 0);
     }
+
+    public function test_optional_editorial_seed_is_idempotent_and_all_posts_remain_drafts(): void
+    {
+        $this->seed(\Database\Seeders\EditorialBlogSeeder::class);
+        $this->seed(\Database\Seeders\EditorialBlogSeeder::class);
+
+        $this->assertDatabaseCount('blog_posts', 3);
+        $this->assertSame(3, BlogPost::where('status', 'draft')->count());
+        $this->assertSame(0, BlogPost::published()->count());
+
+        $this->get(route('solution.videosurveillance'))->assertOk()
+            ->assertSee('Le journal arrive bientôt.')
+            ->assertDontSee('Choisir ses caméras de vidéosurveillance à Conakry');
+
+        $this->actingAs($this->editor())
+            ->get(route('admin.blog.index'))->assertOk()
+            ->assertSee('Choisir ses caméras de vidéosurveillance à Conakry');
+    }
+
+    public function test_published_blog_targets_can_be_used_for_reviewed_seo_redirects(): void
+    {
+        $post = BlogPost::create([
+            'title' => 'Article de référence pour les redirections',
+            'slug' => 'article-reference-seo',
+            'category' => 'Conseils',
+            'excerpt' => 'Exemple éditorial de test permettant de vérifier le contrôle des URL publiques.',
+            'body' => str_repeat('Texte de test pour les redirections. ', 10),
+            'cover_path' => 'blog/photo-fictive.jpg',
+            'cover_alt' => 'Image de test',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $redirector = app(\App\Services\SeoRedirector::class);
+        $this->assertTrue($redirector->isPublicDestination('/blog/'.$post->slug));
+        $this->assertTrue($redirector->isProtectedSource('/blog/'.$post->slug));
+        $this->assertTrue($redirector->isAllowedDestinationShape('/blog/'.$post->slug));
+
+        $post->update(['status' => 'draft']);
+        $this->assertFalse($redirector->isPublicDestination('/blog/'.$post->slug));
+    }
+
+    public function test_admin_editor_has_simple_formatting_tools_and_stable_preview(): void
+    {
+        $this->actingAs($this->editor());
+        $this->get(route('admin.blog.create'))->assertOk()
+            ->assertSee('data-blog-tool="heading"', false)
+            ->assertSee('data-blog-tool="bold"', false)
+            ->assertSee('data-blog-tool="link"', false)
+            ->assertSee('Journal', false);
+    }
+
 }
