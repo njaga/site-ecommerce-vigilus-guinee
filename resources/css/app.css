@@ -432,3 +432,94 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     .store-brand-region { font-size:.63rem; }
     .client-wordmark img { max-width:115px;height:50px; }
 }
+
+
+/* Journal éditorial — photographie, typographie et rythme, sans cartes superflues. */
+.journal-page { padding-top:48px; padding-bottom:24px; }
+.journal-section-label { display:flex; align-items:center; gap:25px; font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800; }
+.journal-section-label > span:last-child { height:1px;flex:1;background:#d9dee2; }
+.journal-heading { display:flex;justify-content:space-between;align-items:end;gap:30px;margin:22px 0 36px; }
+.journal-heading h1 { font:800 clamp(3.6rem,6vw,6rem)/1.05 "Plus Jakarta Sans",sans-serif;letter-spacing:-.08em; }
+.journal-heading h1 span { color:#b82940; }
+.journal-heading p { max-width:290px;font-size:.85rem;line-height:1.6;color:#667782;margin-bottom:9px; }
+.journal-feature-grid { display:grid;grid-template-columns:minmax(0,2.06fr) repeat(2,minmax(0,1fr));gap:23px;align-items:start; }
+.journal-card { min-width:0;display:flex;flex-direction:column; }
+.journal-card-date { display:flex;flex-direction:column;align-items:flex-start;line-height:1;min-height:77px; }
+.journal-card-date span { font-size:.7rem;font-weight:800;letter-spacing:.08em; }
+.journal-card-date strong { display:block;margin-top:7px;font:400 2.55rem/.95 Georgia,serif;letter-spacing:-.05em; }
+.journal-card-image { display:block;width:100%;aspect-ratio:1.24;overflow:hidden;background:#f0f2f3; }
+.journal-card-image img { display:block;width:100%;height:100%;object-fit:cover;transition:transform .32s ease; }
+.journal-card-image:hover img { transform:scale(1.028); }
+.journal-card-image-empty { height:100%;display:grid;place-items:center;font-size:.85rem;font-weight:800;color:#8b9da8; }
+.journal-card-category { margin-top:19px;font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#a52c42; }
+.journal-card-title { margin-top:7px;font:800 clamp(.94rem,1.28vw,1.11rem)/1.4 "Plus Jakarta Sans",sans-serif;letter-spacing:-.035em; }
+.journal-card-title a:hover { color:#b82940; }
+.journal-card-excerpt { margin-top:10px;color:#445663;font-size:.85rem;line-height:1.72;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden; }
+.journal-card-read { display:inline-flex;gap:7px;align-items:center;margin-top:14px;font-size:.78rem;font-weight:800;color:#b12b42; }
+.journal-card-read span { font-size:1rem;transition:transform .2s ease; }
+.journal-card-read:hover span { transform:translate(2px,-2px); }
+.journal-card-featured .journal-card-title { font-size:clamp(1.04rem,1.6vw,1.28rem); }
+.journal-card-featured .journal-card-excerpt { max-width:92%;-webkit-line-clamp:3; }
+.journal-more-header { margin-top:66px;display:flex;align-items:center;gap:22px; }
+.journal-more-header h2 { font:800 clamp(1.5rem,2.4vw,2rem)/1.25 "Plus Jakarta Sans",sans-serif; }
+.journal-more-header > span { height:1px;background:#dce2e5;flex:1; }
+.journal-more-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:30px; }
+.journal-pagination { margin-top:35px; }
+.journal-empty { border-top:1px solid #e0e6e8;padding:65px 0 85px;max-width:620px; }
+.journal-empty h2 { font-size:1.8rem;font-weight:800; }
+.journal-empty p { margin-top:14px;color:#60717c;line-height:1.65; }
+.journal-empty-link { display:inline-flex;gap:12px;margin-top:23px;font-weight:800;color:#b3263e; }
+
+/* Article : narrow readable column, calm section rhythm and high-contrast type. */
+.journal-article { padding:34px 0 40px; }
+.journal-breadcrumb { display:flex;flex-wrap:wrap;gap:11px;align-items:center;font-size:.73rem;color:#697c86; }
+.journal-breadcrumb a:hover { color:#b1263d; }
+.journal-article-heading { max-width:910px;margin:66px auto 42px; }
+.journal-article-category { font-size:.72rem;font-weight:800;color:#b1263d;text-transform:uppercase;letter-spacing:.16em; }
+.journal-article-heading h1 { margin-top:20px;font:800 clamp(2.4rem,5vw,4.75rem)/1.13 "Plus Jakarta Sans",sans-serif;letter-spacing:-.065em; }
+.journal-article-lead { max-width:850px;margin-top:24px;color:#516571;font-size:clamp(1.06rem,2vw,1.35rem);line-height:1.6; }
+.journal-article-meta { margin-top:26px;display:flex;gap:13px;align-items:center;color:#778791;font-size:.8rem; }
+.journal-article-cover { max-width:1100px;margin:0 auto; }
+.journal-article-cover img { width:100%;max-height:625px;object-fit:cover;display:block; }
+.journal-article-body { max-width:790px;margin:58px auto 0;color:#263744;font:400 1.045rem/1.95 "DM Sans",sans-serif;overflow-wrap:anywhere; }
+.journal-article-body h2 { font-size:clamp(1.55rem,2.4vw,2rem);font-weight:800;letter-spacing:-.045em;line-height:1.35;margin:2.3em 0 .75em; }
+.journal-article-body h3 { font-size:1.3rem;font-weight:800;line-height:1.4;margin:1.8em 0 .7em; }
+.journal-article-body p { margin:0 0 1.45em; }
+.journal-article-body ul,.journal-article-body ol { margin:1.1em 0 1.75em;padding-left:1.7em; }
+.journal-article-body ul { list-style:disc; }
+.journal-article-body ol { list-style:decimal; }
+.journal-article-body li { padding-left:.35em;margin-bottom:.5em; }
+.journal-article-body blockquote { border-left:3px solid #bc2741;padding:12px 22px;margin:1.8em 0;background:#f7f9fa;color:#506571; }
+.journal-article-body a { color:#ab273f;text-decoration:underline;text-underline-offset:3px; }
+.journal-article-body img { max-width:100%;height:auto; }
+.journal-article-body hr { border:0;border-top:1px solid #dce4e7;margin:2.2em 0; }
+.journal-article-body code { background:#f1f4f5;font-size:.85em;padding:2px 5px; }
+.journal-article-body pre { background:#132f42;color:#fff;padding:20px;overflow:auto;margin:22px 0; }
+.journal-article-end { max-width:790px;margin:55px auto 0;border-top:1px solid #dde5e9;padding-top:25px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-weight:800;font-size:.84rem; }
+.journal-article-end a:hover { color:#b1263d; }
+.journal-related { padding-top:30px;padding-bottom:50px; }
+.blog-editor { min-height:420px;line-height:1.8;font-size:.94rem;resize:vertical; }
+@media(max-width:1023px) {
+    .journal-feature-grid { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px; }
+    .journal-card-featured { grid-row:span 2; }
+    .journal-card-featured .journal-card-image { aspect-ratio:.92; }
+    .journal-more-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:640px) {
+    .journal-page { padding-top:35px; }
+    .journal-heading { display:block;margin-bottom:32px; }
+    .journal-heading h1 { font-size:clamp(3.35rem,12vw,4.3rem); }
+    .journal-heading p { margin-top:12px;max-width:320px; }
+    .journal-feature-grid,.journal-more-grid { grid-template-columns:1fr;gap:35px; }
+    .journal-card-featured { grid-row:auto; }
+    .journal-card-featured .journal-card-image { aspect-ratio:1.22; }
+    .journal-card-date { min-height:61px; }
+    .journal-card-date strong { font-size:2.05rem; }
+    .journal-card-excerpt { -webkit-line-clamp:3; }
+    .journal-more-header { margin-top:45px; }
+    .journal-article { padding-top:24px; }
+    .journal-article-heading { margin:42px auto 31px; }
+    .journal-article-body { margin-top:35px;font-size:1rem;line-height:1.82; }
+    .journal-article-cover { margin:0 -12px; }
+    .journal-article-heading h1 { font-size:clamp(2.2rem,9vw,3.5rem); }
+}
