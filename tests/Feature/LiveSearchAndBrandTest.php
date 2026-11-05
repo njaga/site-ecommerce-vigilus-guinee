@@ -151,7 +151,7 @@ class LiveSearchAndBrandTest extends TestCase
         $this->get(route('home'))->assertOk()
             ->assertSee('category-image-card-img', false)
             ->assertSee('Illustration : Caméras de surveillance')
-            ->assertSee('www.groupevigilus.com/media/realisations/covers/Videosurveillance.jpg');
+            ->assertSee('www.groupevigilus.com/media/services/videosurveillance.jpg');
     }
 
     public function test_contextual_images_for_equipment_families_are_distinct(): void
