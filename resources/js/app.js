@@ -1,3 +1,4 @@
+import './blog-editor.js';
 import './search-overlay.js';
 
 // Interaction progressive : le contenu et les liens restent accessibles sans JS.

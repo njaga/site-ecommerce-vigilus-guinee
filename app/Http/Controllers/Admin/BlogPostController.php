@@ -39,7 +39,7 @@ class BlogPostController
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validatedData($request);
-        $slug = Str::slug($data['title']);
+        $slug = trim(mb_substr(Str::slug($data['title']), 0, 180), '-');
 
         if ($slug === '' || BlogPost::where('slug', $slug)->exists()) {
             throw ValidationException::withMessages([

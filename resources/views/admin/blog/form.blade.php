@@ -37,9 +37,16 @@
             </div>
             <div>
                 <label for="blog-body" class="input-label">Article *</label>
+                <div class="blog-editor-toolbar" role="toolbar" aria-label="Mise en forme de l'article">
+                    <button type="button" data-blog-tool="heading">Titre</button>
+                    <button type="button" data-blog-tool="bold"><strong>Gras</strong></button>
+                    <button type="button" data-blog-tool="list">Liste</button>
+                    <button type="button" data-blog-tool="link">Lien</button>
+                    <button type="button" data-blog-tool="quote">Citation</button>
+                </div>
                 <textarea id="blog-body" name="body" class="field blog-editor" required minlength="180" rows="20"
                     placeholder="Rédigez votre article…">{{ old('body', $post->body) }}</textarea>
-                <p class="text-xs text-quiet mt-2">Mise en forme : <code>## Sous-titre</code> · <code>**gras**</code> · <code>- liste</code> · <code>[lien](https://...)</code>.</p>
+                <p class="text-xs text-quiet mt-2">Sélectionnez du texte puis utilisez la barre d’outils pour le mettre en forme.</p>
             </div>
         </div>
         <div class="bg-white border border-slate-200 p-6 sm:p-8 space-y-5">

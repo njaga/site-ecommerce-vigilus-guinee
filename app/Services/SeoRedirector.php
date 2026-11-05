@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\SeoRedirect;
 use Illuminate\Http\RedirectResponse;
@@ -65,6 +66,10 @@ class SeoRedirector
             }
         }
 
+        if (str_starts_with($path, '/blog/')) {
+            return BlogPost::where('slug', mb_substr($path, 6))->exists();
+        }
+
         if (str_starts_with($path, '/categories/')) {
             $slug = mb_substr($path, mb_strlen('/categories/'));
             return Category::where('slug', $slug)->exists();
@@ -86,7 +91,7 @@ class SeoRedirector
             return true;
         }
 
-        return preg_match('#^/(produits|categories)/[a-zA-Z0-9_-]+$#D', $path) === 1;
+        return preg_match('#^/(produits|categories|blog)/[a-zA-Z0-9_-]+$#D', $path) === 1;
     }
 
     public function readiness(SeoRedirect $redirect): string
@@ -109,6 +114,10 @@ class SeoRedirector
         if (in_array($path, ['/', '/produits', '/demande-de-devis',
             '/equipements-videosurveillance-conakry', '/a-propos'], true)) {
             return true;
+        }
+
+        if (preg_match('#^/blog/([a-zA-Z0-9_-]+)$#D', $path, $matches)) {
+            return BlogPost::published()->where('slug', $matches[1])->exists();
         }
 
         if (preg_match('#^/categories/([a-zA-Z0-9_-]+)$#D', $path, $matches)) {
