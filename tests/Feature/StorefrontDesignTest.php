@@ -44,9 +44,9 @@ class StorefrontDesignTest extends TestCase
             ->assertSee('class="mobile-menu md:hidden"', false)
             ->assertSee('aria-label="Menu mobile"', false)
             ->assertSee('Rechercher un produit Dahua')
-            ->assertSee('Guide vidéosurveillance')
+            ->assertSee('Journal &amp; conseils', false)
             ->assertSee('La bonne technologie pour')
-            ->assertSee('Paiement hors du site');
+            ->assertSee('Équipements de sécurité électronique · Conakry');
     }
 
     public function test_featured_product_uses_its_real_associated_photo_not_fake_product_data(): void

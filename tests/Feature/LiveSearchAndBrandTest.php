@@ -174,8 +174,8 @@ class LiveSearchAndBrandTest extends TestCase
     {
         $this->get(route('about'))->assertOk()
             ->assertSee('Pourquoi nous choisir')
-            ->assertSee('Nos clients, à l’échelle du Groupe.')
-            ->assertSee('ne constituent pas une liste de clients de la boutique en Guinée')
+            ->assertSee('Ils font confiance au Groupe.')
+            ->assertSee('Des organisations accompagnées par le Groupe Vigilus')
             ->assertSee('Nos partenaires et notre écosystème')
             ->assertSee('Marque du catalogue')
             ->assertSee('Vigilus Groupe SA')

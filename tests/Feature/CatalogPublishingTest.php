@@ -188,7 +188,7 @@ class CatalogPublishingTest extends TestCase
             ->assertOk()->assertDontSee('/categories/'.$category->slug);
 
         $this->get(route('solution.videosurveillance'))
-            ->assertOk()->assertSee('Équipements de vidéosurveillance à Conakry');
+            ->assertOk()->assertSee('Actualités');
     }
 
     public function test_image_management_cannot_modify_other_product_images(): void
