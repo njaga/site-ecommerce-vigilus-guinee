@@ -16,7 +16,7 @@
         if ($product->images->isNotEmpty()) {
             $data['image'] = $product->images->map(fn ($image) => asset('storage/'.$image->path))->all();
         }
-        if ($product->price_gnf !== null) {
+        if ($product->price_gnf !== null && ! $product->price_on_request) {
             $data['offers'] = [
                 '@type' => 'Offer',
                 'url' => route('product.show', $product->slug),
@@ -44,92 +44,131 @@
     <script type="application/ld+json">@json($breadcrumb)</script>
 @endpush
 @section('content')
-<div class="container-wide pt-9">
-    <nav class="text-xs text-quiet mb-8" aria-label="Fil d'Ariane">
-        <a href="{{ route('home') }}" class="hover:text-rouge">Accueil</a> /
-        <a href="{{ route('catalog') }}" class="hover:text-rouge">Boutique</a> /
-        <a href="{{ route('category.show', $product->category) }}" class="hover:text-rouge">{{ $product->category->name }}</a> /
-        <span>{{ $product->sku }}</span>
+<div class="container-wide pt-7 lg:pt-10">
+    <nav class="flex flex-wrap items-center gap-2 text-xs text-quiet mb-9" aria-label="Fil d'Ariane">
+        <a class="hover:text-rouge" href="{{ route('home') }}">Accueil</a><x-store-icon name="chevron-right" :size="13"/>
+        <a class="hover:text-rouge" href="{{ route('catalog') }}">Catalogue</a><x-store-icon name="chevron-right" :size="13"/>
+        <a class="hover:text-rouge" href="{{ route('category.show', $product->category) }}">{{ $product->category->name }}</a>
+        <x-store-icon name="chevron-right" :size="13"/><span class="font-semibold text-ink">{{ $product->sku }}</span>
     </nav>
-    <div class="grid lg:grid-cols-[minmax(0,1.06fr)_minmax(0,.94fr)] gap-10 xl:gap-16">
-        <div>
-            <div class="aspect-square bg-cloud border border-slate-200 rounded-2xl overflow-hidden">
-                @if($product->images->first())
-                    <img class="product-photo" src="{{ asset('storage/'.$product->images->first()->path) }}" alt="{{ $product->images->first()->alt ?: $product->name }}" width="760" height="760">
+    <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,.92fr)] gap-8 lg:gap-12 xl:gap-20 items-start">
+        <section data-product-gallery aria-label="Photographies du produit">
+            @php $mainImage = $product->images->first(); @endphp
+            <div class="gallery-main">
+                @if($mainImage)
+                    <a id="gallery-large-link" href="{{ asset('storage/'.$mainImage->path) }}" target="_blank" rel="noopener noreferrer"
+                       class="block w-full h-full" aria-label="Ouvrir cette photographie en grand">
+                        <img id="gallery-main-image" src="{{ asset('storage/'.$mainImage->path) }}"
+                             alt="{{ $mainImage->alt ?: $product->name }}" width="780" height="740">
+                    </a>
                 @else
-                    <div class="h-full grid place-items-center text-quiet text-sm text-center px-10">Photo officielle à renseigner</div>
+                    <div class="h-full grid place-items-center text-center p-10">
+                        <x-store-icon name="package" :size="48" class="mx-auto text-slate-300"/>
+                        <p class="text-sm text-quiet mt-5">Photo officielle en préparation.</p>
+                    </div>
                 @endif
             </div>
             @if($product->images->count() > 1)
-                <div class="grid grid-cols-5 gap-3 mt-3">
-                    @foreach($product->images->slice(1, 5) as $photo)
-                        <a href="{{ asset('storage/'.$photo->path) }}" target="_blank" rel="noopener" class="aspect-square bg-cloud rounded-lg border border-slate-200 overflow-hidden">
-                            <img src="{{ asset('storage/'.$photo->path) }}" alt="{{ $photo->alt ?: $product->name }}" class="product-photo" loading="lazy">
-                        </a>
+                <div class="grid grid-cols-5 sm:grid-cols-6 gap-2.5 mt-3" role="group" aria-label="Choisir une photographie">
+                    @foreach($product->images->take(6) as $photo)
+                        <button type="button" class="gallery-thumbnail"
+                                data-gallery-thumb
+                                data-gallery-src="{{ asset('storage/'.$photo->path) }}"
+                                data-gallery-alt="{{ $photo->alt ?: $product->name }}"
+                                aria-pressed="{{ $loop->first ? 'true' : 'false' }}"
+                                aria-label="Afficher la photographie {{ $loop->iteration }} sur {{ min(6, $product->images->count()) }}">
+                            <img src="{{ asset('storage/'.$photo->path) }}"
+                                 alt="" width="120" height="120" loading="{{ $loop->first ? 'eager' : 'lazy' }}">
+                        </button>
                     @endforeach
                 </div>
+                <p class="sr-only" id="gallery-status" aria-live="polite">Photographie 1 affichée</p>
             @endif
-        </div>
-        <div>
-            <p class="kicker">{{ $product->brand }} · {{ $product->category->name }}</p>
-            <h1 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">{{ $product->name }}</h1>
-            <p class="mt-3 text-sm font-medium text-quiet">Référence constructeur : <span class="font-bold text-ink">{{ $product->sku }}</span></p>
-            <p class="text-quiet text-base leading-relaxed mt-6">{{ $product->short_description }}</p>
-            <div class="mt-8 border-y border-slate-200 py-7">
-                @if($product->price_gnf !== null)
-                    <div class="text-4xl font-extrabold">{{ number_format($product->price_gnf, 0, ',', ' ') }} <span class="text-lg">GNF</span></div>
+            <p class="text-xs text-quiet mt-4">Photographies du produit publiées après validation des droits et des références fabricant.</p>
+        </section>
+        <div class="lg:sticky lg:top-6">
+            <p class="section-eyebrow">{{ $product->brand }} / {{ $product->category->name }}</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight mt-5">{{ $product->name }}</h1>
+            <p class="text-sm text-quiet mt-3">Référence fabricant : <strong class="text-ink tracking-wide">{{ $product->sku }}</strong></p>
+            <p class="text-base text-quiet leading-relaxed mt-6">{{ $product->short_description }}</p>
+            <div class="product-purchase mt-8">
+                <p class="text-xs text-quiet uppercase tracking-widest font-extrabold mb-3">Conditions commerciales</p>
+                @if($product->price_gnf !== null && ! $product->price_on_request)
+                    <p class="product-purchase-price">{{ number_format($product->price_gnf, 0, ',', ' ') }} <span class="text-base font-bold">GNF</span></p>
                 @else
-                    <div class="text-2xl font-extrabold text-rouge">{{ $product->price_on_request ? 'Prix sur devis' : 'Tarif à confirmer' }}</div>
+                    <p class="product-purchase-price text-rouge">Prix sur devis</p>
                 @endif
-                <p class="mt-2 text-sm {{ $product->stock_qty > 0 ? 'text-emerald-700' : 'text-quiet' }}">
-                    {{ $product->stock_qty > 0 ? 'En stock selon disponibilité confirmée' : 'Disponibilité à confirmer' }}
+                <p class="product-card-availability mt-4 {{ $product->can_order ? 'is-available' : '' }}">
+                    {{ $product->can_order ? 'Référence commandable sous réserve de confirmation' : 'Disponibilité à confirmer avec l’équipe' }}
                 </p>
-                <p class="text-xs text-quiet mt-1">Une offre commerciale sera confirmée avant toute transaction.</p>
-            </div>
-            @if($errors->has('cart'))<div role="alert" class="mt-5 p-3 bg-red-50 text-red-900 rounded-lg">{{ $errors->first('cart') }}</div>@endif
-            <div class="mt-7 flex flex-wrap gap-3">
+                <p class="text-xs text-quiet leading-relaxed mt-3">Le stock, les frais de livraison et le montant final sont confirmés par l’équipe commerciale avant tout règlement.</p>
+                @if($errors->has('cart'))<div class="bg-red-50 text-red-900 text-sm p-3 mt-5" role="alert">{{ $errors->first('cart') }}</div>@endif
                 @if($product->can_order)
-                    <form method="POST" action="{{ route('cart.add') }}" class="inline-flex">
+                    <form action="{{ route('cart.add') }}" method="POST" class="mt-7">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        <button class="btn-red" type="submit">Ajouter au panier</button>
+                        <label for="product-quantity" class="input-label">Quantité souhaitée</label>
+                        <div class="flex flex-wrap gap-3 items-stretch">
+                            <input id="product-quantity" name="quantity" type="number" min="1"
+                                   max="{{ min(100, $product->stock_qty) }}" value="1" required inputmode="numeric"
+                                   class="field w-24 text-center font-bold">
+                            <button class="btn-red flex-1" type="submit"><x-store-icon name="cart" :size="19"/> Ajouter au panier</button>
+                        </div>
                     </form>
                 @endif
-                <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander un devis</a>
-                <a href="{{ route('solution.videosurveillance') }}" class="btn-light">Bien choisir son équipement</a>
+                <a class="{{ $product->can_order ? 'btn-light' : 'btn-red' }} w-full mt-3"
+                   href="{{ route('quote.create', ['produit' => $product->id]) }}">
+                    Demander un devis <x-store-icon name="arrow-right" :size="18"/>
+                </a>
+                <p class="mt-4 text-xs text-quiet text-center">Aucun paiement en ligne n’est demandé.</p>
             </div>
-            <p class="text-sm text-quiet mt-5">Vous êtes installateur ou revendeur ? Précisez les quantités pour recevoir une proposition adaptée.</p>
-            <p class="text-xs text-quiet mt-3">La commande est une demande sans paiement en ligne. Notre équipe confirme les conditions commerciales avant tout règlement hors site.</p>
             @if($product->datasheet_url)
-                <a href="{{ $product->datasheet_url }}" target="_blank" rel="noopener noreferrer" class="mt-5 inline-block text-sm font-bold text-rouge hover:underline">Consulter la fiche technique constructeur ↗</a>
+                <a href="{{ $product->datasheet_url }}" target="_blank" rel="noopener noreferrer"
+                   class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-rouge hover:underline">
+                    <x-store-icon name="file" :size="19"/> Consulter la fiche technique fabricant <x-store-icon name="arrow-right" :size="15"/>
+                </a>
             @endif
         </div>
     </div>
-    <div class="grid lg:grid-cols-2 gap-10 mt-16">
-        <section><h2 class="text-2xl font-extrabold mb-5">Description</h2>
-            <div class="prose-vigilus">{{ $product->description ?: 'La description détaillée de cet équipement sera prochainement disponible.' }}</div>
-        </section>
-        <section><h2 class="text-2xl font-extrabold mb-5">Caractéristiques techniques</h2>
+    <section class="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 mt-16 pt-12 border-t border-slate-200">
+        <div>
+            <p class="section-eyebrow">Présentation</p>
+            <h2 class="text-2xl font-extrabold mt-4 mb-5">Description du produit</h2>
+            <div class="prose-vigilus">{{ $product->description ?: 'La fiche descriptive complète de cette référence sera disponible après vérification.' }}</div>
+        </div>
+        <div>
+            <p class="section-eyebrow">Données techniques</p>
+            <h2 class="text-2xl font-extrabold mt-4 mb-5">Caractéristiques</h2>
             @if($product->specifications)
-                <dl class="divide-y divide-slate-200 border-y border-slate-200">
+                <dl class="product-specs border-t border-slate-200">
                     @foreach($product->specifications as $label => $value)
-                        <div class="grid grid-cols-2 gap-3 py-3 text-sm"><dt class="font-semibold text-quiet">{{ $label }}</dt><dd class="text-ink">{{ $value }}</dd></div>
+                        <div class="grid grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] gap-5 border-b border-slate-200 py-4 text-sm">
+                            <dt>{{ $label }}</dt><dd class="font-semibold">{{ $value }}</dd>
+                        </div>
                     @endforeach
                 </dl>
             @else
-                <p class="text-quiet text-sm">Les caractéristiques seront publiées après vérification des fiches constructeur.</p>
+                <p class="text-sm text-quiet">Les spécifications techniques seront publiées après vérification constructeur.</p>
             @endif
-        </section>
-    </div>
-    @if($related->isNotEmpty())
-        <section class="mt-20"><div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-extrabold">Dans la même catégorie</h2>
-            <a class="text-sm text-rouge font-bold" href="{{ route('category.show', $product->category) }}">Tout voir →</a>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            @foreach($related as $product) @include('store.partials.product-card', ['product' => $product]) @endforeach
-        </div></section>
+    </section>
+    <section class="mt-16 bg-cloud border border-slate-200 p-7 sm:p-10 flex flex-wrap items-center gap-5 justify-between">
+        <div><h2 class="font-extrabold text-xl">Besoin de plusieurs références ou de grandes quantités ?</h2>
+            <p class="text-sm text-quiet mt-2">Précisez vos besoins pour obtenir une proposition commerciale adaptée.</p></div>
+        <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-red">Préparer un devis <x-store-icon name="arrow-right" :size="17"/></a>
+    </section>
+    @if($related->isNotEmpty())
+        <section class="mt-20">
+            <div class="flex flex-wrap items-end justify-between gap-5 mb-7">
+                <div><p class="section-eyebrow">À découvrir aussi</p><h2 class="section-heading mt-4">Dans la même catégorie</h2></div>
+                <a class="section-link" href="{{ route('category.show', $product->category) }}">Toutes les références <x-store-icon name="arrow-right" :size="17"/></a>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+                @foreach($related as $suggestion)
+                    @include('store.partials.product-card', ['product' => $suggestion])
+                @endforeach
+            </div>
+        </section>
     @endif
 </div>
 @endsection

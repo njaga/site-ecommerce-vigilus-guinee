@@ -72,7 +72,7 @@ class StorefrontController
 
         return view('store.product', [
             'product' => $product,
-            'related' => Product::published()->with('images')
+            'related' => Product::published()->with(['category', 'images'])
                 ->where('category_id', $product->category_id)->whereKeyNot($product->id)
                 ->limit(4)->get(),
         ]);
