@@ -72,6 +72,7 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::patch('/redirections-seo/{seoRedirect}/desactiver', [SeoRedirectController::class, 'deactivate'])->name('seo-redirects.deactivate');
     Route::delete('/redirections-seo/{seoRedirect}', [SeoRedirectController::class, 'destroy'])->name('seo-redirects.destroy');
     Route::get('/devis', [AdminQuoteController::class, 'index'])->name('quotes.index');
+    Route::patch('/devis/{quote}', [AdminQuoteController::class, 'update'])->name('quotes.update');
     Route::get('/commandes', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('/commandes/{order}/reserver', [OrderController::class, 'reserve'])->name('orders.reserve');
