@@ -10,8 +10,8 @@ return [
         [
             'matches' => ['camera', 'cctv', 'surveillance', 'bullet', 'dome', 'ptz'],
             'visual' => [
-                'url' => 'https://www.groupevigilus.com/media/realisations/covers/Videosurveillance.jpg',
-                'source' => 'Vigilus Groupe SA — site institutionnel /media/realisations/covers/Videosurveillance.jpg',
+                'url' => 'https://www.groupevigilus.com/media/services/videosurveillance.jpg',
+                'source' => 'Vigilus Groupe SA — site institutionnel /media/services/videosurveillance.jpg',
                 'label' => 'Caméras de surveillance',
             ],
         ],
@@ -26,8 +26,8 @@ return [
         [
             'matches' => ['acces', 'badge', 'biometr', 'interph', 'porte', 'portier'],
             'visual' => [
-                'url' => 'https://www.groupevigilus.com/media/realisations/covers/ticket-barriers-subway-entrance-768x513.jpg',
-                'source' => 'Vigilus Groupe SA — site institutionnel /media/realisations/covers/ticket-barriers-subway-entrance-768x513.jpg',
+                'url' => 'https://images.unsplash.com/photo-1754494977436-a5c202306fe4?w=900&q=82&fit=crop',
+                'source' => 'Unsplash — Jakub Żerdzicki, photo-1754494977436-a5c202306fe4, lecteur de badge',
                 'label' => 'Contrôle d’accès professionnel',
             ],
         ],
@@ -58,8 +58,8 @@ return [
         [
             'matches' => ['barriere', 'vehicule', 'parking'],
             'visual' => [
-                'url' => 'https://www.groupevigilus.com/media/realisations/covers/ticket-barriers-subway-entrance-768x513.jpg',
-                'source' => 'Vigilus Groupe SA — site institutionnel /media/realisations/covers/ticket-barriers-subway-entrance-768x513.jpg',
+                'url' => 'https://images.unsplash.com/photo-1754494977436-a5c202306fe4?w=900&q=82&fit=crop',
+                'source' => 'Unsplash — Jakub Żerdzicki, photo-1754494977436-a5c202306fe4, lecteur de badge',
                 'label' => 'Système de barrière et gestion des accès',
             ],
         ],

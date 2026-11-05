@@ -23,6 +23,6 @@ return [
     'brand_logo_url' => env('SITE_BRAND_LOGO_URL')
         ?: 'https://www.groupevigilus.com/media/site/logo.png',
     'hero_illustration_url' => env('SITE_HERO_ILLUSTRATION_URL')
-        ?: 'https://www.groupevigilus.com/media/realisations/covers/Videosurveillance.jpg',
+        ?: 'https://www.groupevigilus.com/media/services/videosurveillance.jpg',
 
 ];

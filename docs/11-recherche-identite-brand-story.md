@@ -24,8 +24,8 @@
 | Sujet | Source retenue | Conditions de publication |
 |---|---|---|
 | Logo Groupe SA | `https://www.groupevigilus.com/media/site/logo.png` | Identité officielle du site institutionnel, conserver les proportions ; stocker localement la version validée |
-| Hero et caméras | `https://www.groupevigilus.com/media/realisations/covers/Videosurveillance.jpg` | Image éditoriale du Groupe, ne pas faire passer pour une référence Dahua spécifique |
-| Contrôle d’accès et barrières | `https://www.groupevigilus.com/media/realisations/covers/ticket-barriers-subway-entrance-768x513.jpg` | Image métier, légende contextuelle |
+| Hero et caméras | `https://www.groupevigilus.com/media/services/videosurveillance.jpg` | Image éditoriale du Groupe, ne pas faire passer pour une référence Dahua spécifique |
+| Contrôle d’accès et barrières | `https://images.unsplash.com/photo-1754494977436-a5c202306fe4?w=900&q=82&fit=crop` | Photographie de lecteur de badge Unsplash (Jakub Żerdzicki) — licence commerciale, légende contextuelle |
 | Alarmes / électronique | `https://www.groupevigilus.com/media/site/group/electronic.jpg` | Image métier, sans prétention produit exact |
 | Kits / défaut | `https://www.groupevigilus.com/media/services/videosurveillance.jpg` | Visuel générique du Groupe |
 | NVR, réseau et stockage | `https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?w=900&q=82&fit=crop` | Photo de baie informatique Unsplash ; conserver traçabilité et vérifier adéquation/attribution |
