@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@source "../views/**/*.blade.php";
+@source "../../app/**/*.php";
+
+@theme {
+    --color-rouge: #c61d35;
+    --color-ink: #17212c;
+    --color-quiet: #607082;
+    --color-cloud: #f6f8fa;
+    --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { background: #fff; color: #17212c; font-feature-settings: "ss01" on; }
+a, button, input, select, textarea { transition: border-color .15s ease, background-color .15s ease, color .15s ease; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #c61d35; outline-offset: 2px; }
+.container-wide { width: min(100% - 2rem, 1240px); margin-inline: auto; }
+.field { display: block; width: 100%; border: 1px solid #d6dfe6; border-radius: 8px; padding: .78rem .9rem; background: #fff; min-height: 45px; }
+.field:focus { border-color: #c61d35; outline: none; box-shadow: 0 0 0 3px #c61d351a; }
+.btn-red { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .82rem 1.15rem; border-radius: 8px; background: #c61d35; color: #fff; font-weight: 700; }
+.btn-red:hover { background: #ab152a; }
+.btn-light { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .82rem 1.15rem; border-radius: 8px; border: 1px solid #d6dfe6; background: #fff; color: #17212c; font-weight: 700; }
+.btn-light:hover { background: #f6f8fa; }
+.prose-vigilus { line-height: 1.75; color: #49596a; white-space: pre-line; }
+.input-label { display: block; font-weight: 650; font-size: .9rem; margin-bottom: .4rem; }
+.product-photo { width: 100%; height: 100%; object-fit: contain; padding: 1.1rem; }
+.kicker { color: #c61d35; font-weight: 800; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; }
