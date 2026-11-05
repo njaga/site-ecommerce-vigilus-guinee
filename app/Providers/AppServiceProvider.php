@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,12 +17,13 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Paginator::defaultView('pagination.vigilus');
+        Paginator::defaultSimpleView('pagination.vigilus');
+
         Gate::define('manage-catalog', fn (User $user): bool => (bool) $user->is_admin);
 
         View::composer('layouts.store', function ($view): void {
-            $view->with('navCategories', Category::query()->where('is_active', true)
-                ->whereHas('products', fn ($q) => $q->where('is_active', true))
-                ->orderBy('sort_order')->limit(8)->get());
+            $view->with('navCategories', Category::storefront()->orderBy('sort_order')->limit(8)->get());
         });
     }
 }

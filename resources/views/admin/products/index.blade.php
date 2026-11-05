@@ -3,9 +3,27 @@
 @section('content')
 <div class="flex flex-wrap justify-between items-end gap-5 mb-7">
     <div><p class="kicker">Back-office · Vigilus Guinée</p><h1 class="text-3xl font-extrabold mt-1">Catalogue Dahua</h1>
-        <p class="text-quiet text-sm mt-2">Des fiches détaillées et vérifiées avant toute publication.</p></div>
+        <p class="text-quiet text-sm mt-2">Gestion des références du catalogue.</p></div>
     <a href="{{ route('admin.products.create') }}" class="btn-red">+ Ajouter une référence</a>
 </div>
+@if(\App\Support\CatalogPreview::enabled())
+    <div class="bg-white border border-slate-200 p-5 mb-6 flex flex-wrap gap-5 items-center justify-between">
+        <div>
+            <strong class="block text-sm">Aperçu local actif · Prix affichés : 0 GNF</strong>
+            <p class="text-xs text-quiet mt-2">
+                {{ $previewCounts['total'] }} fiches visibles · {{ $previewCounts['pending'] }} lignes d’import disponibles
+            </p>
+        </div>
+        @if($previewCounts['pending'] > 0)
+            <form method="POST" action="{{ route('admin.preview.prepare') }}">
+                @csrf
+                <button type="submit" class="btn-light text-sm">
+                    Ajouter les références importées à l’aperçu
+                </button>
+            </form>
+        @endif
+    </div>
+@endif
 <form action="{{ route('admin.products.index') }}" method="GET" class="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-end">
     <div class="min-w-[220px] flex-1"><label class="input-label" for="catalog-search">Rechercher</label>
         <input class="field" id="catalog-search" name="q" value="{{ $search }}" placeholder="Nom ou modèle Dahua"></div>
@@ -28,7 +46,7 @@
                 <td class="p-4"><strong class="block">{{ $product->name }}</strong><span class="text-xs text-quiet">{{ $product->sku }}</span></td>
                 <td class="p-4">{{ $product->category->name }}</td>
                 <td class="p-4">
-                    @if($product->price_gnf !== null){{ number_format($product->price_gnf, 0, ',', ' ') }}
+                    @if($product->display_price_gnf !== null){{ number_format($product->display_price_gnf, 0, ',', ' ') }}
                     @elseif($product->price_on_request)Sur devis
                     @else<span class="text-rouge">À valider</span>@endif
                 </td>
@@ -36,6 +54,10 @@
                 <td class="p-4"><span class="{{ $product->is_active ? 'text-emerald-700' : 'text-quiet' }}">{{ $product->is_active ? 'Publiée' : 'Brouillon' }}</span></td>
                 <td class="p-4 text-right">
                     <a class="text-rouge font-bold hover:underline" href="{{ route('admin.products.edit', $product) }}">Compléter</a>
+                    @if(\App\Support\CatalogPreview::enabled())
+                        <a class="text-quiet font-semibold hover:text-rouge ml-3"
+                           href="{{ route('product.show', $product->slug) }}" target="_blank" rel="noopener noreferrer">Voir ↗</a>
+                    @endif
                     @if($product->is_active)
                         <form action="{{ route('admin.products.archive', $product) }}" method="POST" class="inline ml-3">
                             @csrf @method('PATCH')<button type="submit" class="text-quiet hover:text-rouge">Masquer</button>

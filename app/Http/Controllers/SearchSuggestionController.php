@@ -20,8 +20,8 @@ class SearchSuggestionController
             return $this->respond($term, [], []);
         }
 
-        // Published scope is mandatory. Never query the confidential import
-        // staging rows or draft products from a public search endpoint.
+        // The published scope expands to drafts only in explicitly gated
+        // localhost preview. Confidential import staging rows are never queried.
         $products = Product::published()
             ->with(['category', 'images'])
             ->where(function ($query) use ($term): void {
@@ -41,15 +41,11 @@ class SearchSuggestionController
                 'image' => $product->images->first()
                     ? asset('storage/'.$product->images->first()->path)
                     : null,
-                'price_gnf' => $product->price_on_request
-                    ? null : $product->price_gnf,
-                'price_on_request' => $product->price_on_request
-                    || $product->price_gnf === null,
+                'price_gnf' => $product->display_price_gnf,
+                'price_on_request' => $product->display_price_gnf === null,
             ])->all();
 
-        $categories = Category::query()
-            ->where('is_active', true)
-            ->whereHas('products', fn ($query) => $query->where('is_active', true))
+        $categories = Category::storefront()
             ->where('name', 'like', '%'.$term.'%')
             ->orderBy('sort_order')
             ->limit(3)

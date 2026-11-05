@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Support\CatalogPreview;
 use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class CartController
 
         $quantities = $cart->quantities();
         $next = ($quantities[$product->id] ?? 0) + $data['quantity'];
-        if ($next > $product->stock_qty || $next > 100) {
+        if ($next > 100 || (! CatalogPreview::enabled() && $next > $product->stock_qty)) {
             return back()->withErrors(['cart' => 'Quantité supérieure au stock disponible ou à la limite autorisée.']);
         }
 
@@ -54,7 +55,7 @@ class CartController
             unset($quantities[$data['product_id']]);
         } else {
             $product = Product::published()->find($data['product_id']);
-            if (! $product || ! $product->can_order || $product->stock_qty < $data['quantity']) {
+            if (! $product || ! $product->can_order || (! CatalogPreview::enabled() && $product->stock_qty < $data['quantity'])) {
                 return back()->withErrors(['cart' => 'Quantité ou disponibilité non valide.']);
             }
             $quantities[$data['product_id']] = $data['quantity'];

@@ -26,7 +26,15 @@
                 <input type="checkbox" name="consent" value="1" required class="mt-1" @checked(old('consent'))>
                 <span>J'accepte le traitement de mes coordonnées pour cette demande selon la <a class="underline hover:text-rouge" target="_blank" rel="noopener" href="{{ route('legal.privacy') }}">politique de confidentialité</a>. Aucun paiement ni achat définitif n'est réalisé en ligne. *</span>
             </label>
-            <div class="sm:col-span-2"><button type="submit" class="btn-red w-full">Envoyer ma demande de commande</button></div>
+            <div class="sm:col-span-2">
+                @if(\App\Support\CatalogPreview::enabled())
+                    <button type="button" disabled class="btn-red w-full opacity-50 cursor-not-allowed">
+                        Envoi désactivé en aperçu
+                    </button>
+                @else
+                    <button type="submit" class="btn-red w-full">Envoyer ma demande de commande</button>
+                @endif
+            </div>
         </form>
         <aside class="bg-cloud border border-slate-200 rounded-md p-6">
             <h2 class="font-extrabold text-xl">Équipements sélectionnés</h2>
@@ -35,7 +43,7 @@
                     <li class="py-3 text-sm">
                         <div class="font-semibold">{{ $line['product']->name }}</div>
                         <div class="flex justify-between text-quiet mt-1">
-                            <span>{{ $line['quantity'] }} × {{ number_format($line['product']->price_gnf, 0, ',', ' ') }}</span>
+                            <span>{{ $line['quantity'] }} × {{ number_format($line['product']->display_price_gnf, 0, ',', ' ') }}</span>
                             <span>{{ number_format($line['subtotal'], 0, ',', ' ') }} GNF</span>
                         </div>
                     </li>
