@@ -174,12 +174,12 @@ class LiveSearchAndBrandTest extends TestCase
     {
         $this->get(route('about'))->assertOk()
             ->assertSee('Pourquoi nous choisir')
-            ->assertSee('Ils font confiance au Groupe.')
+            ->assertSee('Nos clients.')
             ->assertSee('Des organisations accompagnées par le Groupe Vigilus')
             ->assertSee('Nos partenaires et notre écosystème')
             ->assertSee('Marque du catalogue')
             ->assertSee('Vigilus Groupe SA')
-            ->assertSee('plateforme de paiement');
+            ->assertSee('La bonne référence');
     }
 
     public function test_about_is_in_sitemap_only_when_indexing_enabled(): void

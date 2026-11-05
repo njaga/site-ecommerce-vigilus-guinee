@@ -44,7 +44,7 @@ class StorefrontDesignTest extends TestCase
             ->assertSee('class="mobile-menu md:hidden"', false)
             ->assertSee('aria-label="Menu mobile"', false)
             ->assertSee('Rechercher un produit Dahua')
-            ->assertSee('Journal &amp; conseils', false)
+            ->assertSee('Journal & conseils', false)
             ->assertSee('La bonne technologie pour')
             ->assertSee('Équipements de sécurité électronique · Conakry');
     }
