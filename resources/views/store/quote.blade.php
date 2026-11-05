@@ -1,5 +1,5 @@
 @extends('layouts.store')
-@section('title', 'Demander un devis d'équipements | Vigilus Guinée')
+@section('title', "Demander un devis d'équipements | Vigilus Guinée")
 @section('robots', 'noindex,follow')
 @section('content')
 <section class="bg-cloud border-b border-slate-200">

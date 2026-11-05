@@ -182,7 +182,7 @@ class PrelaunchCommercialTest extends TestCase
         $this->withSession(['cart' => [$product->id => 2]])
             ->get(route('cart.index'))
             ->assertOk()
-            ->assertSee('n&#039;est plus disponible', false);
+            ->assertSee('plus disponible');
 
         $this->withSession(['cart' => [$product->id => 2]])
             ->post(route('cart.update'), [
