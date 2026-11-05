@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CatalogImportController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::get('/imports', [CatalogImportController::class, 'index'])->name('imports.index');
+    Route::post('/imports', [CatalogImportController::class, 'store'])->middleware('throttle:3,1')->name('imports.store');
+    Route::get('/imports/{batch}', [CatalogImportController::class, 'show'])->name('imports.show');
+    Route::post('/imports/{batch}/lignes/{row}/approuver', [CatalogImportController::class, 'approve'])->name('imports.approve');
+    Route::post('/imports/{batch}/approuver-selection', [CatalogImportController::class, 'bulkApprove'])->name('imports.bulk-approve');
+    Route::post('/imports/{batch}/lignes/{row}/ignorer', [CatalogImportController::class, 'skip'])->name('imports.skip');
+    Route::delete('/imports/{batch}', [CatalogImportController::class, 'purge'])->name('imports.purge');
     Route::get('/devis', [AdminQuoteController::class, 'index'])->name('quotes.index');
     Route::get('/commandes', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
