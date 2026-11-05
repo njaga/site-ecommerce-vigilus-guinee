@@ -55,3 +55,28 @@ Artisan::command('commerce:preflight {--strict : Échouer si des contrôles sont
 
     return $this->option('strict') && $missing > 0 ? 1 : 0;
 })->purpose('Audit préproduction : site, commande hors ligne, emails, SEO et données commerciales');
+
+
+Artisan::command('catalogue:preparer-apercu {--dry-run : Afficher le nombre sans créer de fiches}', function (): int {
+    if (! \App\Support\CatalogPreview::enabled()) {
+        $this->error('Réservé au mode aperçu sur localhost, indexation désactivée.');
+        return 1;
+    }
+
+    $preparer = app(\App\Services\CatalogPreviewPreparer::class);
+    $counts = $preparer->counts();
+
+    if ($this->option('dry-run')) {
+        $this->info($counts['total'].' produit(s) déjà dans le catalogue ; '
+            .$counts['pending'].' ligne(s) d’import admissible(s) en attente.');
+        return 0;
+    }
+
+    $result = $preparer->prepare();
+    $this->info($result['created'].' fiche(s) ajoutée(s) à partir des imports.');
+    $this->info($result['total'].' produit(s) visible(s) en aperçu à 0 GNF.');
+    $this->comment($result['skipped'].' ignorée(s) ; '.$result['pending'].' ligne(s) encore à examiner.');
+    $this->comment('Aucun prix réel, stock ou statut de publication n’a été modifié.');
+
+    return 0;
+})->purpose('Remplir le catalogue de prévisualisation à partir des imports techniques locaux');

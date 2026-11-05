@@ -6,6 +6,24 @@
         <p class="text-quiet text-sm mt-2">Gestion des références du catalogue.</p></div>
     <a href="{{ route('admin.products.create') }}" class="btn-red">+ Ajouter une référence</a>
 </div>
+@if(\App\Support\CatalogPreview::enabled())
+    <div class="bg-white border border-slate-200 p-5 mb-6 flex flex-wrap gap-5 items-center justify-between">
+        <div>
+            <strong class="block text-sm">Aperçu local actif · Prix affichés : 0 GNF</strong>
+            <p class="text-xs text-quiet mt-2">
+                {{ $previewCounts['total'] }} fiches visibles · {{ $previewCounts['pending'] }} lignes d’import disponibles
+            </p>
+        </div>
+        @if($previewCounts['pending'] > 0)
+            <form method="POST" action="{{ route('admin.preview.prepare') }}">
+                @csrf
+                <button type="submit" class="btn-light text-sm">
+                    Ajouter les références importées à l’aperçu
+                </button>
+            </form>
+        @endif
+    </div>
+@endif
 <form action="{{ route('admin.products.index') }}" method="GET" class="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-end">
     <div class="min-w-[220px] flex-1"><label class="input-label" for="catalog-search">Rechercher</label>
         <input class="field" id="catalog-search" name="q" value="{{ $search }}" placeholder="Nom ou modèle Dahua"></div>

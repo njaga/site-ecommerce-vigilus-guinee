@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductPublicationGuard;
+use App\Services\CatalogPreviewPreparer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ use Illuminate\View\View;
 
 class ProductController
 {
-    public function index(Request $request): View
+    public function index(Request $request, CatalogPreviewPreparer $preparer): View
     {
         $status = (string) $request->query('statut', '');
         $search = trim(mb_substr((string) $request->query('q', ''), 0, 100));
@@ -39,6 +40,7 @@ class ProductController
             'products' => $query->paginate(25)->withQueryString(),
             'selectedStatus' => $status,
             'search' => $search,
+            'previewCounts' => $preparer->counts(),
         ]);
     }
 

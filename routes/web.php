@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CatalogImportController;
+use App\Http\Controllers\Admin\CatalogPreviewController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\LaunchReadinessController;
 use App\Http\Controllers\Admin\SeoRedirectController;
@@ -68,6 +69,7 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::get('/articles/{blogPost}/apercu', [AdminBlogPostController::class, 'preview'])->name('blog.preview');
     Route::patch('/articles/{blogPost}/archiver', [AdminBlogPostController::class, 'archive'])->name('blog.archive');
     Route::delete('/articles/{blogPost}', [AdminBlogPostController::class, 'destroy'])->name('blog.destroy');
+    Route::post('/apercu-catalogue/preparer', CatalogPreviewController::class)->name('preview.prepare');
     Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
     Route::get('/produits/creer', [ProductController::class, 'create'])->name('products.create');
     Route::post('/produits', [ProductController::class, 'store'])->name('products.store');
