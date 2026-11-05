@@ -3,9 +3,9 @@
 @section('robots', 'noindex,nofollow')
 @section('content')
 <div class="container-wide py-12">
-    <p class="kicker">Sélection d’équipements</p>
-    <h1 class="text-4xl font-extrabold mt-3">Mon panier</h1>
-    <p class="text-quiet mt-3">Vérifiez vos références avant d’envoyer une demande de commande.</p>
+    <p class="section-eyebrow">Sélection d’équipements</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Votre sélection d’équipements.</h1>
+    <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Vérifiez les références et ajustez les quantités avant d'envoyer votre demande. Aucun règlement ne sera demandé à cette étape.</p>
     @if($errors->any())
         <div role="alert" class="mt-6 p-4 bg-red-50 text-red-900 rounded-lg">{{ $errors->first() }}</div>
     @endif
@@ -13,15 +13,15 @@
         <div role="status" class="mt-6 p-4 bg-emerald-50 text-emerald-900 rounded-lg">{{ session('success') }}</div>
     @endif
     @if($lines->isEmpty())
-        <div class="border border-slate-200 rounded-xl mt-9 p-14 bg-cloud text-center">
+        <div class="border border-slate-200 rounded-md mt-9 p-14 bg-cloud text-center">
             <p class="text-xl font-bold">Votre panier est vide.</p>
             <a class="btn-red mt-6" href="{{ route('catalog') }}">Explorer le catalogue</a>
         </div>
     @else
-        <div class="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-7 mt-9 items-start">
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-7 mt-9 items-start">
             <div class="space-y-4">
                 @foreach($lines as $line)
-                    <article class="bg-white rounded-xl border border-slate-200 p-5 flex flex-wrap sm:flex-nowrap gap-5 items-start">
+                    <article class="bg-white rounded-md border border-slate-200 p-5 flex flex-wrap sm:flex-nowrap gap-5 items-start">
                         <div class="w-24 h-24 shrink-0 bg-cloud border border-slate-100 rounded-lg overflow-hidden">
                             @if($line['product']?->images->first())
                                 <img class="product-photo" alt="{{ $line['product']->name }}" src="{{ asset('storage/'.$line['product']->images->first()->path) }}" width="120" height="120">
@@ -46,11 +46,18 @@
                             </div>
                             <button class="btn-light text-xs" type="submit">Mettre à jour</button>
                         </form>
+                        <form action="{{ route('cart.update') }}" method="POST" class="self-end">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $line['id'] }}">
+                            <input type="hidden" name="quantity" value="0">
+                            <button type="submit" class="text-sm font-bold text-rouge hover:underline px-2 py-3"
+                                    aria-label="Retirer {{ $line['product']?->name ?: 'la référence indisponible' }} du panier">Retirer</button>
+                        </form>
                     </article>
                 @endforeach
             </div>
-            <aside class="bg-cloud rounded-xl p-6 border border-slate-200">
-                <h2 class="font-extrabold text-xl">Récapitulatif</h2>
+            <aside class="bg-cloud rounded-md p-6 border border-slate-200">
+                <h2 class="font-extrabold text-xl">Votre récapitulatif</h2>
                 <div class="mt-6 flex justify-between font-bold">
                     <span>Sous-total matériel</span><span>{{ number_format($subtotal, 0, ',', ' ') }} GNF</span>
                 </div>

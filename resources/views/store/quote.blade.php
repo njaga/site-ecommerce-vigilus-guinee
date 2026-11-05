@@ -4,9 +4,9 @@
 @section('content')
 <section class="bg-cloud border-b border-slate-200">
     <div class="container-wide py-12">
-        <p class="kicker">Votre projet</p>
-        <h1 class="text-4xl font-extrabold mt-3">Parlons de votre besoin.</h1>
-        <p class="text-quiet mt-4 max-w-2xl">Une référence précise, un achat en quantité ou un projet d’équipement à Conakry ? Décrivez votre besoin pour obtenir une proposition commerciale.</p>
+        <p class="section-eyebrow">Votre projet</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Décrivez votre besoin, nous préparons la suite.</h1>
+        <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Une référence Dahua, un besoin en quantité ou un projet d’équipement à Conakry ? Envoyez-nous vos spécifications pour recevoir une proposition commerciale.</p>
     </div>
 </section>
 <div class="container-wide max-w-3xl py-12">
@@ -17,12 +17,12 @@
         </div>
     @endif
     @if($product)
-        <div class="border border-slate-200 p-5 mb-5 rounded-xl">
+        <div class="border border-slate-200 p-5 mb-5 rounded-md">
             <div class="text-xs text-quiet mb-1">Produit concerné</div>
             <strong>{{ $product->name }}</strong> — <span class="text-sm">{{ $product->sku }}</span>
         </div>
     @endif
-    <form method="POST" action="{{ route('quote.store') }}" class="grid sm:grid-cols-2 gap-5 bg-white border border-slate-200 rounded-xl p-6 sm:p-9">
+    <form method="POST" action="{{ route('quote.store') }}" class="grid sm:grid-cols-2 gap-5 bg-white border border-slate-200 rounded-md p-6 sm:p-9">
         @csrf
         @if($product)<input type="hidden" name="product_id" value="{{ $product->id }}">@endif
         <div class="hidden" aria-hidden="true"><label>Site web<input type="text" tabindex="-1" autocomplete="off" name="website"></label></div>
