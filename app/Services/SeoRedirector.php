@@ -74,6 +74,31 @@ class SeoRedirector
         return false;
     }
 
+    public function isAllowedDestinationShape(string $path): bool
+    {
+        if (in_array($path, ['/', '/produits', '/demande-de-devis',
+            '/equipements-videosurveillance-conakry'], true)) {
+            return true;
+        }
+
+        return preg_match('#^/(produits|categories)/[a-zA-Z0-9_-]+$#D', $path) === 1;
+    }
+
+    public function readiness(SeoRedirect $redirect): string
+    {
+        if (! in_array($redirect->source_host, $this->allowedHosts(), true)) {
+            return 'host_unapproved';
+        }
+        if ($redirect->source_path === $redirect->destination_path ||
+            $this->isProtectedSource($redirect->source_path)) {
+            return 'source_conflict';
+        }
+        if (! $this->isPublicDestination($redirect->destination_path)) {
+            return 'target_unavailable';
+        }
+        return 'ready';
+    }
+
     public function isPublicDestination(string $path): bool
     {
         if (in_array($path, ['/', '/produits', '/demande-de-devis',
