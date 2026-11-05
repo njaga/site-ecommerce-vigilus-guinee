@@ -15,10 +15,13 @@ use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StorefrontController;
+use App\Http\Controllers\SearchSuggestionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
+Route::get('/recherche/suggestions', SearchSuggestionController::class)
+    ->middleware('throttle:40,1')->name('search.suggestions');
 Route::get('/categories/{category:slug}', [StorefrontController::class, 'catalog'])->name('category.show');
 Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('product.show');
 Route::permanentRedirect('/installation-videosurveillance-conakry', '/equipements-videosurveillance-conakry');
