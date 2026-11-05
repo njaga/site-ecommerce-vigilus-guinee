@@ -16,8 +16,8 @@
         </h3>
         <p class="text-xs sm:text-sm leading-relaxed text-quiet mt-2 line-clamp-2">{{ $product->short_description }}</p>
         <div class="mt-auto pt-5">
-            @if($product->price_gnf !== null && ! $product->price_on_request)
-                <strong class="product-card-price">{{ number_format($product->price_gnf, 0, ',', ' ') }} <span class="text-xs font-bold">GNF</span></strong>
+            @if($product->display_price_gnf !== null)
+                <strong class="product-card-price">{{ number_format($product->display_price_gnf, 0, ',', ' ') }} <span class="text-xs font-bold">GNF</span></strong>
             @else
                 <strong class="text-rouge font-extrabold text-sm">Prix sur devis</strong>
             @endif

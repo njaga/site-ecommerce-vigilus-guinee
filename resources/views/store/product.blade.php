@@ -16,7 +16,7 @@
         if ($product->images->isNotEmpty()) {
             $data['image'] = $product->images->map(fn ($image) => asset('storage/'.$image->path))->all();
         }
-        if ($product->price_gnf !== null && ! $product->price_on_request) {
+        if (! \App\Support\CatalogPreview::enabled() && $product->price_gnf !== null && ! $product->price_on_request) {
             $data['offers'] = [
                 '@type' => 'Offer',
                 'url' => route('product.show', $product->slug),
@@ -92,8 +92,8 @@
             <p class="text-base text-quiet leading-relaxed mt-6">{{ $product->short_description }}</p>
             <div class="product-purchase mt-8">
                 <p class="text-xs text-quiet uppercase tracking-widest font-extrabold mb-3">Conditions commerciales</p>
-                @if($product->price_gnf !== null && ! $product->price_on_request)
-                    <p class="product-purchase-price">{{ number_format($product->price_gnf, 0, ',', ' ') }} <span class="text-base font-bold">GNF</span></p>
+                @if($product->display_price_gnf !== null)
+                    <p class="product-purchase-price">{{ number_format($product->display_price_gnf, 0, ',', ' ') }} <span class="text-base font-bold">GNF</span></p>
                 @else
                     <p class="product-purchase-price text-rouge">Prix sur devis</p>
                 @endif
@@ -109,7 +109,7 @@
                         <label for="product-quantity" class="input-label">Quantité souhaitée</label>
                         <div class="flex flex-wrap gap-3 items-stretch">
                             <input id="product-quantity" name="quantity" type="number" min="1"
-                                   max="{{ min(100, $product->stock_qty) }}" value="1" required inputmode="numeric"
+                                   max="{{ \App\Support\CatalogPreview::enabled() ? 100 : min(100, $product->stock_qty) }}" value="1" required inputmode="numeric"
                                    class="field w-24 text-center font-bold">
                             <button class="btn-red flex-1" type="submit"><x-store-icon name="cart" :size="19"/> Ajouter au panier</button>
                         </div>
