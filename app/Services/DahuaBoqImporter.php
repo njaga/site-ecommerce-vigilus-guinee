@@ -48,7 +48,7 @@ class DahuaBoqImporter
                 'zip_enabled' => extension_loaded('zip'),
             ]);
 
-            if (! extension_loaded('zip') || ! class_exists(\\ZipArchive::class)) {
+            if (! extension_loaded('zip') || ! class_exists(\ZipArchive::class)) {
                 $message = 'Extension PHP ZIP absente. Activez extension=zip dans le php.ini utilisé par WAMP, puis redémarrez PHP.';
             } elseif (app()->environment('local')) {
                 $message = 'Lecture XLSX impossible ('.class_basename($e).') : '.$reason;
