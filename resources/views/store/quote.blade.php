@@ -1,12 +1,12 @@
 @extends('layouts.store')
-@section('title', 'Demander un devis ou une installation | Vigilus Guinée')
+@section('title', 'Demander un devis d'équipements | Vigilus Guinée')
 @section('robots', 'noindex,follow')
 @section('content')
 <section class="bg-cloud border-b border-slate-200">
     <div class="container-wide py-12">
         <p class="kicker">Votre projet</p>
         <h1 class="text-4xl font-extrabold mt-3">Parlons de votre besoin.</h1>
-        <p class="text-quiet mt-4 max-w-2xl">Une référence précise, un achat en quantité, une installation à Conakry ? Décrivez votre demande pour recevoir un retour commercial.</p>
+        <p class="text-quiet mt-4 max-w-2xl">Une référence précise, un achat en quantité ou un projet d’équipement à Conakry ? Décrivez votre besoin pour obtenir une proposition commerciale.</p>
     </div>
 </section>
 <div class="container-wide max-w-3xl py-12">
@@ -31,7 +31,7 @@
         <div><label for="email" class="input-label">Email</label><input id="email" name="email" type="email" class="field" value="{{ old('email') }}" autocomplete="email"></div>
         <div><label for="company" class="input-label">Société (facultatif)</label><input id="company" name="company" class="field" value="{{ old('company') }}"></div>
         <div><label for="quantity" class="input-label">Quantité souhaitée *</label><input id="quantity" name="quantity" type="number" min="1" max="100000" required class="field" value="{{ old('quantity', 1) }}"></div>
-        <div class="sm:col-span-2"><label for="message" class="input-label">Votre besoin</label><textarea id="message" name="message" rows="5" class="field" placeholder="Références, nombre de caméras, type de site, commune, besoins d'installation…">{{ old('message') }}</textarea></div>
+        <div class="sm:col-span-2"><label for="message" class="input-label">Votre besoin</label><textarea id="message" name="message" rows="5" class="field" placeholder="Références, quantités, type de site, commune, délai de livraison souhaité…">{{ old('message') }}</textarea></div>
         <div class="sm:col-span-2">
             <label class="flex gap-3 items-start text-sm text-quiet"><input type="checkbox" name="consent" value="1" required class="mt-1"> <span>J'accepte que Vigilus utilise mes coordonnées uniquement pour répondre à cette demande commerciale. *</span></label>
         </div>

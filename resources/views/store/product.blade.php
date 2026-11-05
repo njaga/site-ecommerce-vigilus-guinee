@@ -97,7 +97,7 @@
                     </form>
                 @endif
                 <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander un devis</a>
-                <a href="{{ route('quote.create', ['produit' => $product->id]) }}" class="btn-light">Demander une installation</a>
+                <a href="{{ route('solution.videosurveillance') }}" class="btn-light">Bien choisir son équipement</a>
             </div>
             <p class="text-sm text-quiet mt-5">Vous êtes installateur ou revendeur ? Précisez les quantités pour recevoir une proposition adaptée.</p>
             <p class="text-xs text-quiet mt-3">La commande est une demande sans paiement en ligne. Notre équipe confirme les conditions commerciales avant tout règlement hors site.</p>
