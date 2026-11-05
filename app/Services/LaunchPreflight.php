@@ -52,6 +52,19 @@ class LaunchPreflight
         $push('catalog', 'Catalogue publié',
             Product::published()->exists(),
             'Publier uniquement une sélection de vraies références Dahua vérifiées.');
+        $logo = (string) config('site.brand_logo_url');
+        $logoIsLocal = str_starts_with($logo, '/images/')
+            && is_file(public_path(ltrim($logo, '/')));
+        $push('brand-logo', 'Logo Vigilus officiel servi localement',
+            $logoIsLocal,
+            'Copier une ressource logo approuvée dans public/images/brand, puis configurer SITE_BRAND_LOGO_URL=/images/brand/nom-fichier.png.');
+        $hero = (string) config('site.hero_illustration_url');
+        $heroIsLocal = str_starts_with($hero, '/images/')
+            && is_file(public_path(ltrim($hero, '/')));
+        $push('hero-media', 'Visuel de couverture local',
+            $heroIsLocal || Product::published()->where('is_featured', true)->whereHas('images')->exists(),
+            'Utiliser une image locale autorisée ou une vraie photo de produit vedette approuvée avant publication.');
+
         $push('media', 'Stockage des images publiques',
             is_link(public_path('storage')) || is_dir(public_path('storage')),
             'Vérifier storage:link, droits des fichiers et chargement réel des photos.');

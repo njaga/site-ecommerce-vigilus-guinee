@@ -20,7 +20,9 @@ return [
     'warranty_terms' => env('SITE_WARRANTY_TERMS', ''),
     // Identité temporairement servie par le dépôt officiel Vigilus, à empaqueter
     // sur le domaine local avant mise en production.
-    'brand_logo_url' => env('SITE_BRAND_LOGO_URL',
-        'https://raw.githubusercontent.com/njaga/site-vigilus-securite/main/public/images/logo-vigilus-transparent.png'),
+    'brand_logo_url' => env('SITE_BRAND_LOGO_URL')
+        ?: 'https://raw.githubusercontent.com/njaga/site-vigilus-securite/main/public/images/logo-vigilus-transparent.png',
+    'hero_illustration_url' => env('SITE_HERO_ILLUSTRATION_URL')
+        ?: 'https://raw.githubusercontent.com/njaga/site-vigilus-securite/main/public/images/Videosurveillance.jpg',
 
 ];

@@ -21,7 +21,7 @@
                      alt="{{ $heroImage->alt ?: 'Référence de sécurité électronique au catalogue' }}"
                      width="840" height="700" fetchpriority="high">
             @else
-                <img src="https://raw.githubusercontent.com/njaga/site-vigilus-securite/main/public/images/Videosurveillance.jpg"
+                <img src="{{ config('site.hero_illustration_url') }}"
                      alt="Illustration du domaine de la vidéosurveillance" width="840" height="700" fetchpriority="high">
             @endif
             <div class="home-hero-media-label">
