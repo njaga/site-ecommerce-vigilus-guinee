@@ -5,7 +5,7 @@
 <div class="container-wide py-12">
     <p class="section-eyebrow">Sélection d’équipements</p>
     <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Votre sélection d’équipements.</h1>
-    <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Vérifiez les références et ajustez les quantités avant d'envoyer votre demande. Aucun règlement ne sera demandé à cette étape.</p>
+    <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Vérifiez vos références et ajustez les quantités avant de transmettre votre demande.</p>
     @if($errors->any())
         <div role="alert" class="mt-6 p-4 bg-red-50 text-red-900 rounded-lg">{{ $errors->first() }}</div>
     @endif

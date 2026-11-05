@@ -5,7 +5,7 @@
 <div class="container-wide py-12">
     <p class="section-eyebrow">Votre commande</p>
     <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Votre demande de commande.</h1>
-    <p class="text-quiet mt-4 max-w-3xl leading-relaxed">Aucun paiement n'est prélevé sur cette page. Notre équipe confirmera le stock, les frais de livraison et le montant définitif avant de convenir avec vous des modalités de règlement.</p>
+    <p class="text-quiet mt-4 max-w-3xl leading-relaxed">Transmettez votre demande. Les disponibilités et conditions de règlement seront confirmées par notre équipe.</p>
     @if($errors->any())
         <div role="alert" class="mt-6 p-4 bg-red-50 text-red-900 rounded-lg"><strong>Impossible d'enregistrer :</strong><ul class="ml-5 list-disc mt-2">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
     @endif
@@ -44,7 +44,7 @@
             <div class="mt-5 pt-5 border-t border-slate-200 flex justify-between font-extrabold">
                 <span>Sous-total matériel</span><span>{{ number_format($subtotal, 0, ',', ' ') }} GNF</span>
             </div>
-            <p class="text-quiet text-sm mt-4">Livraison et frais éventuels sur chiffrage séparé. Aucun montant final n'est fixé avant confirmation commerciale.</p>
+            <p class="text-quiet text-sm mt-4">Livraison et montant final confirmés par notre équipe.</p>
             <a class="block mt-5 text-sm text-rouge font-bold" href="{{ route('cart.index') }}">← Modifier le panier</a>
         </aside>
     </div>

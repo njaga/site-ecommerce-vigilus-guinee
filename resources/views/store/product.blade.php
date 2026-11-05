@@ -64,7 +64,7 @@
                 @else
                     <div class="h-full grid place-items-center text-center p-10">
                         <x-store-icon name="package" :size="48" class="mx-auto text-slate-300"/>
-                        <p class="text-sm text-quiet mt-5">Photo officielle en préparation.</p>
+                        <p class="text-sm text-quiet mt-5">Photo non disponible</p>
                     </div>
                 @endif
             </div>
@@ -84,7 +84,6 @@
                 </div>
                 <p class="sr-only" id="gallery-status" aria-live="polite">Photographie 1 affichée</p>
             @endif
-            <p class="text-xs text-quiet mt-4">Photographies du produit publiées après validation des droits et des références fabricant.</p>
         </section>
         <div class="lg:sticky lg:top-6">
             <p class="section-eyebrow">{{ $product->brand }} / {{ $product->category->name }}</p>
@@ -99,9 +98,9 @@
                     <p class="product-purchase-price text-rouge">Prix sur devis</p>
                 @endif
                 <p class="product-card-availability mt-4 {{ $product->can_order ? 'is-available' : '' }}">
-                    {{ $product->can_order ? 'Référence commandable sous réserve de confirmation' : 'Disponibilité à confirmer avec l’équipe' }}
+                    {{ $product->can_order ? 'Disponible sur demande' : 'Disponibilité à confirmer avec l’équipe' }}
                 </p>
-                <p class="text-xs text-quiet leading-relaxed mt-3">Le stock, les frais de livraison et le montant final sont confirmés par l’équipe commerciale avant tout règlement.</p>
+                <p class="text-xs text-quiet leading-relaxed mt-3">Disponibilité et livraison confirmées avec notre équipe.</p>
                 @if($errors->has('cart'))<div class="bg-red-50 text-red-900 text-sm p-3 mt-5" role="alert">{{ $errors->first('cart') }}</div>@endif
                 @if($product->can_order)
                     <form action="{{ route('cart.add') }}" method="POST" class="mt-7">
@@ -120,7 +119,6 @@
                    href="{{ route('quote.create', ['produit' => $product->id]) }}">
                     Demander un devis <x-store-icon name="arrow-right" :size="18"/>
                 </a>
-                <p class="mt-4 text-xs text-quiet text-center">Aucun paiement en ligne n’est demandé.</p>
             </div>
             @if($product->datasheet_url)
                 <a href="{{ $product->datasheet_url }}" target="_blank" rel="noopener noreferrer"
@@ -134,7 +132,7 @@
         <div>
             <p class="section-eyebrow">Présentation</p>
             <h2 class="text-2xl font-extrabold mt-4 mb-5">Description du produit</h2>
-            <div class="prose-vigilus">{{ $product->description ?: 'La fiche descriptive complète de cette référence sera disponible après vérification.' }}</div>
+            <div class="prose-vigilus">{{ $product->description ?: 'Contactez notre équipe pour les informations complémentaires.' }}</div>
         </div>
         <div>
             <p class="section-eyebrow">Données techniques</p>
@@ -148,7 +146,7 @@
                     @endforeach
                 </dl>
             @else
-                <p class="text-sm text-quiet">Les spécifications techniques seront publiées après vérification constructeur.</p>
+                <p class="text-sm text-quiet">Caractéristiques complémentaires sur demande.</p>
             @endif
         </div>
     </section>

@@ -24,6 +24,8 @@
             <a href="{{ route('admin.products.index') }}" @class(['active' => request()->routeIs('admin.products.*')])>Produits Dahua</a>
             <a href="{{ route('admin.categories.index') }}" @class(['active' => request()->routeIs('admin.categories.*')])>Catégories</a>
             <a href="{{ route('admin.imports.index') }}" @class(['active' => request()->routeIs('admin.imports.*')])>Imports techniques</a>
+            <span class="admin-nav-label">Contenus</span>
+            <a href="{{ route('admin.blog.index') }}" @class(['active' => request()->routeIs('admin.blog.*')])>Articles du journal</a>
             <span class="admin-nav-label">Suivi commercial</span>
             <a href="{{ route('admin.quotes.index') }}" @class(['active' => request()->routeIs('admin.quotes.*')])>Demandes de devis</a>
             <a href="{{ route('admin.orders.index') }}" @class(['active' => request()->routeIs('admin.orders.*')])>Commandes</a>

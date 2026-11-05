@@ -5,7 +5,7 @@
                  alt="{{ $product->images->first()->alt ?: $product->name }}"
                  width="460" height="410" loading="lazy">
         @else
-            <div class="h-full grid place-items-center text-xs text-slate-400 text-center p-8">Photographie fabricant à confirmer</div>
+            <div class="h-full grid place-items-center text-xs text-slate-400 text-center p-8">Visuel indisponible</div>
         @endif
         <span class="absolute left-4 top-4 text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white/95 border border-slate-200 px-2.5 py-1.5">{{ $product->brand }}</span>
     </a>

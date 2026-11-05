@@ -26,7 +26,6 @@
         <div>
             <p class="text-lg text-ink font-semibold leading-relaxed">La bonne référence, au bon usage, avec une proposition claire et un interlocuteur identifié.</p>
             <p class="text-quiet mt-5 leading-relaxed">Nous accompagnons les demandes d'équipements de sécurité électronique : analyse des spécifications, orientation vers les modèles du catalogue, devis, vérification de disponibilité et coordination de livraison après validation commerciale.</p>
-            <p class="text-quiet mt-4 leading-relaxed">Le site n'est pas une plateforme de paiement. Les transactions et leurs conditions sont convenues directement avec notre équipe.</p>
         </div>
     </div>
 </section>
@@ -38,7 +37,7 @@
         <div class="p-8 sm:p-12 lg:p-16">
             <p class="text-xs font-bold tracking-[.18em] uppercase text-cyan-200">La force d'un réseau</p>
             <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight mt-5">Un Groupe. Des métiers complémentaires. Une expertise locale.</h2>
-            <p class="text-slate-300 leading-relaxed mt-6">Vigilus Groupe SA coordonne des entités spécialisées en Afrique. La Guinée intervient sur la distribution d'équipements, sans se substituer aux activités opérationnelles des autres implantations.</p>
+            <p class="text-slate-300 leading-relaxed mt-6">Présent dans plusieurs pays africains, Vigilus Groupe SA réunit des métiers complémentaires. En Guinée, notre activité se concentre sur la fourniture d'équipements.</p>
             <a class="btn-red mt-8" href="https://groupevigilus.com/notre-reseau/" target="_blank" rel="noopener noreferrer">Découvrir les implantations <x-store-icon name="arrow-right" :size="18"/></a>
         </div>
         <div class="bg-[#1b4a61] p-8 sm:p-12 lg:p-16 flex flex-col justify-center gap-7">

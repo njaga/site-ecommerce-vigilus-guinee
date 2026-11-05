@@ -221,7 +221,7 @@ class SeoMigrationTest extends TestCase
             ->assertHeader('Location', '/equipements-videosurveillance-conakry');
 
         $this->get('/equipements-videosurveillance-conakry')
-            ->assertOk()->assertSee('Distribution d’équipements');
+            ->assertOk()->assertSee('Le journal Vigilus');
     }
 
     public function test_cli_audit_flags_unavailable_active_redirects(): void
