@@ -57,7 +57,7 @@
                                 </a>
                             @endforeach
                             <a href="{{ route('about') }}">À propos de Vigilus Guinée <x-store-icon name="arrow-right" :size="17"/></a>
-                            <a href="{{ route('solution.videosurveillance') }}">Bien choisir sa vidéosurveillance <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('solution.videosurveillance') }}">Journal & conseils <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('quote.create') }}">Demande de devis <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('cart.index') }}">Mon panier <x-store-icon name="arrow-right" :size="17"/></a>
                         </nav>
@@ -91,7 +91,7 @@
                     </div>
                 </details>
                 <a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>À propos</a>
-                <a href="{{ route('solution.videosurveillance') }}" @class(['is-current' => request()->routeIs('solution.videosurveillance')])>Guide vidéosurveillance</a>
+                <a href="{{ route('solution.videosurveillance') }}" @class(['is-current' => request()->routeIs('solution.videosurveillance')])>Journal & conseils</a>
                 <a href="{{ route('quote.create') }}" @class(['is-current' => request()->routeIs('quote.*')])>Devis professionnels</a>
                 <span class="store-nav-note">Guinée · GNF</span>
             </nav>
@@ -129,7 +129,7 @@
                 </button>
             </form>
             <div id="store-search-help" class="flex flex-wrap justify-between gap-3 text-xs text-quiet mt-4">
-                <span>Suggestions dès 2 caractères · Produits publiés uniquement</span>
+                <span>Recherchez un modèle, une catégorie ou un équipement.</span>
                 <span class="hidden sm:inline">↑ ↓ sélectionner · ↵ ouvrir · Échap fermer</span>
             </div>
             <div id="store-search-results" data-search-results aria-live="polite" aria-atomic="false" class="store-search-results mt-7">
@@ -156,7 +156,7 @@
                 <div>
                     <p class="text-xs uppercase tracking-[.18em] font-extrabold text-[#9dcbdb]">Votre projet en Guinée</p>
                     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mt-3 leading-snug text-white">Une liste de références ? <span class="text-[#bde8f2]">Parlons équipements.</span></h2>
-                    <p class="text-slate-300 mt-3 max-w-xl text-sm leading-relaxed">Transmettez vos besoins, modèles et quantités. Notre équipe confirme les disponibilités et conditions commerciales.</p>
+                    <p class="text-slate-300 mt-3 max-w-xl text-sm leading-relaxed">Un projet en tête ? Demandez votre devis.</p>
                 </div>
                 <a href="{{ route('quote.create') }}" class="store-footer-cta-button">Demander un devis <x-store-icon name="arrow-right" :size="18"/></a>
             </div>
@@ -165,14 +165,14 @@
                     <a href="{{ route('home') }}" class="store-footer-logo-wrap" aria-label="Vigilus Groupe SA — accueil">
                         <img src="{{ config('site.brand_logo_url') }}" width="144" height="70" alt="Vigilus Groupe SA — logo officiel" loading="lazy">
                     </a>
-                    <p class="mt-5 text-sm leading-relaxed text-slate-300 max-w-xs">Sélection et fourniture d’équipements électroniques de sécurité. Une implantation du Groupe Vigilus à Conakry.</p>
+                    <p class="mt-5 text-sm leading-relaxed text-slate-300 max-w-xs">Équipements de sécurité électronique à Conakry.</p>
                     <a href="https://groupevigilus.com/" target="_blank" rel="noopener noreferrer" class="inline-flex gap-2 items-center font-bold text-sm text-[#bde8f2] mt-5 hover:text-white">Découvrir le Groupe Vigilus <x-store-icon name="arrow-right" :size="16"/></a>
                 </div>
                 <nav class="store-footer-nav" aria-label="Navigation de la boutique">
                     <h2>Explorer</h2>
                     <a href="{{ route('home') }}">Accueil</a>
                     <a href="{{ route('catalog') }}">Catalogue Dahua</a>
-                    <a href="{{ route('solution.videosurveillance') }}">Guide vidéosurveillance</a>
+                    <a href="{{ route('solution.videosurveillance') }}">Journal & conseils</a>
                     <a href="{{ route('about') }}">À propos</a>
                     <a href="{{ route('quote.create') }}">Demande de devis</a>
                 </nav>

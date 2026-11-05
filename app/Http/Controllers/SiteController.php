@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\BlogPost;
 use Illuminate\Http\Response;
 
 class SiteController
@@ -51,6 +52,10 @@ class SiteController
 
         foreach (Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->get() as $category) {
             $urls[] = [route('category.show', $category), $category->updated_at];
+        }
+
+        foreach (BlogPost::published()->get() as $post) {
+            $urls[] = [route('blog.show', $post->slug), $post->updated_at];
         }
 
         foreach (Product::published()->get() as $product) {

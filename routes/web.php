@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Admin\BlogPostController as AdminBlogPostController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\QuoteController;
@@ -26,7 +28,8 @@ Route::get('/recherche/suggestions', SearchSuggestionController::class)
 Route::get('/categories/{category:slug}', [StorefrontController::class, 'catalog'])->name('category.show');
 Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('product.show');
 Route::permanentRedirect('/installation-videosurveillance-conakry', '/equipements-videosurveillance-conakry');
-Route::view('/equipements-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
+Route::get('/equipements-videosurveillance-conakry', [BlogController::class, 'index'])->name('solution.videosurveillance');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::view('/mentions-legales', 'store.legal.mentions')->name('legal.mentions');
 Route::view('/politique-de-confidentialite', 'store.legal.privacy')->name('legal.privacy');
@@ -57,6 +60,14 @@ Route::post('/deconnexion', [AuthController::class, 'logout'])->middleware('auth
 Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/produits')->name('home');
     Route::get('/recette', LaunchReadinessController::class)->name('launch-readiness');
+    Route::get('/articles', [AdminBlogPostController::class, 'index'])->name('blog.index');
+    Route::get('/articles/creer', [AdminBlogPostController::class, 'create'])->name('blog.create');
+    Route::post('/articles', [AdminBlogPostController::class, 'store'])->name('blog.store');
+    Route::get('/articles/{blogPost}/modifier', [AdminBlogPostController::class, 'edit'])->name('blog.edit');
+    Route::put('/articles/{blogPost}', [AdminBlogPostController::class, 'update'])->name('blog.update');
+    Route::get('/articles/{blogPost}/apercu', [AdminBlogPostController::class, 'preview'])->name('blog.preview');
+    Route::patch('/articles/{blogPost}/archiver', [AdminBlogPostController::class, 'archive'])->name('blog.archive');
+    Route::delete('/articles/{blogPost}', [AdminBlogPostController::class, 'destroy'])->name('blog.destroy');
     Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
     Route::get('/produits/creer', [ProductController::class, 'create'])->name('products.create');
     Route::post('/produits', [ProductController::class, 'store'])->name('products.store');
