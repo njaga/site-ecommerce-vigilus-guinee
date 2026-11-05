@@ -62,9 +62,13 @@
                              alt="{{ $mainImage->alt ?: $product->name }}" width="780" height="740">
                     </a>
                 @else
-                    <div class="h-full grid place-items-center text-center p-10">
-                        <x-store-icon name="package" :size="48" class="mx-auto text-slate-300"/>
-                        <p class="text-sm text-quiet mt-5">Photo non disponible</p>
+                    @php $visual = app(\App\Support\CategoryVisuals::class)->for($product->category); @endphp
+                    <div class="relative w-full h-full">
+                        <img src="{{ $visual['url'] }}" class="preview-detail-category-image"
+                             width="780" height="740" alt="Illustration : {{ $visual['label'] }}">
+                        <span class="absolute left-4 bottom-4 text-xs font-bold bg-white/95 text-ink px-3 py-2">
+                            Illustration de la catégorie
+                        </span>
                     </div>
                 @endif
             </div>

@@ -529,3 +529,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .blog-editor-toolbar button { background:transparent;border:1px solid transparent;padding:7px 12px;border-radius:4px;font-size:.79rem;font-weight:700;color:#4c5f6b; }
 .blog-editor-toolbar button:hover { background:#f2f5f6;color:#af2841; }
 .blog-editor-toolbar button:focus-visible { outline:2px solid #bc2741;outline-offset:1px; }
+
+/* Editorial category photographs are clearly marked when an exact SKU photo
+   has not yet been licensed; never stretch or mislabel them as product shots. */
+.product-card-media img.preview-category-image { width:100%;height:100%;object-fit:cover;padding:0;opacity:.84; }
+.gallery-main img.preview-detail-category-image { display:block;width:100%;height:100%;object-fit:cover;padding:0;opacity:.89; }

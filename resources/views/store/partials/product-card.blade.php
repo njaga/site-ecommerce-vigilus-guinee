@@ -5,7 +5,10 @@
                  alt="{{ $product->images->first()->alt ?: $product->name }}"
                  width="460" height="410" loading="lazy">
         @else
-            <div class="h-full grid place-items-center text-xs text-slate-400 text-center p-8">Visuel indisponible</div>
+            @php $visual = app(\App\Support\CategoryVisuals::class)->for($product->category); @endphp
+            <img src="{{ $visual['url'] }}" class="preview-category-image" width="460" height="410"
+                alt="Illustration : {{ $visual['label'] }}" loading="lazy">
+            <span class="absolute bottom-3 left-3 text-[10px] uppercase tracking-wide font-bold text-slate-600 bg-white/95 px-2.5 py-1.5">Illustration</span>
         @endif
         <span class="absolute left-4 top-4 text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white/95 border border-slate-200 px-2.5 py-1.5">{{ $product->brand }}</span>
     </a>
