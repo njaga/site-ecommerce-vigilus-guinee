@@ -82,6 +82,31 @@ class PrelaunchCommercialTest extends TestCase
         $this->assertFalse(config('commerce.online_payments_enabled'));
     }
 
+    public function test_customer_and_team_quote_emails_render_without_leaking_internal_followup(): void
+    {
+        $quote = QuoteRequest::create([
+            'name' => 'Client Test',
+            'phone' => '+224 610 000 111',
+            'email' => 'client@example.test',
+            'quantity' => 1,
+            'message' => 'Demande de matériel de surveillance fictif',
+            'status' => QuoteRequest::NEW,
+            'consented_at' => now(),
+        ]);
+        $quote->events()->create([
+            'from_status' => QuoteRequest::NEW,
+            'to_status' => QuoteRequest::IN_PROGRESS,
+            'note' => 'CONFIDENTIEL-NE-JAMAIS-ENVOYER-AU-CLIENT',
+        ]);
+
+        $customerBody = (new QuoteReceivedMail($quote, false))->render();
+        $teamBody = (new QuoteReceivedMail($quote, true))->render();
+
+        $this->assertStringContainsString('Votre demande a bien été reçue', $customerBody);
+        $this->assertStringNotContainsString('CONFIDENTIEL-NE-JAMAIS-ENVOYER-AU-CLIENT', $customerBody);
+        $this->assertStringContainsString('Nouvelle demande de devis à examiner', $teamBody);
+    }
+
     public function test_quote_without_customer_email_only_notifies_configured_team(): void
     {
         Mail::fake();
