@@ -534,3 +534,98 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
    has not yet been licensed; never stretch or mislabel them as product shots. */
 .product-card-media img.preview-category-image { width:100%;height:100%;object-fit:cover;padding:0;opacity:.84; }
 .gallery-main img.preview-detail-category-image { display:block;width:100%;height:100%;object-fit:cover;padding:0;opacity:.89; }
+
+
+/* Shared pagination — boutique, back-office and journal.
+   The Laravel vendor template was not included by the Tailwind v4 source scan. */
+.v-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    width: 100%;
+    padding-block: 6px;
+    font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.v-pagination-summary {
+    margin: 0;
+    color: #687784;
+    font-size: .79rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.v-pagination-controls, .v-pagination-pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.v-pagination-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid #dae3e8;
+    border-radius: 6px;
+    color: #344a57;
+    background: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: border-color .16s ease, color .16s ease, background-color .16s ease;
+}
+a.v-pagination-button:hover {
+    color: #bc2741;
+    background: #fdf6f7;
+    border-color: #d1a3af;
+}
+a.v-pagination-button:focus-visible {
+    outline: 2px solid #bc2741;
+    outline-offset: 2px;
+}
+.v-pagination-number {
+    min-width: 40px;
+    padding-inline: 9px;
+    font-variant-numeric: tabular-nums;
+}
+.v-pagination-number.is-current {
+    color: #fff;
+    border-color: #bc2741;
+    background: #bc2741;
+}
+.v-pagination-button.is-disabled {
+    color: #a4afb7;
+    background: #f7f9fa;
+    border-color: #e6ecef;
+    cursor: default;
+}
+.v-pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+    color: #8a99a3;
+    font-weight: 700;
+    user-select: none;
+}
+@media (max-width: 720px) {
+    .v-pagination {
+        flex-direction: column;
+        gap: 13px;
+    }
+    .v-pagination-summary { text-align: center; }
+    .v-pagination-controls { max-width: 100%; gap: 4px; }
+    .v-pagination-pages { gap: 4px; }
+    .v-pagination-button { min-height: 38px; padding-inline: 10px; font-size: .78rem; }
+    .v-pagination-number { min-width: 34px; padding-inline: 6px; }
+}
+@media (max-width: 390px) {
+    .v-pagination-direction { gap: 5px; padding-inline: 8px; }
+    .v-pagination-number { min-width: 30px; }
+    .v-pagination-ellipsis { min-width: 15px; }
+}
