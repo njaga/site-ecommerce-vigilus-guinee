@@ -9,76 +9,112 @@
     @else
     <meta name="robots" content="noindex,nofollow">
     @endif
-    <title>@yield('title', 'Vigilus Guinée | Caméras, vidéosurveillance et sécurité électronique')</title>
-    <meta name="description" content="@yield('meta_description', 'Explorez le catalogue de sécurité électronique Vigilus en Guinée : caméras, enregistreurs, contrôle d’accès, accessoires et devis à Conakry.')">
+    <title>@yield('title', 'Vigilus Guinée | Équipements Dahua et sécurité électronique')</title>
+    <meta name="description" content="@yield('meta_description', 'Explorez les caméras Dahua, enregistreurs, systèmes de contrôle d’accès et accessoires disponibles sur demande à Conakry.')">
     <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('jsonld')
 </head>
-<body>
+<body class="store-body">
     <a class="skip-link" href="#contenu">Aller au contenu principal</a>
-    <div class="bg-ink text-white text-xs sm:text-sm py-2">
-        <div class="container-wide flex items-center justify-between gap-3">
-            <span>Équipements de sécurité électronique · Guinée</span>
-            <a href="{{ route('quote.create') }}" class="font-semibold hover:underline">Demander un devis professionnel</a>
+    <div class="store-utility">
+        <div class="container-wide flex flex-wrap items-center justify-between gap-x-5 gap-y-1 py-2">
+            <span>Vigilus Guinée <span class="mx-2 opacity-40">/</span> Distribution d’équipements professionnels à Conakry</span>
+            <span class="hidden sm:inline">Références &amp; volumes sur devis <span aria-hidden="true" class="ml-2">↗</span></span>
         </div>
     </div>
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div class="container-wide flex flex-wrap sm:flex-nowrap items-center gap-3 lg:gap-7 py-4">
-            <a href="{{ route('home') }}" class="shrink-0 flex items-center gap-2" aria-label="Vigilus Guinée — Accueil">
-                <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-rouge text-white font-extrabold text-xl">V</span>
-                <span class="font-extrabold tracking-tight text-xl text-ink">VIGILUS<span class="block text-[10px] font-semibold tracking-widest text-quiet">GUINÉE</span></span>
+    <header class="store-header">
+        <div class="container-wide store-header-inner">
+            <a href="{{ route('home') }}" class="store-brand" aria-label="Vigilus Guinée — Accueil">
+                <img src="{{ config('site.brand_logo_url') }}" width="126" height="58"
+                     alt="Vigilus — logo du groupe" class="store-brand-image">
+                <span class="store-brand-region">GUINÉE <span class="block font-normal tracking-normal normal-case text-xs opacity-65">Équipements</span></span>
             </a>
-            <form action="{{ route('catalog') }}" method="GET" role="search" class="hidden sm:flex flex-1 max-w-2xl">
-                <label for="header-search" class="sr-only">Rechercher une caméra ou une référence</label>
-                <input id="header-search" name="q" value="{{ request('q') }}" class="field rounded-r-none" placeholder="Caméra, enregistreur, référence Dahua…">
-                <button class="btn-red rounded-l-none" type="submit">Rechercher</button>
+            <form action="{{ route('catalog') }}" method="GET" role="search" class="store-search hidden md:flex">
+                <label class="sr-only" for="desktop-search">Rechercher un produit Dahua</label>
+                <x-store-icon name="search" :size="19" class="store-search-icon"/>
+                <input id="desktop-search" name="q" type="search" value="{{ request('q') }}"
+                       placeholder="Rechercher une référence, caméra, NVR…" autocomplete="off">
+                <button type="submit">Rechercher</button>
             </form>
-            <nav aria-label="Accès rapide" class="w-full sm:w-auto sm:ml-auto flex flex-wrap items-center justify-between sm:justify-end gap-3 lg:gap-4 text-sm font-semibold">
-                <a class="hidden md:inline hover:text-rouge" href="{{ route('catalog') }}">Boutique</a>
-                <a class="hidden lg:inline hover:text-rouge" href="{{ route('solution.videosurveillance') }}">Choisir son équipement</a>
-                <a class="text-rouge hover:underline" href="{{ route('quote.create') }}">Devis</a>
-                <a class="whitespace-nowrap text-ink hover:text-rouge" href="{{ route('cart.index') }}" aria-label="Voir mon panier">Panier ({{ array_sum(session('cart', [])) }})</a>
+            <div class="store-header-actions">
+                <a class="store-header-contact hidden sm:inline-flex" href="{{ route('quote.create') }}">Demander un devis</a>
+                <a class="store-header-cart" href="{{ route('cart.index') }}" aria-label="Panier — {{ array_sum(session('cart', [])) }} article(s)">
+                    <x-store-icon name="cart" :size="22"/>
+                    <span class="hidden sm:inline">Panier</span>
+                    <span class="store-cart-count">{{ array_sum(session('cart', [])) }}</span>
+                </a>
+                <details class="mobile-menu md:hidden">
+                    <summary aria-label="Ouvrir la navigation"><x-store-icon name="menu" :size="24"/></summary>
+                    <div class="mobile-menu-panel">
+                        <nav aria-label="Menu mobile">
+                            <a href="{{ route('catalog') }}">Tous les produits <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('solution.videosurveillance') }}">Bien choisir sa vidéosurveillance <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('quote.create') }}">Demande de devis <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('cart.index') }}">Mon panier <x-store-icon name="arrow-right" :size="17"/></a>
+                        </nav>
+                        @if(config('site.phone') || config('site.email'))
+                        <div class="mobile-menu-contact">
+                            @if(config('site.phone')) <span>{{ config('site.phone') }}</span> @endif
+                            @if(config('site.email')) <span>{{ config('site.email') }}</span> @endif
+                        </div>
+                        @endif
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div class="store-nav-row hidden md:block">
+            <nav class="container-wide store-nav" aria-label="Navigation principale">
+                <a href="{{ route('home') }}" @class(['is-current' => request()->routeIs('home')])>Accueil</a>
+                <a href="{{ route('catalog') }}" @class(['is-current' => request()->routeIs('catalog', 'category.show', 'product.show')])>Catalogue Dahua</a>
+                <a href="{{ route('solution.videosurveillance') }}" @class(['is-current' => request()->routeIs('solution.videosurveillance')])>Guide vidéosurveillance</a>
+                <a href="{{ route('quote.create') }}" @class(['is-current' => request()->routeIs('quote.*')])>Devis professionnels</a>
+                <span class="store-nav-note">Guinée · GNF</span>
             </nav>
         </div>
-        <div class="sm:hidden container-wide pb-3">
-            <form action="{{ route('catalog') }}" method="GET" role="search" class="flex">
-                <label for="mobile-search" class="sr-only">Rechercher un produit</label>
-                <input id="mobile-search" name="q" class="field rounded-r-none" placeholder="Rechercher un équipement…">
-                <button class="btn-red rounded-l-none" type="submit" aria-label="Lancer la recherche">OK</button>
+        <div class="container-wide md:hidden pb-3">
+            <form action="{{ route('catalog') }}" role="search" method="GET" class="store-search store-search-mobile flex">
+                <label class="sr-only" for="mobile-search">Rechercher une référence</label>
+                <x-store-icon name="search" :size="18" class="store-search-icon"/>
+                <input id="mobile-search" name="q" value="{{ request('q') }}" type="search" placeholder="Rechercher un produit Dahua…">
+                <button type="submit" aria-label="Lancer la recherche"><x-store-icon name="arrow-right" :size="18"/></button>
             </form>
         </div>
     </header>
     <main id="contenu">@yield('content')</main>
-    <footer class="bg-ink text-white mt-20">
-        <div class="container-wide grid sm:grid-cols-3 gap-10 py-14">
-            <div>
-                <div class="text-2xl font-extrabold">VIGILUS <span class="text-rouge">GUINÉE</span></div>
-                <p class="mt-3 text-slate-300 text-sm leading-relaxed">Équipements, conseils et solutions de sécurité électronique pour particuliers et professionnels.</p>
+    <footer class="store-footer mt-20">
+        <div class="container-wide py-14 lg:py-20">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-[1.3fr_.8fr_.8fr_1fr] gap-10 lg:gap-12">
+                <div>
+                    <div class="store-footer-brand">VIGILUS <span>GUINÉE</span></div>
+                    <p class="mt-4 text-sm leading-relaxed text-slate-300 max-w-xs">La sélection et la fourniture d’équipements de sécurité électronique pour vos projets à Conakry et en Guinée.</p>
+                    <p class="mt-5 text-xs text-slate-400">Une entité du Groupe Vigilus.</p>
+                </div>
+                <nav aria-label="Catalogue" class="store-footer-nav"><h2>Catalogue</h2>
+                    <a href="{{ route('catalog') }}">Toutes les références</a>
+                    <a href="{{ route('solution.videosurveillance') }}">Guide vidéosurveillance</a>
+                    <a href="{{ route('quote.create') }}">Demande de devis</a>
+                </nav>
+                <nav aria-label="Informations" class="store-footer-nav"><h2>Informations</h2>
+                    <a href="{{ route('legal.mentions') }}">Mentions légales</a>
+                    <a href="{{ route('legal.privacy') }}">Confidentialité</a>
+                    <a href="{{ route('legal.sales') }}">Conditions commerciales</a>
+                </nav>
+                <div class="store-footer-nav">
+                    <h2>Parlons de votre projet</h2>
+                    <p class="text-slate-300">Conakry, République de Guinée</p>
+                    @if(config('site.phone'))<a href="tel:{{ preg_replace('/[^+0-9]/', '', config('site.phone')) }}">{{ config('site.phone') }}</a>@endif
+                    @if(config('site.email'))<a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>@endif
+                    <a href="{{ route('quote.create') }}" class="font-bold text-white mt-2">Contacter l’équipe <span aria-hidden="true">↗</span></a>
+                </div>
             </div>
-            <div class="text-sm">
-                <strong class="block mb-3">Explorer</strong>
-                <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('catalog') }}">Tous les produits</a>
-                <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('solution.videosurveillance') }}">Choisir sa vidéosurveillance</a>
-                <a class="block py-1 text-slate-300 hover:text-white" href="{{ route('quote.create') }}">Devis personnalisé</a>
-            </div>
-            <div class="text-sm">
-                <strong class="block mb-3">Contact</strong>
-                <span class="text-slate-300 block">Conakry, République de Guinée</span>
-                @if(config('site.phone')) <a class="block py-1" href="tel:{{ preg_replace('/[^+0-9]/', '', config('site.phone')) }}">{{ config('site.phone') }}</a> @endif
-                @if(config('site.email')) <a class="block py-1" href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a> @endif
+            <div class="store-footer-bottom"><span>© {{ date('Y') }} Vigilus Guinée</span>
+                <span>Prix, disponibilité et livraison confirmés avant toute transaction. Aucun paiement en ligne.</span>
             </div>
         </div>
-        <div class="border-t border-white/10 py-5"><div class="container-wide text-xs text-slate-400 flex flex-wrap justify-between gap-3">
-            <span>© {{ date('Y') }} Vigilus Guinée. Prix et disponibilité à confirmer selon les produits.</span>
-            <nav class="flex flex-wrap gap-4" aria-label="Informations légales">
-                <a class="hover:text-white" href="{{ route('legal.mentions') }}">Mentions légales</a>
-                <a class="hover:text-white" href="{{ route('legal.privacy') }}">Confidentialité</a>
-                <a class="hover:text-white" href="{{ route('legal.sales') }}">Conditions de vente</a>
-            </nav></div></div>
     </footer>
 </body>
 </html>

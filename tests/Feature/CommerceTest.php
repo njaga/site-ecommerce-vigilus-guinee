@@ -37,8 +37,8 @@ class CommerceTest extends TestCase
 
     public function test_home_and_empty_catalog_are_available(): void
     {
-        $this->get('/')->assertOk()->assertSee('Votre sécurité commence');
-        $this->get('/produits')->assertOk()->assertSee('Pas encore de référence');
+        $this->get('/')->assertOk()->assertSee('La bonne technologie pour');
+        $this->get('/produits')->assertOk()->assertSee('Aucune référence pour cette sélection');
     }
 
     public function test_unpublished_product_is_not_public_and_not_in_sitemap(): void

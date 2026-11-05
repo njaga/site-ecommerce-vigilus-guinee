@@ -3,9 +3,9 @@
 @section('robots', 'noindex,nofollow')
 @section('content')
 <div class="container-wide max-w-3xl py-16">
-    <p class="kicker">Suivi de commande · Accès privé</p>
-    <h1 class="text-3xl sm:text-4xl font-extrabold mt-3">Demande {{ $order->reference }}</h1>
-    <div class="bg-cloud border border-slate-200 rounded-xl p-7 mt-8">
+    <p class="section-eyebrow">Suivi de commande · Accès privé</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Suivi de la demande {{ $order->reference }}</h1>
+    <div class="bg-cloud border border-slate-200 rounded-md p-7 mt-8">
         <h2 class="font-extrabold text-xl">{{ $order->statusLabel() }}</h2>
         <p class="mt-3 text-sm text-quiet">
             @if($order->status === \App\Models\Order::PENDING)

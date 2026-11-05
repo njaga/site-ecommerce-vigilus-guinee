@@ -3,10 +3,10 @@
 @section('robots', 'noindex,nofollow')
 @section('content')
 <div class="container-wide max-w-2xl py-24">
-    <div class="border border-slate-200 rounded-2xl p-9 sm:p-12 text-center">
+    <div class="border border-slate-200 rounded-md p-9 sm:p-12 text-center">
         <span class="text-4xl text-emerald-600" aria-hidden="true">✓</span>
-        <p class="kicker mt-5">Demande enregistrée</p>
-        <h1 class="text-3xl font-extrabold mt-3">Merci pour votre confiance.</h1>
+        <p class="section-eyebrow mt-5">Demande enregistrée</p>
+        <h1 class="text-3xl font-extrabold mt-4">Votre demande est bien enregistrée.</h1>
         <p class="text-quiet mt-5">Votre demande de commande a bien été enregistrée. Un conseiller devra confirmer les disponibilités, les frais éventuels et les modalités de règlement.</p>
         <div class="mt-7 bg-cloud p-5 rounded-lg">
             <div class="text-xs text-quiet">Référence de suivi</div>

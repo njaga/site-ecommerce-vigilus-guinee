@@ -3,21 +3,21 @@
 @section('robots', 'noindex,nofollow')
 @section('content')
 <div class="container-wide py-12">
-    <p class="kicker">Votre commande</p>
-    <h1 class="text-4xl font-extrabold mt-3">Confirmez votre demande</h1>
-    <p class="text-quiet mt-4 max-w-3xl">Aucun paiement n'est prélevé sur cette page. Nous confirmerons le stock, les frais de livraison et le montant définitif avant de vous proposer les modalités de règlement.</p>
+    <p class="section-eyebrow">Votre commande</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Votre demande de commande.</h1>
+    <p class="text-quiet mt-4 max-w-3xl leading-relaxed">Aucun paiement n'est prélevé sur cette page. Notre équipe confirmera le stock, les frais de livraison et le montant définitif avant de convenir avec vous des modalités de règlement.</p>
     @if($errors->any())
         <div role="alert" class="mt-6 p-4 bg-red-50 text-red-900 rounded-lg"><strong>Impossible d'enregistrer :</strong><ul class="ml-5 list-disc mt-2">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
     @endif
     <div class="grid lg:grid-cols-[1fr_340px] gap-7 mt-9 items-start">
-        <form method="POST" action="{{ route('checkout.store') }}" class="bg-white border border-slate-200 rounded-xl p-6 sm:p-9 grid sm:grid-cols-2 gap-5">
+        <form method="POST" action="{{ route('checkout.store') }}" class="bg-white border border-slate-200 rounded-md p-6 sm:p-9 grid sm:grid-cols-2 gap-5">
             @csrf
             <input type="hidden" name="checkout_token" value="{{ $checkoutToken }}">
-            <h2 class="sm:col-span-2 text-xl font-extrabold">Vos coordonnées</h2>
+            <h2 class="sm:col-span-2 text-xl font-extrabold border-b border-slate-200 pb-4">01 · Vos coordonnées</h2>
             <div><label for="customer_name" class="input-label">Nom complet *</label><input id="customer_name" name="customer_name" class="field" required autocomplete="name" value="{{ old('customer_name') }}"></div>
             <div><label for="customer_phone" class="input-label">Téléphone *</label><input id="customer_phone" name="customer_phone" class="field" required type="tel" autocomplete="tel" value="{{ old('customer_phone') }}"></div>
             <div class="sm:col-span-2"><label for="customer_email" class="input-label">Adresse email</label><input id="customer_email" name="customer_email" type="email" autocomplete="email" class="field" value="{{ old('customer_email') }}"></div>
-            <h2 class="sm:col-span-2 text-xl font-extrabold mt-4">Localisation de livraison ou de retrait souhaité</h2>
+            <h2 class="sm:col-span-2 text-xl font-extrabold mt-4 border-b border-slate-200 pb-4">02 · Livraison ou retrait souhaité</h2>
             <div><label for="city" class="input-label">Ville *</label><input id="city" name="city" required class="field" value="{{ old('city', config('site.city')) }}"></div>
             <div><label for="district" class="input-label">Commune / quartier</label><input id="district" name="district" class="field" value="{{ old('district') }}"></div>
             <div class="sm:col-span-2"><label for="address" class="input-label">Adresse / repère *</label><textarea id="address" name="address" required class="field" rows="3">{{ old('address') }}</textarea></div>
@@ -28,7 +28,7 @@
             </label>
             <div class="sm:col-span-2"><button type="submit" class="btn-red w-full">Envoyer ma demande de commande</button></div>
         </form>
-        <aside class="bg-cloud border border-slate-200 rounded-xl p-6">
+        <aside class="bg-cloud border border-slate-200 rounded-md p-6">
             <h2 class="font-extrabold text-xl">Équipements sélectionnés</h2>
             <ul class="divide-y divide-slate-200 mt-4">
                 @foreach($lines as $line)
