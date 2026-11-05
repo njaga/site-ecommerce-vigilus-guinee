@@ -73,16 +73,16 @@ class CatalogPreviewTest extends TestCase
         $this->get(route('home'))->assertOk()
             ->assertSee($category->name)
             ->assertSee($product->sku)
-            ->assertSee('0 GNF')
+            ->assertSee('class="product-card-price">0 <span', false)
             ->assertSee('Illustration');
 
         $this->get(route('catalog'))->assertOk()
             ->assertSee($product->sku)
-            ->assertSee('0 GNF');
+            ->assertSee('class="product-card-price">0 <span', false);
         $this->get(route('category.show', $category))->assertOk()
             ->assertSee($product->name);
         $this->get(route('product.show', $product->slug))->assertOk()
-            ->assertSee('0 GNF')
+            ->assertSee('class="product-purchase-price">0 <span', false)
             ->assertSee('Illustration de la catégorie')
             ->assertSee('Ajouter au panier')
             ->assertDontSee('https://schema.org/InStock');
@@ -98,10 +98,10 @@ class CatalogPreviewTest extends TestCase
         $product->update(['price_on_request' => false]);
 
         $this->get(route('catalog'))->assertOk()
-            ->assertSee('0 GNF')
+            ->assertSee('class="product-card-price">0 <span', false)
             ->assertDontSee('485 000');
         $this->get(route('product.show', $product->slug))->assertOk()
-            ->assertSee('0 GNF')
+            ->assertSee('class="product-purchase-price">0 <span', false)
             ->assertDontSee('485 000');
         $this->getJson(route('search.suggestions', ['q' => 'DAHUA-TEST']))
             ->assertOk()
@@ -152,7 +152,7 @@ class CatalogPreviewTest extends TestCase
         $category = $this->category(true);
         $product = $this->draft($category, 850000);
         $product->update(['price_on_request' => false]);
-        $this->get(route('catalog'))->assertSee('0 GNF');
+        $this->get(route('catalog'))->assertSee('class="product-card-price">0 <span', false);
 
         config()->set('catalog.preview_enabled', false);
         $this->assertFalse(CatalogPreview::enabled());
@@ -202,7 +202,7 @@ class CatalogPreviewTest extends TestCase
         $this->assertSame(0, $product->stock_qty);
         $this->assertSame(CatalogImportRow::APPROVED, $ready->fresh()->status);
 
-        $this->get(route('catalog'))->assertOk()->assertSee('DH-IPC-TEST-003')->assertSee('0 GNF');
+        $this->get(route('catalog'))->assertOk()->assertSee('DH-IPC-TEST-003')->assertSee('class="product-card-price">0 <span', false);
         $this->get(route('category.show', $category))->assertOk()->assertSee('DH-IPC-TEST-003');
 
         $this->post(route('admin.preview.prepare'))->assertRedirect();
