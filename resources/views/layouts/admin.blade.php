@@ -17,6 +17,7 @@
                 <a href="{{ route('admin.products.index') }}" class="hover:text-red-300">Produits</a>
                 <a href="{{ route('admin.categories.index') }}" class="hover:text-red-300">Catégories</a>
                 <a href="{{ route('admin.imports.index') }}" class="hover:text-red-300">Import BOQ</a>
+                <a href="{{ route('admin.seo-redirects.index') }}" class="hover:text-red-300">Migration SEO</a>
                 <a href="{{ route('admin.quotes.index') }}" class="hover:text-red-300">Devis</a>
                 <a href="{{ route('admin.orders.index') }}" class="hover:text-red-300">Commandes</a>
                 <a href="{{ route('home') }}" target="_blank" rel="noopener" class="hover:text-red-300">Voir la boutique ↗</a>

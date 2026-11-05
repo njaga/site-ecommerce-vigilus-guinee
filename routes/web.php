@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CatalogImportController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\SeoRedirectController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
@@ -19,7 +20,8 @@ Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
 Route::get('/categories/{category:slug}', [StorefrontController::class, 'catalog'])->name('category.show');
 Route::get('/produits/{slug}', [StorefrontController::class, 'product'])->name('product.show');
-Route::view('/installation-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
+Route::permanentRedirect('/installation-videosurveillance-conakry', '/equipements-videosurveillance-conakry');
+Route::view('/equipements-videosurveillance-conakry', 'store.solutions.videosurveillance')->name('solution.videosurveillance');
 
 Route::get('/demande-de-devis', [QuoteController::class, 'create'])->name('quote.create');
 Route::post('/demande-de-devis', [QuoteController::class, 'store'])
@@ -64,6 +66,11 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::post('/imports/{batch}/approuver-selection', [CatalogImportController::class, 'bulkApprove'])->name('imports.bulk-approve');
     Route::post('/imports/{batch}/lignes/{row}/ignorer', [CatalogImportController::class, 'skip'])->name('imports.skip');
     Route::delete('/imports/{batch}', [CatalogImportController::class, 'purge'])->name('imports.purge');
+    Route::get('/redirections-seo', [SeoRedirectController::class, 'index'])->name('seo-redirects.index');
+    Route::post('/redirections-seo', [SeoRedirectController::class, 'store'])->name('seo-redirects.store');
+    Route::patch('/redirections-seo/{seoRedirect}/activer', [SeoRedirectController::class, 'activate'])->name('seo-redirects.activate');
+    Route::patch('/redirections-seo/{seoRedirect}/desactiver', [SeoRedirectController::class, 'deactivate'])->name('seo-redirects.deactivate');
+    Route::delete('/redirections-seo/{seoRedirect}', [SeoRedirectController::class, 'destroy'])->name('seo-redirects.destroy');
     Route::get('/devis', [AdminQuoteController::class, 'index'])->name('quotes.index');
     Route::get('/commandes', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
