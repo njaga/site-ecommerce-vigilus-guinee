@@ -1,0 +1,15 @@
+@extends('layouts.admin')
+@section('title', 'Formations')
+@section('content')
+<div class="flex flex-wrap justify-between gap-4 items-center mb-8"><div><h1 class="text-3xl font-extrabold mt-2">Formations et demandes</h1></div><a href="{{ route('admin.training.create') }}" class="btn-red">Créer une session</a></div>
+<section><h2 class="text-xl font-bold mb-4">Sessions</h2><div class="space-y-3">
+@forelse($sessions as $session)
+    <article class="bg-white rounded-lg border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4"><div><h3 class="font-bold">{{ $session->title }}</h3><p class="text-sm text-quiet mt-2">{{ $session->starts_at->format('d/m/Y à H:i') }} · {{ $session->location }}</p><p class="text-xs text-quiet mt-2">{{ $session->is_published ? ($session->starts_at->isPast() ? 'Terminée' : 'Publiée') : 'Brouillon' }}</p></div><a class="btn-light" href="{{ route('admin.training.edit', $session) }}">Modifier</a></article>
+@empty<p class="text-quiet">Aucune session pour le moment. Créez votre première session.</p>@endforelse
+</div><div class="mt-5">{{ $sessions->withQueryString()->links() }}</div></section>
+<section class="mt-10"><h2 class="text-xl font-bold mb-4">Demandes reçues</h2><div class="space-y-4">
+@forelse($requests as $inquiry)
+    <article class="bg-white border border-slate-200 rounded-lg p-5"><div class="flex flex-wrap justify-between gap-4"><div><h3 class="font-bold">{{ $inquiry->name }} @if($inquiry->company) · {{ $inquiry->company }} @endif</h3><p class="text-xs text-quiet mt-1">#{{ $inquiry->id }} · {{ $inquiry->created_at->format('d/m/Y H:i') }}</p></div><form action="{{ route('admin.training.requests.update', $inquiry) }}" method="POST" class="flex gap-2">@csrf @method('PATCH')<label class="sr-only" for="status-{{ $inquiry->id }}">Statut de la demande {{ $inquiry->id }}</label><select id="status-{{ $inquiry->id }}" name="status" class="field">@foreach(['new' => 'Nouvelle', 'contacted' => 'Contactée', 'closed' => 'Clôturée'] as $value => $label)<option value="{{ $value }}" @selected($inquiry->status === $value)>{{ $label }}</option>@endforeach</select><button class="btn-light" type="submit">Enregistrer</button></form></div><dl class="grid sm:grid-cols-2 gap-4 text-sm mt-5"><div><dt class="text-quiet">Demande</dt><dd>{{ ['session' => 'Participation à une session', 'entreprise' => 'Session en entreprise', 'information' => 'Information'][$inquiry->request_type] }}@if($inquiry->session_title) · {{ $inquiry->session_title }}@endif</dd></div><div><dt class="text-quiet">Participants / période</dt><dd>{{ $inquiry->participants }} · {{ $inquiry->preferred_period ?: 'À convenir' }}</dd></div><div><dt class="text-quiet">Email</dt><dd class="break-all">{{ $inquiry->email }}</dd></div><div><dt class="text-quiet">Téléphone</dt><dd>{{ $inquiry->phone }}</dd></div></dl>@if($inquiry->message)<p class="mt-4 text-sm whitespace-pre-line">{{ $inquiry->message }}</p>@endif</article>
+@empty<p class="text-quiet">Aucune demande de formation reçue.</p>@endforelse
+</div><div class="mt-5">{{ $requests->withQueryString()->links() }}</div></section>
+@endsection

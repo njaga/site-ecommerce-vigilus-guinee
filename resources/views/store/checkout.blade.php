@@ -38,21 +38,23 @@
         </form>
         <aside class="bg-cloud border border-slate-200 rounded-md p-6">
             <h2 class="font-extrabold text-xl">Équipements sélectionnés</h2>
-            <ul class="divide-y divide-slate-200 mt-4">
+            <ul class="checkout-equipment-list mt-4">
                 @foreach($lines as $line)
-                    <li class="py-3 text-sm">
-                        <div class="font-semibold">{{ $line['product']->name }}</div>
-                        <div class="flex justify-between text-quiet mt-1">
-                            <span>{{ $line['quantity'] }} × {{ number_format($line['product']->display_price_gnf, 0, ',', ' ') }}</span>
-                            <span>{{ number_format($line['subtotal'], 0, ',', ' ') }} GNF</span>
+                    <li class="checkout-equipment">
+                        <a href="{{ route('product.show', $line['product']->slug) }}" aria-label="Voir {{ $line['product']->name }}"><x-product-thumbnail :product="$line['product']"/></a>
+                        <div class="checkout-equipment-copy">
+                            <a class="font-semibold hover:text-rouge" href="{{ route('product.show', $line['product']->slug) }}">{{ $line['product']->name }}</a>
+                            <p class="checkout-equipment-quantity">{{ $line['quantity'] }} × <x-store-price :amount="$line['product']->display_price_gnf"/></p>
+                            <strong><x-store-price :amount="$line['subtotal']"/></strong>
                         </div>
                     </li>
                 @endforeach
             </ul>
             <div class="mt-5 pt-5 border-t border-slate-200 flex justify-between font-extrabold">
-                <span>Sous-total matériel</span><span>{{ number_format($subtotal, 0, ',', ' ') }} GNF</span>
+                <span>Sous-total matériel</span><span><x-store-price :amount="$subtotal"/></span>
             </div>
             <p class="text-quiet text-sm mt-4">Livraison et montant final confirmés par notre équipe.</p>
+            <p class="currency-reference" data-currency-notice hidden>Référence : {{ number_format($subtotal, 0, ',', ' ') }} GNF. Les conversions sont indicatives.</p>
             <a class="block mt-5 text-sm text-rouge font-bold" href="{{ route('cart.index') }}">← Modifier le panier</a>
         </aside>
     </div>

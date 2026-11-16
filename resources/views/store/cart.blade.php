@@ -35,7 +35,7 @@
                             @if(! $line['valid'])
                                 <p class="text-sm text-rouge mt-3">Ce produit ou cette quantité n'est plus disponible. Modifiez ou supprimez cette ligne.</p>
                             @else
-                                <p class="text-sm text-ink font-bold mt-3">{{ number_format($line['subtotal'], 0, ',', ' ') }} GNF</p>
+                                <p class="text-sm text-ink font-bold mt-3"><x-store-price :amount="$line['subtotal']"/></p>
                             @endif
                         </div>
                         <form action="{{ route('cart.update') }}" method="POST" class="flex gap-2 items-end">
@@ -59,9 +59,10 @@
             <aside class="bg-cloud rounded-md p-6 border border-slate-200">
                 <h2 class="font-extrabold text-xl">Votre récapitulatif</h2>
                 <div class="mt-6 flex justify-between font-bold">
-                    <span>Sous-total matériel</span><span>{{ number_format($subtotal, 0, ',', ' ') }} GNF</span>
+                    <span>Sous-total matériel</span><span><x-store-price :amount="$subtotal"/></span>
                 </div>
                 <div class="flex justify-between text-sm text-quiet mt-4"><span>Livraison</span><span>À confirmer</span></div>
+                <p class="currency-reference" data-currency-notice hidden>Référence : {{ number_format($subtotal, 0, ',', ' ') }} GNF. Les conversions sont indicatives.</p>
                 <div class="border-t border-slate-200 mt-6 pt-5 text-sm text-quiet">
                     Les frais d'expédition et le montant final sont confirmés par l'équipe avant tout règlement hors site.
                 </div>

@@ -2,7 +2,7 @@
 @section('title', 'Catégories et SEO')
 @section('content')
 <div class="mb-7">
-    <p class="kicker">Architecture catalogue</p>
+
     <h1 class="text-3xl font-extrabold mt-1">Catégories et SEO</h1>
     <p class="text-quiet mt-3 max-w-3xl">Chaque catégorie active possède une page indexable et une URL stable. Renseignez des textes spécifiques à son contenu plutôt que des mots-clés répétés.</p>
 </div>

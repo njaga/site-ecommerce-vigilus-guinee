@@ -1,0 +1,4 @@
+<section id="certifications" class="container-wide storefront-section certifications-summary">
+    <div><p class="section-eyebrow">Les engagements du Groupe</p><h2 class="section-heading">La confiance se construit.</h2><p>Qualité, environnement, santé et sécurité au travail : Vigilus Groupe SA s’appuie sur quatre certifications pour faire progresser ses pratiques.</p><a class="section-link" href="{{ route('about') }}#certifications">Comprendre nos certifications <x-store-icon name="arrow-right" :size="17"/></a></div>
+    <div class="certifications-badges">@foreach(config('group.certifications') as $certification)<img src="{{ asset('images/certifications/'.$certification['image']) }}" alt="Certification {{ $certification['name'] }}" width="130" height="160" loading="lazy">@endforeach</div>
+</section>

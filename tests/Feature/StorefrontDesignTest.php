@@ -45,7 +45,7 @@ class StorefrontDesignTest extends TestCase
             ->assertSee('aria-label="Menu mobile"', false)
             ->assertSee('Rechercher un produit Dahua')
             ->assertSee('Journal & conseils', false)
-            ->assertSee('La bonne technologie pour')
+            ->assertSee('Protégez ce qui')
             ->assertSee('Équipements de sécurité électronique · Conakry');
     }
 
@@ -61,7 +61,7 @@ class StorefrontDesignTest extends TestCase
         $this->get(route('home'))->assertOk()
             ->assertSee('storage/products/photo-reference-fictive.jpg')
             ->assertSee('Photo de démonstration du produit')
-            ->assertSee('Références à découvrir');
+            ->assertSee('Notre sélection');
     }
 
     public function test_empty_category_is_not_promoted_in_home_or_catalog_sidebar(): void
@@ -162,8 +162,8 @@ class StorefrontDesignTest extends TestCase
         $this->actingAs($admin)->get(route('admin.products.index'))->assertOk()
             ->assertSee('admin-rail')
             ->assertSee('admin-rail-nav')
-            ->assertSee('Produits Dahua')
-            ->assertSee('Migration SEO')
+            ->assertSee('Produits')
+            ->assertSee('Redirections')
             ->assertSee('Déconnexion')
             ->assertSee('noindex,nofollow');
     }

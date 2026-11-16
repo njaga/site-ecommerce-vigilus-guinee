@@ -15,32 +15,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/storefront.css', 'resources/js/app.js'])
     @stack('jsonld')
 </head>
-<body class="store-body">
+<body class="store-body" data-currency-rates="{{ json_encode(config('currency.rates')) }}">
     <a class="skip-link" href="#contenu">Aller au contenu principal</a>
-    <div class="store-utility">
-        <div class="container-wide flex flex-wrap items-center justify-between gap-x-5 gap-y-1 py-2">
-            <span>Vigilus Guinée <span class="mx-2 opacity-40">/</span> Équipements de sécurité électronique</span>
-            <a href="{{ route('quote.create') }}" class="hover:text-white font-semibold">Demander un devis <span aria-hidden="true" class="ml-2">↗</span></a>
-        </div>
-    </div>
     <header class="store-header">
         <div class="container-wide store-header-inner">
             <a href="{{ route('home') }}" class="store-brand" aria-label="Vigilus Groupe SA — boutique Guinée">
                 <img src="{{ config('site.brand_logo_url') }}" width="126" height="58"
                      alt="Vigilus Groupe SA — logo officiel" class="store-brand-image">
-                <span class="store-brand-region">GUINÉE <span class="block font-normal tracking-normal normal-case text-xs opacity-65">Équipements</span></span>
             </a>
             <button type="button" data-open-search data-fallback-url="{{ route('catalog') }}" class="store-search-launch hidden md:flex" aria-haspopup="dialog"
                     aria-label="Rechercher un produit Dahua">
                 <x-store-icon name="search" :size="20" class="text-slate-500"/>
-                <span class="flex-1 text-left">Rechercher un équipement ou une référence Dahua…</span>
-                <kbd class="store-search-shortcut">⌘ / Ctrl + K</kbd>
+                <span class="flex-1 text-left">Un équipement, une référence…</span>
+                <kbd class="store-search-shortcut">Ctrl K</kbd>
             </button>
             <div class="store-header-actions">
-                <a class="store-header-contact hidden sm:inline-flex" href="{{ route('quote.create') }}">Demander un devis</a>
+                @include('store.partials.currency-picker')
+                <a class="store-header-contact btn-red hidden sm:inline-flex" href="{{ route('quote.create') }}">Demander un devis</a>
                 <a class="store-header-cart" href="{{ route('cart.index') }}" aria-label="Panier — {{ array_sum(session('cart', [])) }} article(s)">
                     <x-store-icon name="cart" :size="22"/>
                     <span class="hidden sm:inline">Panier</span>
@@ -50,13 +44,17 @@
                     <summary aria-label="Ouvrir la navigation"><x-store-icon name="menu" :size="24"/></summary>
                     <div class="mobile-menu-panel">
                         <nav aria-label="Menu mobile">
-                            <a href="{{ route('catalog') }}">Tous les produits <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('catalog') }}">Notre catalogue <x-store-icon name="arrow-right" :size="17"/></a>
                             @foreach($navCategories->take(4) as $navCategory)
-                                <a href="{{ route('category.show', $navCategory) }}" class="pl-3 text-quiet text-xs">
-                                    {{ $navCategory->name }} <x-store-icon name="arrow-right" :size="14"/>
+                                @php $navVisual = app(\App\Support\CategoryVisuals::class)->for($navCategory); @endphp
+                                <a href="{{ route('category.show', $navCategory) }}" class="store-category-link">
+                                    <img class="store-category-thumbnail" src="{{ $navVisual['url'] }}" alt="" width="48" height="48" loading="lazy">
+                                    <span>{{ $navCategory->name }}</span><x-store-icon name="arrow-right" :size="14"/>
                                 </a>
                             @endforeach
                             <a href="{{ route('about') }}">À propos de Vigilus Guinée <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('contact') }}">Contact <x-store-icon name="arrow-right" :size="17"/></a>
+                            <a href="{{ route('training.index') }}">Formations <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('solution.videosurveillance') }}">Journal & conseils <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('quote.create') }}">Demande de devis <x-store-icon name="arrow-right" :size="17"/></a>
                             <a href="{{ route('cart.index') }}">Mon panier <x-store-icon name="arrow-right" :size="17"/></a>
@@ -76,13 +74,16 @@
                 <a href="{{ route('home') }}" @class(['is-current' => request()->routeIs('home')])>Accueil</a>
                 <details class="store-nav-catalog">
                     <summary @class(['is-current' => request()->routeIs('catalog', 'category.show', 'product.show')])>
-                        Catalogue Dahua <x-store-icon name="chevron-down" :size="15"/>
+                        Notre catalogue <x-store-icon name="chevron-down" :size="15"/>
                     </summary>
                     <div class="store-mega-menu">
                         <p class="text-xs tracking-widest uppercase font-extrabold text-quiet">Explorer par famille d’équipements</p>
                         <div class="grid grid-cols-2 gap-x-6 mt-3">
                             @foreach($navCategories as $navCategory)
-                                <a href="{{ route('category.show', $navCategory) }}">{{ $navCategory->name }}
+                                @php $navVisual = app(\App\Support\CategoryVisuals::class)->for($navCategory); @endphp
+                                <a href="{{ route('category.show', $navCategory) }}" class="store-category-link">
+                                    <img class="store-category-thumbnail" src="{{ $navVisual['url'] }}" alt="" width="48" height="48" loading="lazy">
+                                    <span>{{ $navCategory->name }}</span>
                                     <x-store-icon name="arrow-right" :size="15" class="ml-auto text-rouge"/>
                                 </a>
                             @endforeach
@@ -91,9 +92,10 @@
                     </div>
                 </details>
                 <a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>À propos</a>
+                <a href="{{ route('training.index') }}" @class(['is-current' => request()->routeIs('training.*')])>Formations</a>
                 <a href="{{ route('solution.videosurveillance') }}" @class(['is-current' => request()->routeIs('solution.videosurveillance')])>Journal & conseils</a>
-                <a href="{{ route('quote.create') }}" @class(['is-current' => request()->routeIs('quote.*')])>Devis professionnels</a>
-                <span class="store-nav-note">Guinée · GNF</span>
+                <a href="{{ route('contact') }}" @class(['is-current' => request()->routeIs('contact')])>Contact</a>
+                <span class="store-nav-note">Conakry, Guinée</span>
             </nav>
         </div>
         <div class="container-wide md:hidden pb-3">
@@ -103,6 +105,7 @@
             </button>
         </div>
     </header>
+    <div class="currency-notice" data-currency-notice hidden role="status">Prix approximatifs · Taux fixes du {{ \Carbon\Carbon::parse(config('currency.updated_at'))->format('d/m/Y') }} · Le montant de référence reste en GNF.</div>
     <dialog id="store-search-dialog" data-search-dialog
             data-suggestions-url="{{ route('search.suggestions') }}"
             data-catalog-url="{{ route('catalog') }}"
@@ -150,30 +153,25 @@
         </div>
     </dialog>
     <main id="contenu">@yield('content')</main>
-    <footer class="store-footer mt-24">
+    <footer class="store-footer">
         <div class="container-wide py-14 lg:py-18">
-            <div class="store-footer-cta">
-                <div>
-                    <p class="text-xs uppercase tracking-[.18em] font-extrabold text-[#9dcbdb]">Votre projet en Guinée</p>
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mt-3 leading-snug text-white">Une liste de références ? <span class="text-[#bde8f2]">Parlons équipements.</span></h2>
-                    <p class="text-slate-300 mt-3 max-w-xl text-sm leading-relaxed">Un projet en tête ? Demandez votre devis.</p>
-                </div>
-                <a href="{{ route('quote.create') }}" class="store-footer-cta-button">Demander un devis <x-store-icon name="arrow-right" :size="18"/></a>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-[1.35fr_.85fr_.85fr_1.1fr] gap-9 lg:gap-14 mt-16">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-[1.35fr_.85fr_.85fr_1.1fr] gap-9 lg:gap-14">
                 <div>
                     <a href="{{ route('home') }}" class="store-footer-logo-wrap" aria-label="Vigilus Groupe SA — accueil">
                         <img src="{{ config('site.brand_logo_url') }}" width="144" height="70" alt="Vigilus Groupe SA — logo officiel" loading="lazy">
                     </a>
-                    <p class="mt-5 text-sm leading-relaxed text-slate-300 max-w-xs">Équipements de sécurité électronique à Conakry.</p>
+                    <p class="mt-5 text-sm leading-relaxed max-w-xs">Vigilus Guinée accompagne vos projets de sécurité : équipements Dahua, conseil technique et formations pour les installateurs et les entreprises.</p>
+                    <p class="footer-dahua-statement">{{ config('group.dahua_statement') }}</p>
                     <a href="https://groupevigilus.com/" target="_blank" rel="noopener noreferrer" class="inline-flex gap-2 items-center font-bold text-sm text-[#bde8f2] mt-5 hover:text-white">Découvrir le Groupe Vigilus <x-store-icon name="arrow-right" :size="16"/></a>
                 </div>
                 <nav class="store-footer-nav" aria-label="Navigation de la boutique">
                     <h2>Explorer</h2>
                     <a href="{{ route('home') }}">Accueil</a>
-                    <a href="{{ route('catalog') }}">Catalogue Dahua</a>
+                    <a href="{{ route('catalog') }}">Notre catalogue</a>
                     <a href="{{ route('solution.videosurveillance') }}">Journal & conseils</a>
                     <a href="{{ route('about') }}">À propos</a>
+                    <a href="{{ route('training.index') }}">Formations</a>
+                    <a href="{{ route('contact') }}">Contact</a>
                     <a href="{{ route('quote.create') }}">Demande de devis</a>
                 </nav>
                 <nav class="store-footer-nav" aria-label="Liens utiles">
@@ -185,15 +183,8 @@
                 </nav>
                 <div class="store-footer-nav">
                     <h2>Vigilus Guinée</h2>
-                    <p class="text-slate-300 text-sm">Conakry, République de Guinée</p>
-                    @if(config('site.phone'))
-                        <a href="tel:{{ preg_replace('/[^+0-9]/', '', config('site.phone')) }}">{{ config('site.phone') }}</a>
-                    @endif
-                    @if(config('site.email'))
-                        <a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>
-                    @endif
-                    <p class="text-xs text-slate-400 leading-relaxed">Pour vos devis, volumes et références.</p>
-                    <a href="{{ route('quote.create') }}" class="font-extrabold text-[#bde8f2] mt-2 hover:text-white">Échanger avec l'équipe <span aria-hidden="true">↗</span></a>
+                    @include('store.partials.contact-details')
+                    <a href="{{ route('contact') }}" class="font-extrabold text-[#bde8f2] mt-2 hover:text-white">Échanger avec l'équipe <span aria-hidden="true">↗</span></a>
                 </div>
             </div>
             <div class="store-footer-bottom">
@@ -202,5 +193,6 @@
             </div>
         </div>
     </footer>
+    @include('store.partials.whatsapp')
 </body>
 </html>

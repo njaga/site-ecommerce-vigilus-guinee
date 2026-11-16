@@ -5,11 +5,11 @@
 <section class="bg-cloud border-b border-slate-200">
     <div class="container-wide py-12">
         <p class="section-eyebrow">Votre projet</p>
-        <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Décrivez votre besoin, nous préparons la suite.</h1>
-        <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Une référence Dahua, un besoin en quantité ou un projet d’équipement à Conakry ? Envoyez-nous vos spécifications pour recevoir une proposition commerciale.</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold mt-5">Parlons de votre projet.</h1>
+        <p class="text-quiet mt-4 max-w-2xl leading-relaxed">Quelques informations suffisent pour préparer votre devis.</p>
     </div>
 </section>
-<div class="container-wide max-w-3xl py-12">
+<div class="container-wide quote-content py-12">
     @if(session('success')) <div role="status" class="bg-emerald-50 text-emerald-900 rounded-lg p-4 mb-5">{{ session('success') }}</div> @endif
     @if($errors->any())
         <div role="alert" class="bg-red-50 text-red-900 rounded-lg p-4 mb-5"><p class="font-bold">Merci de vérifier les informations :</p>
@@ -31,7 +31,7 @@
         <div><label for="email" class="input-label">Email</label><input id="email" name="email" type="email" class="field" value="{{ old('email') }}" autocomplete="email"></div>
         <div><label for="company" class="input-label">Société (facultatif)</label><input id="company" name="company" class="field" value="{{ old('company') }}"></div>
         <div><label for="quantity" class="input-label">Quantité souhaitée *</label><input id="quantity" name="quantity" type="number" min="1" max="100000" required class="field" value="{{ old('quantity', 1) }}"></div>
-        <div class="sm:col-span-2"><label for="message" class="input-label">Votre besoin</label><textarea id="message" name="message" rows="5" class="field" placeholder="Références, quantités, type de site, commune, délai de livraison souhaité…">{{ old('message') }}</textarea></div>
+        <div class="sm:col-span-2"><label for="message" class="input-label">Votre besoin</label><textarea id="message" name="message" rows="5" class="field" placeholder="Références, quantités, type de site, commune, délai de livraison souhaité…">{{ old('message', request('sujet') === 'formation' ? 'Je souhaite être informé des prochaines formations Dahua pour les installateurs et les entreprises.' : '') }}</textarea></div>
         <div class="sm:col-span-2">
             <label class="flex gap-3 items-start text-sm text-quiet"><input type="checkbox" name="consent" value="1" required class="mt-1"> <span>J'accepte que Vigilus traite mes coordonnées pour répondre à cette demande, conformément à la <a class="underline hover:text-rouge" target="_blank" rel="noopener" href="{{ route('legal.privacy') }}">politique de confidentialité</a>. *</span></label>
         </div>

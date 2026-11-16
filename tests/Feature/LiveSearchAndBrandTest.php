@@ -138,9 +138,9 @@ class LiveSearchAndBrandTest extends TestCase
             ->assertSee('Vigilus Groupe SA — logo officiel')
             ->assertSee('www.groupevigilus.com/media/site/logo.png')
             ->assertSee('À propos')
-            ->assertSee('Pourquoi nous choisir')
+            ->assertSee('Choisissez vos équipements')
             ->assertSee('Nos clients')
-            ->assertSee('Nos partenaires');
+            ->assertSee('Recevez votre proposition');
     }
 
     public function test_home_categories_have_contextual_editorial_images(): void

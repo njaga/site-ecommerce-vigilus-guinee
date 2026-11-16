@@ -1,17 +1,17 @@
 @extends('layouts.admin')
-@section('title', 'Imports confidentiels Dahua')
+@section('title', 'Imports')
 @section('content')
 <div class="flex flex-wrap justify-between items-end gap-5 mb-8">
     <div>
-        <p class="kicker">Catalogue produit</p>
-        <h1 class="text-3xl font-extrabold mt-1">Imports BOQ Dahua</h1>
-        <p class="mt-3 text-quiet max-w-3xl">Préparez les références fabricant à partir d'un fichier Excel fournisseur. Cette fonction est réservée à l'administration.</p>
+
+        <h1 class="text-3xl font-extrabold mt-1">Imports</h1>
+        <p class="mt-3 text-quiet max-w-3xl">Créez des brouillons produits à partir d’un fichier Excel fournisseur.</p>
     </div>
     <a class="btn-light" href="{{ route('admin.products.index') }}">Voir les brouillons →</a>
 </div>
 <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(300px,.8fr)] gap-6 mb-10">
     <section class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8">
-        <h2 class="text-xl font-extrabold">Importer un nouveau BOQ</h2>
+        <h2 class="text-xl font-extrabold">Importer un fichier Excel</h2>
         <p class="text-quiet mt-3 text-sm leading-relaxed">
             Format attendu : XLSX, feuille « Data Sheet » avec les colonnes de référence, description, caractéristiques et garantie.
             Taille maximale : 8 Mo. Aucune référence ne sera publiée automatiquement.
@@ -19,17 +19,17 @@
         <form method="POST" action="{{ route('admin.imports.store') }}" enctype="multipart/form-data" class="mt-6 space-y-5">
             @csrf
             <div>
-                <label class="input-label" for="boq_file">Fichier Excel confidentiel *</label>
+                <label class="input-label" for="boq_file">Fichier XLSX *</label>
                 <input class="field" id="boq_file" type="file" name="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
             </div>
             <label class="flex gap-3 items-start text-sm text-quiet">
                 <input type="checkbox" name="confidentiality_ack" value="1" class="mt-1" required>
                 <span>Je confirme que le document est autorisé pour l'usage interne de Vigilus. Je comprends que seuls les champs techniques seront conservés pour revue et que le fichier original ne sera pas sauvegardé par cet importateur.</span>
             </label>
-            <button class="btn-red w-full sm:w-auto" type="submit">Analyser et préparer les références</button>
+            <button class="btn-red w-full sm:w-auto" type="submit">Analyser le fichier</button>
         </form>
     </section>
-    <aside class="border border-red-200 bg-red-50 rounded-xl p-6 sm:p-8">
+    <aside class="border border-slate-200 bg-white rounded-xl p-6 sm:p-8">
         <p class="text-rouge font-extrabold uppercase tracking-wide text-xs">Confidentialité</p>
         <h2 class="font-extrabold text-xl mt-3">Prix fournisseurs non importés</h2>
         <p class="text-sm leading-relaxed text-slate-700 mt-4">

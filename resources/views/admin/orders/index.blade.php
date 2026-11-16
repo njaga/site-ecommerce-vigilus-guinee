@@ -2,7 +2,7 @@
 @section('title', 'Demandes de commande')
 @section('content')
 <div class="flex items-center justify-between mb-7">
-    <div><p class="kicker">Commerce</p><h1 class="text-3xl font-extrabold mt-1">Commandes à traiter</h1></div>
+    <div><h1 class="text-3xl font-extrabold mt-1">Commandes à traiter</h1></div>
 </div>
 <nav class="flex flex-wrap gap-2 mb-6 text-sm font-semibold" aria-label="Filtrer les demandes">
     @foreach(['' => 'Toutes', 'pending_review' => 'À valider', 'reserved' => 'Stock réservé', 'confirmed' => 'Confirmées', 'cancelled' => 'Annulées'] as $key => $label)

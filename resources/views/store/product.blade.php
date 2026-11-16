@@ -89,7 +89,7 @@
                 <p class="sr-only" id="gallery-status" aria-live="polite">Photographie 1 affichée</p>
             @endif
         </section>
-        <div class="lg:sticky lg:top-6">
+        <div class="product-gallery-sticky">
             <p class="section-eyebrow">{{ $product->brand }} / {{ $product->category->name }}</p>
             <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight mt-5">{{ $product->name }}</h1>
             <p class="text-sm text-quiet mt-3">Référence fabricant : <strong class="text-ink tracking-wide">{{ $product->sku }}</strong></p>
@@ -97,7 +97,7 @@
             <div class="product-purchase mt-8">
                 <p class="text-xs text-quiet uppercase tracking-widest font-extrabold mb-3">Conditions commerciales</p>
                 @if($product->display_price_gnf !== null)
-                    <p class="product-purchase-price">{{ number_format($product->display_price_gnf, 0, ',', ' ') }} <span class="text-base font-bold">GNF</span></p>
+                    <p class="product-purchase-price"><x-store-price :amount="$product->display_price_gnf"/></p>
                 @else
                     <p class="product-purchase-price text-rouge">Prix sur devis</p>
                 @endif

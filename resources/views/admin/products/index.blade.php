@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Catalogue Dahua')
+@section('title', 'Produits')
 @section('content')
 <div class="flex flex-wrap justify-between items-end gap-5 mb-7">
-    <div><p class="kicker">Back-office · Vigilus Guinée</p><h1 class="text-3xl font-extrabold mt-1">Catalogue Dahua</h1>
-        <p class="text-quiet text-sm mt-2">Gestion des références du catalogue.</p></div>
-    <a href="{{ route('admin.products.create') }}" class="btn-red">+ Ajouter une référence</a>
+    <div><h1 class="text-3xl font-extrabold mt-1">Produits</h1>
+        <p class="text-quiet text-sm mt-2">{{ $products->total() }} référence(s)</p></div>
+    <a href="{{ route('admin.products.create') }}" class="btn-red">Ajouter un produit</a>
 </div>
 @if(\App\Support\CatalogPreview::enabled())
-    <div class="bg-white border border-slate-200 p-5 mb-6 flex flex-wrap gap-5 items-center justify-between">
+    <div class="admin-preview-note">
         <div>
             <strong class="block text-sm">Aperçu local actif · Prix affichés : 0 GNF</strong>
             <p class="text-xs text-quiet mt-2">
@@ -51,9 +51,9 @@
                     @else<span class="text-rouge">À valider</span>@endif
                 </td>
                 <td class="p-4">{{ $product->stock_qty }}</td>
-                <td class="p-4"><span class="{{ $product->is_active ? 'text-emerald-700' : 'text-quiet' }}">{{ $product->is_active ? 'Publiée' : 'Brouillon' }}</span></td>
+                <td class="p-4"><span class="admin-status {{ $product->is_active ? 'is-published' : '' }}">{{ $product->is_active ? 'Publiée' : 'Brouillon' }}</span></td>
                 <td class="p-4 text-right">
-                    <a class="text-rouge font-bold hover:underline" href="{{ route('admin.products.edit', $product) }}">Compléter</a>
+                    <a class="text-rouge font-bold hover:underline" href="{{ route('admin.products.edit', $product) }}">Modifier</a>
                     @if(\App\Support\CatalogPreview::enabled())
                         <a class="text-quiet font-semibold hover:text-rouge ml-3"
                            href="{{ route('product.show', $product->slug) }}" target="_blank" rel="noopener noreferrer">Voir ↗</a>

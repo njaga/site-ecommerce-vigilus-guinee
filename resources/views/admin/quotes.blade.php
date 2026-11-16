@@ -3,9 +3,9 @@
 @section('content')
 <div class="flex flex-wrap justify-between gap-4 items-end mb-7">
     <div>
-        <p class="kicker">Suivi commercial</p>
+
         <h1 class="text-3xl font-extrabold mt-2">Demandes de devis</h1>
-        <p class="mt-2 text-quiet text-sm">Coordonnées et historiques réservés aux administrateurs habilités.</p>
+
     </div>
     <nav aria-label="Filtrer les devis" class="flex flex-wrap gap-2 text-sm">
         @foreach(['' => 'Tous', 'new' => 'Nouveaux', 'in_progress' => 'En cours', 'closed' => 'Clôturés'] as $key => $label)

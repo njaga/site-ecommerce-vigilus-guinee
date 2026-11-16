@@ -1,8 +1,8 @@
-<section id="nos-clients" class="client-proof py-14 lg:py-20">
+<section id="nos-clients" @class(['client-proof py-14 lg:py-20', 'client-proof-compact' => $compact ?? false])>
     <div class="container-wide">
         <div class="grid lg:grid-cols-[.86fr_1.14fr] gap-10 lg:gap-16 items-center">
             <div>
-                <p class="section-eyebrow">Ils nous font confiance</p>
+                <p class="section-eyebrow">Le Groupe Vigilus</p>
                 <h2 class="section-heading mt-4">Nos clients.</h2>
                 <p class="text-quiet mt-5 leading-relaxed">Quelques références du Groupe Vigilus, tous métiers et marchés confondus.</p>
                 <a class="section-link mt-7" href="https://groupevigilus.com/" target="_blank" rel="noopener noreferrer">Découvrir le Groupe et ses références <x-store-icon name="arrow-right" :size="17"/></a>
