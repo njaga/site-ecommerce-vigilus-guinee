@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CatalogImportController;
+use App\Http\Controllers\Admin\CatalogPreviewController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\LaunchReadinessController;
 use App\Http\Controllers\Admin\SeoRedirectController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::view('/a-propos', 'store.about')->name('about');
+Route::view('/contact', 'store.contact')->name('contact');
+Route::get('/formations', [\App\Http\Controllers\TrainingController::class, 'index'])->name('training.index');
+Route::post('/formations/demande', [\App\Http\Controllers\TrainingController::class, 'store'])->middleware('throttle:5,1')->name('training.store');
 Route::get('/produits', [StorefrontController::class, 'catalog'])->name('catalog');
 Route::get('/recherche/suggestions', SearchSuggestionController::class)
     ->middleware('throttle:40,1')->name('search.suggestions');
@@ -59,6 +63,12 @@ Route::post('/deconnexion', [AuthController::class, 'logout'])->middleware('auth
 
 Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/produits')->name('home');
+    Route::get('/formations', [\App\Http\Controllers\Admin\TrainingController::class, 'index'])->name('training.index');
+    Route::get('/formations/creer', [\App\Http\Controllers\Admin\TrainingController::class, 'create'])->name('training.create');
+    Route::post('/formations', [\App\Http\Controllers\Admin\TrainingController::class, 'store'])->name('training.store');
+    Route::get('/formations/{trainingSession}/modifier', [\App\Http\Controllers\Admin\TrainingController::class, 'edit'])->name('training.edit');
+    Route::put('/formations/{trainingSession}', [\App\Http\Controllers\Admin\TrainingController::class, 'update'])->name('training.update');
+    Route::patch('/formations/demandes/{trainingRequest}', [\App\Http\Controllers\Admin\TrainingController::class, 'updateRequest'])->name('training.requests.update');
     Route::get('/recette', LaunchReadinessController::class)->name('launch-readiness');
     Route::get('/articles', [AdminBlogPostController::class, 'index'])->name('blog.index');
     Route::get('/articles/creer', [AdminBlogPostController::class, 'create'])->name('blog.create');
@@ -68,6 +78,7 @@ Route::middleware(['auth', 'can:manage-catalog'])->prefix('admin')->name('admin.
     Route::get('/articles/{blogPost}/apercu', [AdminBlogPostController::class, 'preview'])->name('blog.preview');
     Route::patch('/articles/{blogPost}/archiver', [AdminBlogPostController::class, 'archive'])->name('blog.archive');
     Route::delete('/articles/{blogPost}', [AdminBlogPostController::class, 'destroy'])->name('blog.destroy');
+    Route::post('/apercu-catalogue/preparer', CatalogPreviewController::class)->name('preview.prepare');
     Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
     Route::get('/produits/creer', [ProductController::class, 'create'])->name('products.create');
     Route::post('/produits', [ProductController::class, 'store'])->name('products.store');

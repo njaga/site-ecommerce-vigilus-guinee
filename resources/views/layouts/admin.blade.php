@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/admin.css', 'resources/js/app.js'])
 </head>
 <body class="admin-body">
 <a href="#contenu" class="skip-link">Aller au contenu principal</a>
@@ -17,32 +17,30 @@
         <a href="{{ route('admin.home') }}" class="admin-rail-brand">
             <img src="{{ config('site.brand_logo_url') }}" width="83" height="47"
                  alt="Vigilus — logo du groupe">
-            <span>GUINÉE<br><span class="font-normal text-quiet tracking-normal">Administration</span></span>
+            <span>Vigilus<span class="admin-brand-caption">Administration</span></span>
         </a>
         <nav class="admin-rail-nav" aria-label="Rubriques">
-            <span class="admin-nav-label">Produits &amp; catalogue</span>
-            <a href="{{ route('admin.products.index') }}" @class(['active' => request()->routeIs('admin.products.*')])>Produits Dahua</a>
-            <a href="{{ route('admin.categories.index') }}" @class(['active' => request()->routeIs('admin.categories.*')])>Catégories</a>
-            <a href="{{ route('admin.imports.index') }}" @class(['active' => request()->routeIs('admin.imports.*')])>Imports techniques</a>
-            <span class="admin-nav-label">Contenus</span>
-            <a href="{{ route('admin.blog.index') }}" @class(['active' => request()->routeIs('admin.blog.*')])>Articles du journal</a>
-            <span class="admin-nav-label">Suivi commercial</span>
-            <a href="{{ route('admin.quotes.index') }}" @class(['active' => request()->routeIs('admin.quotes.*')])>Demandes de devis</a>
-            <a href="{{ route('admin.orders.index') }}" @class(['active' => request()->routeIs('admin.orders.*')])>Commandes</a>
-            <span class="admin-nav-label">Préparation du site</span>
-            <a href="{{ route('admin.seo-redirects.index') }}" @class(['active' => request()->routeIs('admin.seo-redirects.*')])>Migration SEO</a>
-            <a href="{{ route('admin.launch-readiness') }}" @class(['active' => request()->routeIs('admin.launch-readiness')])>Recette préproduction</a>
+            @foreach([
+                'Catalogue' => [['admin.products.index', 'admin.products.*', 'package', 'Produits'], ['admin.categories.index', 'admin.categories.*', 'filter', 'Catégories'], ['admin.imports.index', 'admin.imports.*', 'file', 'Imports']],
+                'Activité' => [['admin.orders.index', 'admin.orders.*', 'cart', 'Commandes'], ['admin.quotes.index', 'admin.quotes.*', 'file', 'Devis'], ['admin.training.index', 'admin.training.*', 'calendar', 'Formations']],
+                'Site' => [['admin.blog.index', 'admin.blog.*', 'edit', 'Articles'], ['admin.seo-redirects.index', 'admin.seo-redirects.*', 'link', 'Redirections'], ['admin.launch-readiness', 'admin.launch-readiness', 'shield', 'Mise en ligne']],
+            ] as $group => $links)
+                <span class="admin-nav-label">{{ $group }}</span>
+                @foreach($links as [$route, $pattern, $icon, $label])
+                    <a href="{{ route($route) }}" @class(['active' => request()->routeIs($pattern)]) @if(request()->routeIs($pattern)) aria-current="page" @endif><x-store-icon :name="$icon" :size="19"/><span>{{ $label }}</span></a>
+                @endforeach
+            @endforeach
         </nav>
         <div class="admin-rail-foot">
             <a href="{{ route('home') }}" target="_blank" rel="noopener noreferrer" class="font-bold text-rouge hover:underline">Voir la boutique ↗</a>
-            <p class="mt-3 text-xs text-quiet">Données commerciales réservées aux utilisateurs autorisés.</p>
         </div>
     </aside>
     <div class="admin-main">
         <header class="admin-topbar">
-            <div><strong>Espace de gestion</strong><small>Vigilus Guinée · Équipements Dahua</small></div>
+            <div class="admin-topbar-label"><span class="admin-presence" aria-hidden="true"></span><strong>Espace de gestion</strong></div>
             <div class="flex items-center gap-4 sm:gap-6">
-                <span class="text-xs text-quiet hidden sm:inline">{{ app()->environment('production') ? 'Environnement de production' : 'Environnement de préparation' }}</span>
+                @unless(app()->environment('production'))<span class="admin-environment">Préproduction</span>@endunless
+                <span class="admin-user hidden sm:inline">{{ auth()->user()?->name }}</span>
                 <form action="{{ route('logout') }}" method="POST">@csrf
                     <button class="text-sm font-bold text-rouge hover:underline" type="submit">Déconnexion</button>
                 </form>

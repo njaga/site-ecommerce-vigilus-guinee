@@ -46,6 +46,8 @@ class SiteController
         $urls = [
             [route('home'), now()],
             [route('about'), now()],
+            [route('contact'), now()],
+            [route('training.index'), now()],
             [route('catalog'), now()],
             [route('solution.videosurveillance'), now()],
         ];

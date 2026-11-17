@@ -9,10 +9,10 @@
         </div>
         <div class="grid md:grid-cols-2 gap-4">
             <div class="partner-panel">
-                <div class="partner-brand-wordmark" aria-label="Marque Dahua">DAHUA</div>
+                <img class="dahua-brand-logo" src="{{ asset(config('group.dahua_logo')) }}" alt="Dahua Technology" width="190" height="60" loading="lazy">
                 <div><span class="partner-panel-label">Marque du catalogue</span>
                     <h3 class="font-extrabold text-lg mt-2">Dahua</h3>
-                    <p class="text-sm text-quiet mt-2 leading-relaxed">Une sélection de références en sécurité électronique à consulter et à demander sur devis.</p>
+                    <p class="text-sm text-quiet mt-2 leading-relaxed">{{ config('group.dahua_statement') }}</p>
                 </div>
             </div>
             <div class="partner-panel">

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Support\CatalogPreview;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -33,5 +35,15 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function scopeStorefront(Builder $query): Builder
+    {
+        if (CatalogPreview::enabled()) {
+            return $query->whereHas('products');
+        }
+
+        return $query->where('is_active', true)
+            ->whereHas('products', fn ($products) => $products->where('is_active', true));
     }
 }

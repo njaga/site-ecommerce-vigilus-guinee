@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Support\CatalogPreview;
 use Illuminate\Support\Collection;
 
 class CartService
@@ -33,14 +34,14 @@ class CartService
                 && $product->can_order
                 && $quantity > 0
                 && $quantity <= 100
-                && $product->stock_qty >= $quantity;
+                && (CatalogPreview::enabled() || $product->stock_qty >= $quantity);
 
             return [
                 'id' => (int) $id,
                 'product' => $product,
                 'quantity' => $quantity,
                 'valid' => $valid,
-                'subtotal' => $valid ? $product->price_gnf * $quantity : null,
+                'subtotal' => $valid ? $product->display_price_gnf * $quantity : null,
             ];
         })->values();
     }

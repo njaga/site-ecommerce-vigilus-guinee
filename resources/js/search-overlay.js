@@ -1,3 +1,5 @@
+import { displayPrice } from './currency.js';
+
 const dialog = document.querySelector('[data-search-dialog]');
 
 if (dialog && typeof dialog.showModal === 'function') {
@@ -91,8 +93,10 @@ if (dialog && typeof dialog.showModal === 'function') {
         if (!isCategory) {
             const detail = entry.price_on_request || entry.price_gnf === null
                 ? 'Sur devis'
-                : new Intl.NumberFormat('fr-FR').format(entry.price_gnf) + ' GNF';
-            link.append(textElement('span', 'search-result-price', detail));
+                : displayPrice(entry.price_gnf);
+            const price = textElement('span', 'search-result-price', detail);
+            if (!entry.price_on_request && entry.price_gnf !== null) price.dataset.priceGnf = entry.price_gnf;
+            link.append(price);
         } else {
             link.append(textElement('span', 'search-result-end', '↗'));
         }

@@ -239,4 +239,36 @@ class ConfidentialBoqImportTest extends TestCase
             'category_id' => Category::firstOrFail()->id,
         ])->assertNotFound();
     }
+
+    public function test_local_xlsx_diagnostic_uses_the_same_reader_without_creating_database_records(): void
+    {
+        $file = $this->fakeBoq();
+
+        $this->artisan('catalogue:diagnostic-xlsx', [
+            'fichier' => $file->getRealPath(),
+        ])->assertExitCode(0);
+
+        $this->assertDatabaseCount('catalog_import_batches', 0);
+        $this->assertDatabaseCount('products', 0);
+    }
+
+    public function test_corrupt_xlsx_is_reported_without_importing_records(): void
+    {
+        $invalid = \Illuminate\Http\UploadedFile::fake()->createWithContent(
+            'invalid.xlsx', 'not-an-xlsx-zip'
+        );
+
+        $this->actingAs($this->admin())->post(route('admin.imports.store'), [
+            'file' => $invalid,
+            'confidentiality_ack' => '1',
+        ])->assertSessionHasErrors('file');
+
+        $this->artisan('catalogue:diagnostic-xlsx', [
+            'fichier' => $invalid->getRealPath(),
+        ])->assertExitCode(1);
+
+        $this->assertDatabaseCount('catalog_import_batches', 0);
+        $this->assertDatabaseCount('products', 0);
+    }
+
 }

@@ -50,8 +50,8 @@ class LaunchPreflight
             User::where('is_admin', true)->exists(),
             'Vérifier au moins un administrateur, son mot de passe et l’accès protégé.');
         $push('catalog', 'Catalogue publié',
-            Product::published()->exists(),
-            'Publier uniquement une sélection de vraies références Dahua vérifiées.');
+            ! \App\Support\CatalogPreview::enabled() && Product::published()->exists(),
+            'L’aperçu local et ses prix fictifs ne constituent pas une publication commerciale.');
         $logo = (string) config('site.brand_logo_url');
         $logoIsLocal = str_starts_with($logo, '/images/')
             && is_file(public_path(ltrim($logo, '/')));

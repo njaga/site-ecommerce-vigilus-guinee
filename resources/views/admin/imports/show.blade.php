@@ -4,7 +4,7 @@
 <nav class="text-sm text-quiet mb-5"><a href="{{ route('admin.imports.index') }}" class="hover:text-rouge">← Tous les imports</a></nav>
 <div class="flex flex-wrap justify-between gap-5 items-end">
     <div>
-        <p class="kicker">Revue privée</p>
+
         <h1 class="text-3xl font-extrabold mt-2">Import BOQ #{{ $batch->id }}</h1>
         <p class="mt-3 text-quiet">Références techniques en attente de validation — {{ $batch->total_rows }} ligne(s) détectée(s).</p>
     </div>

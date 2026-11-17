@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Support\CatalogPreview;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,22 +13,23 @@ class StorefrontController
     public function home(): View
     {
         return view('store.home', [
-            'categories' => Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->orderBy('sort_order')->get(),
+            'categories' => Category::storefront()->orderBy('sort_order')->get(),
             'featured' => Product::published()->with(['category', 'images'])
-                ->where('is_featured', true)->latest()->limit(8)->get(),
+                ->when(! CatalogPreview::enabled(), fn ($q) => $q->where('is_featured', true))
+                ->orderByDesc('is_featured')->latest()->limit(8)->get(),
         ]);
     }
 
     public function catalog(Request $request, ?Category $category = null): View
     {
-        abort_if($category && ! $category->is_active, 404);
+        abort_if($category && ! $category->is_active && ! CatalogPreview::enabled(), 404);
 
         $query = Product::published()->with(['category', 'images']);
         if ($category) {
             $query->where('category_id', $category->id);
         } elseif ($request->filled('categorie')) {
             $slug = substr((string) $request->query('categorie'), 0, 100);
-            $selected = Category::where('slug', $slug)->where('is_active', true)->firstOrFail();
+            $selected = Category::storefront()->where('slug', $slug)->firstOrFail();
             $query->where('category_id', $selected->id);
         }
 
@@ -60,8 +62,8 @@ class StorefrontController
 
         return view('store.catalog', [
             'category' => $category,
-            'categories' => Category::where('is_active', true)->whereHas('products', fn ($q) => $q->where('is_active', true))->orderBy('sort_order')->get(),
-            'products' => $query->paginate(12)->withQueryString(),
+            'categories' => Category::storefront()->orderBy('sort_order')->get(),
+            'products' => $query->paginate(CatalogPreview::enabled() ? 24 : 12)->withQueryString(),
             'search' => $search,
         ]);
     }

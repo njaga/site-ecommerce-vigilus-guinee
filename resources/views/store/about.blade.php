@@ -32,19 +32,22 @@
 @include('store.partials.why-us')
 @include('store.partials.clients')
 @include('store.partials.partners')
-<section class="container-wide py-16 lg:py-24">
-    <div class="grid lg:grid-cols-[1.05fr_.95fr] bg-[#12394f] text-white overflow-hidden">
-        <div class="p-8 sm:p-12 lg:p-16">
-            <p class="text-xs font-bold tracking-[.18em] uppercase text-cyan-200">La force d'un réseau</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight mt-5">Un Groupe. Des métiers complémentaires. Une expertise locale.</h2>
-            <p class="text-slate-300 leading-relaxed mt-6">Présent dans plusieurs pays africains, Vigilus Groupe SA réunit des métiers complémentaires. En Guinée, notre activité se concentre sur la fourniture d'équipements.</p>
-            <a class="btn-red mt-8" href="https://groupevigilus.com/notre-reseau/" target="_blank" rel="noopener noreferrer">Découvrir les implantations <x-store-icon name="arrow-right" :size="18"/></a>
-        </div>
-        <div class="bg-[#1b4a61] p-8 sm:p-12 lg:p-16 flex flex-col justify-center gap-7">
-            <div class="border-b border-white/20 pb-5"><span class="text-xs font-bold tracking-wider uppercase text-cyan-200">Implantation</span><p class="text-xl font-extrabold mt-2">Conakry · Guinée</p></div>
-            <div class="border-b border-white/20 pb-5"><span class="text-xs font-bold tracking-wider uppercase text-cyan-200">Activité</span><p class="text-xl font-extrabold mt-2">Fourniture &amp; distribution</p></div>
-            <div><span class="text-xs font-bold tracking-wider uppercase text-cyan-200">Réseau</span><p class="text-xl font-extrabold mt-2">Vigilus Groupe SA</p></div>
-        </div>
+@include('store.partials.training')
+@include('store.partials.group-network')
+@include('store.partials.certifications')
+<section id="nos-filiales" class="container-wide storefront-section">
+    <div class="section-topline"><div><p class="section-eyebrow">Des métiers complémentaires</p><h2 class="section-heading">Les filiales du Groupe.</h2></div><p class="text-sm text-quiet">Toutes basées au Sénégal.</p></div>
+    <div class="subsidiary-grid">
+        @foreach(config('group.subsidiaries') as $subsidiary)
+            <article class="subsidiary-card">
+                <div class="subsidiary-logo-slot">
+                    @if($subsidiary['logo'])<img src="{{ $subsidiary['logo'] }}" alt="{{ $subsidiary['name'] }}" width="180" height="80" loading="lazy">
+                    @else<span class="subsidiary-name-fallback">{{ $subsidiary['name'] }}</span>@endif
+                </div>
+                <h3>{{ $subsidiary['name'] }}</h3>@if(isset($subsidiary['detail']))<p>{{ $subsidiary['detail'] }}</p>@endif<span class="subsidiary-country"><img src="{{ asset('images/flags/sn.svg') }}" width="20" height="14" alt=""> Sénégal</span>
+                @if(isset($subsidiary['url']))<a class="section-link mt-3" href="{{ $subsidiary['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Visiter le site de {{ $subsidiary['name'] }} (nouvel onglet)">Voir le site <x-store-icon name="arrow-right" :size="15"/></a>@endif
+            </article>
+        @endforeach
     </div>
 </section>
 @endsection

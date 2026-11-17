@@ -2,9 +2,9 @@
 @section('title', 'Préparation du lancement')
 @section('content')
 <div class="mb-8">
-    <p class="kicker">Recette et exploitation</p>
+
     <h1 class="text-3xl font-extrabold mt-2">Préparation de la mise en ligne</h1>
-    <p class="mt-3 text-quiet max-w-3xl">Vérifications automatiques disponibles sur ce serveur. Les vérifications visuelles, juridiques, emails réels et droits produits restent obligatoires.</p>
+    <p class="mt-3 text-quiet max-w-3xl">Vérifiez la configuration du site avant son ouverture au public.</p>
 </div>
 <div class="grid sm:grid-cols-3 gap-3 mb-8">
     <div class="bg-white border border-slate-200 rounded-xl p-5">
@@ -12,7 +12,7 @@
     </div>
     <div class="sm:col-span-2 bg-white border border-slate-200 rounded-xl p-5">
         <strong class="text-base">Décision de publication</strong>
-        <p class="text-sm text-quiet mt-2">La réussite de ces points ne déclenche aucune publication ni migration. Le responsable doit approuver la recette et la bascule.</p>
+        <p class="text-sm text-quiet mt-2">Ces contrôles vous aident à préparer le lancement ; ils ne publient pas le site.</p>
     </div>
 </div>
 <div class="grid md:grid-cols-2 gap-4">

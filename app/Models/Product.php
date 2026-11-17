@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use App\Support\CatalogPreview;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -45,12 +46,28 @@ class Product extends Model
 
     public function scopePublished(Builder $query): Builder
     {
+        if (CatalogPreview::enabled()) {
+            // All existing products, including drafts, remain DB drafts.
+            return $query;
+        }
+
         return $query->where('is_active', true)
             ->whereHas('category', fn ($q) => $q->where('is_active', true));
     }
 
+    public function getDisplayPriceGnfAttribute(): ?int
+    {
+        return CatalogPreview::displayPriceGnf($this->price_gnf, (bool) $this->price_on_request);
+    }
+
     public function getCanOrderAttribute(): bool
     {
+        if (CatalogPreview::enabled()) {
+            // Allows cart/checkout layout inspection with zero test stock.
+            // Sending a real order is separately forbidden in checkout.
+            return $this->category !== null;
+        }
+
         return $this->is_active
             && $this->category?->is_active
             && ! $this->price_on_request

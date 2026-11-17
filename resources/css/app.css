@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./storefront.css";
 @source "../views/**/*.blade.php";
 @source "../../app/**/*.php";
 
@@ -328,38 +329,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     .store-mega-menu { animation:none!important; }
 }
 
-/* Homepage — striking editorial cover without invented product details. */
-.home-hero-modern { background:#0c2c40; color:#fff;position:relative;overflow:hidden; }
-.home-hero-modern:before { content:"";position:absolute;width:460px;height:460px;border:1px solid #ffffff0b;
-    border-radius:50%;left:-220px;top:-170px;pointer-events:none; }
-.home-hero-modern-grid { display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);
-    align-items:stretch;gap:clamp(30px,4vw,60px);min-height:630px; }
-.home-hero-modern-copy { position:relative;z-index:2;padding:clamp(75px,7vw,110px) 0 72px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center; }
-.hero-modern-eyebrow { display:flex;gap:10px;align-items:center;font-size:.68rem;letter-spacing:.17em;text-transform:uppercase;font-weight:800;color:#aee1ed; }
-.hero-modern-eyebrow-dot { width:7px;height:7px;background:#ed7086;border-radius:50%;box-shadow:0 0 0 5px #e9607a25; }
-.hero-modern-title { max-width:730px;font:800 clamp(3rem,5.15vw,5.8rem)/1.08 "Plus Jakarta Sans",sans-serif;letter-spacing:-.065em; }
-.hero-modern-title span { color:#b8e5f0; }
-.hero-modern-primary { display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    min-height:51px;padding:14px 21px;background:#cb3150;border-radius:7px;color:#fff;font-size:.86rem;font-weight:800; }
-.hero-modern-primary:hover { background:#e44464; }
-.hero-modern-secondary { display:inline-flex;align-items:center;justify-content:center;min-height:51px;padding:14px 21px;
-    border:1px solid #7997a5;border-radius:7px;color:#fff;font-weight:800;font-size:.86rem; }
-.hero-modern-secondary:hover { background:#ffffff18; }
-.hero-modern-search { display:flex;align-items:center;gap:13px;width:min(470px,100%);
-    padding:15px 18px;min-height:53px;border:1px solid #7897a4;color:#deebef;border-radius:9px;
-    background:#ffffff10;text-align:left;font-size:.82rem; }
-.hero-modern-search:hover { background:#ffffff1d;border-color:#c0ecf5; }
-.hero-modern-tags { display:flex;flex-wrap:wrap;gap:8px; }
-.hero-modern-tags span { border:1px solid #6a96a5;color:#b0cbd5;font-size:.67rem;
-    letter-spacing:.035em;padding:6px 10px;border-radius:30px; }
-.home-hero-modern-visual { position:relative;min-height:620px;overflow:hidden;background:#15516b; }
-.hero-modern-illustration { width:100%;height:100%;position:absolute;inset:0;object-fit:cover;display:block; }
-.hero-modern-illustration.hero-modern-product { object-fit:contain;padding:55px 30px 150px;background:#f2f6f7; }
-.hero-modern-image-vignette { position:absolute;inset:0;background:linear-gradient(0deg,#071f30ee,transparent 52%),
-    linear-gradient(90deg,#0c2c407a,transparent 50%);pointer-events:none; }
-.hero-modern-feature { position:absolute;left:clamp(18px,3.2vw,42px);right:clamp(18px,3.2vw,42px);
-    bottom:35px;border-left:3px solid #e55c75;padding:6px 0 6px 20px;color:#fff;z-index:2; }
-.hero-modern-product + .hero-modern-image-vignette { background:linear-gradient(0deg,#0b293df2,#0b293d08 55%); }
 .category-image-card { aspect-ratio:1.06;min-height:180px;position:relative;display:block;isolation:isolate;overflow:hidden;background:#14374a; }
 .category-image-card-img { width:100%;height:100%;position:absolute;inset:0;object-fit:cover;
     transition:transform .45s cubic-bezier(.2,.75,.25,1); }
@@ -396,17 +365,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .about-hero-caption { position:absolute;bottom:25px;left:25px;right:25px;padding:20px 24px;background:#103348ee;
     color:#fff;font:800 1.15rem "Plus Jakarta Sans",sans-serif; }
 .about-hero-caption span { display:block;font:500 .75rem "DM Sans",sans-serif;margin-top:6px;letter-spacing:.04em;color:#bbd4dd; }
-@media (max-width:1023px) {
-    .home-hero-modern-grid { grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;min-height:560px; }
-    .hero-modern-title { font-size:clamp(2.55rem,5.1vw,4.2rem); }
-    .home-hero-modern-visual { min-height:560px; }
-}
+
 @media (max-width:767px) {
-    .home-hero-modern-grid { display:flex;flex-direction:column;gap:0; }
-    .home-hero-modern-copy { padding:52px 0 38px; }
-    .hero-modern-title { font-size:clamp(2.45rem,9.9vw,3.5rem); }
-    .home-hero-modern-visual { min-height:320px;margin:0 -12px; }
-    .hero-modern-feature { left:24px;right:24px;bottom:22px; }
     .category-image-card { aspect-ratio:.82;min-height:165px; }
     .category-image-card-foot strong { font-size:.93rem; }
     .client-wordmark { min-height:82px;font-size:.81rem; }
@@ -529,3 +489,103 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .blog-editor-toolbar button { background:transparent;border:1px solid transparent;padding:7px 12px;border-radius:4px;font-size:.79rem;font-weight:700;color:#4c5f6b; }
 .blog-editor-toolbar button:hover { background:#f2f5f6;color:#af2841; }
 .blog-editor-toolbar button:focus-visible { outline:2px solid #bc2741;outline-offset:1px; }
+
+/* Editorial category photographs are clearly marked when an exact SKU photo
+   has not yet been licensed; never stretch or mislabel them as product shots. */
+.product-card-media img.preview-category-image { width:100%;height:100%;object-fit:cover;padding:0;opacity:.84; }
+.gallery-main img.preview-detail-category-image { display:block;width:100%;height:100%;object-fit:cover;padding:0;opacity:.89; }
+
+
+/* Shared pagination — boutique, back-office and journal.
+   The Laravel vendor template was not included by the Tailwind v4 source scan. */
+.v-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    width: 100%;
+    padding-block: 6px;
+    font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.v-pagination-summary {
+    margin: 0;
+    color: #687784;
+    font-size: .79rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.v-pagination-controls, .v-pagination-pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.v-pagination-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid #dae3e8;
+    border-radius: 6px;
+    color: #344a57;
+    background: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: border-color .16s ease, color .16s ease, background-color .16s ease;
+}
+a.v-pagination-button:hover {
+    color: #bc2741;
+    background: #fdf6f7;
+    border-color: #d1a3af;
+}
+a.v-pagination-button:focus-visible {
+    outline: 2px solid #bc2741;
+    outline-offset: 2px;
+}
+.v-pagination-number {
+    min-width: 40px;
+    padding-inline: 9px;
+    font-variant-numeric: tabular-nums;
+}
+.v-pagination-number.is-current {
+    color: #fff;
+    border-color: #bc2741;
+    background: #bc2741;
+}
+.v-pagination-button.is-disabled {
+    color: #a4afb7;
+    background: #f7f9fa;
+    border-color: #e6ecef;
+    cursor: default;
+}
+.v-pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+    color: #8a99a3;
+    font-weight: 700;
+    user-select: none;
+}
+@media (max-width: 720px) {
+    .v-pagination {
+        flex-direction: column;
+        gap: 13px;
+    }
+    .v-pagination-summary { text-align: center; }
+    .v-pagination-controls { max-width: 100%; gap: 4px; }
+    .v-pagination-pages { gap: 4px; }
+    .v-pagination-button { min-height: 38px; padding-inline: 10px; font-size: .78rem; }
+    .v-pagination-number { min-width: 34px; padding-inline: 6px; }
+}
+@media (max-width: 390px) {
+    .v-pagination-direction { gap: 5px; padding-inline: 8px; }
+    .v-pagination-number { min-width: 30px; }
+    .v-pagination-ellipsis { min-width: 15px; }
+}

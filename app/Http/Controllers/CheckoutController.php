@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Support\CatalogPreview;
 use App\Services\CartService;
 use App\Services\OrderNotifier;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -36,6 +37,9 @@ class CheckoutController
 
     public function store(Request $request, CartService $cart, OrderNotifier $notifier): RedirectResponse
     {
+        // Never create a customer order at fictitious preview prices.
+        abort_if(CatalogPreview::enabled(), 403);
+
         $data = $request->validate([
             'checkout_token' => ['required', 'uuid'],
             'customer_name' => ['required', 'string', 'min:2', 'max:150'],

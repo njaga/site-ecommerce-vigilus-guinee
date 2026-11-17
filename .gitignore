@@ -19,3 +19,5 @@
 /storage/framework/views/*
 !/storage/framework/views/.gitignore
 /database/*.sqlite
+/.phpunit.result.cache
+/storage/framework/testing/

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -32,10 +33,30 @@ class DahuaBoqImporter
             $reader->setReadDataOnly(true);
             $reader->setLoadSheetsOnly(['Data Sheet']);
             $spreadsheet = $reader->load($file->getRealPath());
-        } catch (Throwable) {
-            throw ValidationException::withMessages([
-                'file' => 'Le fichier XLSX ne peut pas être lu. Vérifiez son format et son intégrité.',
+        } catch (Throwable $e) {
+            // Previously swallowed all reader errors, so neither the UI nor the
+            // application log could distinguish a missing PHP extension from an
+            // unreadable OOXML package.
+            $reason = Str::limit(
+                str_replace((string) $file->getRealPath(), '[fichier temporaire]', $e->getMessage()),
+                350
+            );
+
+            Log::warning('catalogue.xlsx.read_failed', [
+                'exception_type' => get_debug_type($e),
+                'reason' => $reason,
+                'zip_enabled' => extension_loaded('zip'),
             ]);
+
+            if (! extension_loaded('zip') || ! class_exists(\ZipArchive::class)) {
+                $message = 'Extension PHP ZIP absente. Activez extension=zip dans le php.ini utilisé par WAMP, puis redémarrez PHP.';
+            } elseif (app()->environment('local')) {
+                $message = 'Lecture XLSX impossible ('.class_basename($e).') : '.$reason;
+            } else {
+                $message = 'Le fichier XLSX ne peut pas être lu. Vérifiez son format et son intégrité.';
+            }
+
+            throw ValidationException::withMessages(['file' => $message]);
         }
 
         try {

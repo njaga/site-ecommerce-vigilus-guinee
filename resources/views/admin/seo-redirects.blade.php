@@ -1,14 +1,12 @@
 @extends('layouts.admin')
-@section('title', 'Migration SEO — URLs historiques')
+@section('title', 'Redirections')
 @section('content')
 <div class="mb-8">
-    <p class="kicker">Préparer la bascule</p>
-    <h1 class="text-3xl font-extrabold mt-2">Redirections SEO</h1>
-    <p class="text-quiet max-w-3xl mt-3">Cartographiez uniquement les anciennes URLs appartenant au même marché que la nouvelle boutique. Aucune règle n'est importée depuis un autre site du groupe.</p>
+
+    <h1 class="text-3xl font-extrabold mt-2">Redirections</h1>
+    <p class="text-quiet max-w-3xl mt-3">Associez une ancienne adresse à la page correspondante de votre site.</p>
 </div>
-<div class="mb-7 border border-amber-200 bg-amber-50 rounded-xl p-5 text-sm leading-relaxed text-amber-950">
-    <strong>Attention au périmètre.</strong> Le dépôt historique consulté référence des pages Vigilus Côte d’Ivoire et le domaine <code>groupevigilus.ci</code>. Ne redirigez pas ces pages vers Conakry : vérifiez d’abord les URLs du véritable domaine Guinée et la correspondance exacte des contenus. Une redirection ne fonctionne sur un ancien domaine que si son trafic est réellement acheminé vers cette application.
-</div>
+<p class="mb-7 text-sm text-quiet">Utilisez uniquement des adresses appartenant au site Guinée et des pages équivalentes. L’ancien domaine doit pointer vers cette application.</p>
 <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(300px,.65fr)] gap-6 mb-9">
     <section class="bg-white border border-slate-200 rounded-xl p-6">
         <h2 class="text-xl font-extrabold">Ajouter une correspondance</h2>
@@ -35,7 +33,7 @@
         </form>
     </section>
     <aside class="bg-cloud border border-slate-200 rounded-xl p-6">
-        <h2 class="text-xl font-extrabold">Règles de sécurité</h2>
+        <h2 class="text-xl font-extrabold">Fonctionnement</h2>
         <ul class="list-disc pl-5 text-sm text-quiet mt-4 space-y-3">
             <li>Redirections <strong>301 exactes</strong> : aucune redirection globale de toutes les erreurs 404 vers l’accueil.</li>
             <li>Aucun domaine étranger ni cible externe depuis le formulaire.</li>
@@ -90,7 +88,7 @@
         </div>
     </article>
 @empty
-    <p class="text-center text-quiet py-12 border border-slate-200 rounded-xl">Aucune redirection activée ni proposée : le lancement n'affectera pas d'autres pays par défaut.</p>
+    <p class="text-center text-quiet py-12 border border-slate-200 rounded-xl">Aucune redirection pour le moment.</p>
 @endforelse
 </div>
 <div class="mt-6">{{ $redirects->links() }}</div>

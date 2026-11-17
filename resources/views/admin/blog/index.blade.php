@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex flex-wrap justify-between gap-5 items-end mb-8">
     <div>
-        <p class="kicker">Éditorial</p>
+
         <h1 class="text-3xl font-extrabold mt-2">Articles</h1>
     </div>
     <a class="btn-red" href="{{ route('admin.blog.create') }}">Nouvel article <span aria-hidden="true">+</span></a>

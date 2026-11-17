@@ -26,14 +26,14 @@
             @foreach($order->items as $item)
                 <div class="py-4 flex items-start justify-between gap-5 text-sm">
                     <div><strong>{{ $item->name_snapshot }}</strong><p class="text-quiet">{{ $item->sku_snapshot }} · Qté {{ $item->quantity }}</p></div>
-                    <span class="shrink-0 font-bold">{{ number_format($item->subtotal_gnf, 0, ',', ' ') }} GNF</span>
+                    <span class="shrink-0 font-bold"><x-store-price :amount="$item->subtotal_gnf"/></span>
                 </div>
             @endforeach
         </div>
-        <div class="flex justify-between font-bold border-t border-slate-200 pt-5"><span>Sous-total matériel</span><span>{{ number_format($order->subtotal_gnf, 0, ',', ' ') }} GNF</span></div>
+        <div class="flex justify-between font-bold border-t border-slate-200 pt-5"><span>Sous-total matériel</span><span><x-store-price :amount="$order->subtotal_gnf"/></span></div>
         @if($order->total_gnf !== null)
-            <div class="flex justify-between mt-3"><span>Frais livraison confirmés</span><span>{{ number_format($order->shipping_gnf, 0, ',', ' ') }} GNF</span></div>
-            <div class="flex justify-between mt-3 text-lg font-extrabold"><span>Total matériel + livraison</span><span>{{ number_format($order->total_gnf, 0, ',', ' ') }} GNF</span></div>
+            <div class="flex justify-between mt-3"><span>Frais livraison confirmés</span><span><x-store-price :amount="$order->shipping_gnf"/></span></div>
+            <div class="flex justify-between mt-3 text-lg font-extrabold"><span>Total matériel + livraison</span><span><x-store-price :amount="$order->total_gnf"/></span></div>
         @else
             <p class="text-sm text-quiet mt-5">Frais de livraison et total à confirmer par Vigilus.</p>
         @endif
