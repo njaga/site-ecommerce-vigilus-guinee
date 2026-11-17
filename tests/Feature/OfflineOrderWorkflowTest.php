@@ -17,6 +17,14 @@ class OfflineOrderWorkflowTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Each notification test chooses its recipients independently of .env.
+        config()->set('commerce.order_alert_email', '');
+    }
+
     private function product(int $stock = 10): Product
     {
         $category = Category::create(['name' => 'Caméras IP', 'slug' => 'cameras-ip', 'is_active' => true]);

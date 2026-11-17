@@ -13,6 +13,7 @@ class GroupAndCurrencyTest extends TestCase
 
     public function test_group_information_contacts_and_training_are_accessible(): void
     {
+        config()->set('site.email', '');
         $this->get(route('home'))->assertOk()
             ->assertSee('Le représentant officiel exclusif')
             ->assertSee('Téléphone 1')->assertSee('Téléphone 2')
